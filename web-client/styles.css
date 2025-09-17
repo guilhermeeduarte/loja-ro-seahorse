@@ -1,3 +1,5 @@
+
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css';
 /* Estilos gerais */
 body {
   font-family: Arial, sans-serif;
@@ -68,7 +70,7 @@ nav a {
   background: #007acc;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   align-items: center;;
 
 }
@@ -79,7 +81,7 @@ nav a {
   align-items: center;
   justify-content: center;
   margin: auto;
-  max-width: 120%;
+  max-width: 100%;
 }
 
 /* Seções */
