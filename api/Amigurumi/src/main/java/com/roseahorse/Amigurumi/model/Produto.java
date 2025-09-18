@@ -2,8 +2,8 @@ package com.roseahorse.Amigurumi.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "Produto")
+@Entity(name = "produto")
+@Table(name = "produto")
 public class Produto {
 
     @Id
@@ -17,6 +17,10 @@ public class Produto {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
+    }
+
+    public long getId () {
+        return id;
     }
 
     public String getNome() {
