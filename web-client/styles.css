@@ -45,7 +45,7 @@ header .icons {
 }
 
 .logo img {
-  max-width: 320px;
+  max-width: 350px;
   height: auto;
   display: block;
 }
@@ -79,9 +79,16 @@ nav a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: auto;
+  margin: 1vw;
   max-width: 100%;
+  object-fit: cover;
+}
+
+/*Responsividade para telas menores */
+@media (max-width: 768px) {
+  .banner-img {
+    margin: 2vw;
+  }
 }
 
 /* Seções */
@@ -100,10 +107,13 @@ nav a {
 
 .item {
   text-align: center;
+  font-size: 14px;
   background: #fff;
   border-radius: 8px;
   padding: 16px;
-  min-width: 120px;
+  width: 150px;
+  min-height: 250px;
+  max-height: 270px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -114,6 +124,10 @@ nav a {
   border-radius: 8px;
 }
 
+.item button {
+  margin-top: auto;
+  width:auto;
+}
 /* Botão Comprar */
 .btn-comprar {
   display: inline-block;

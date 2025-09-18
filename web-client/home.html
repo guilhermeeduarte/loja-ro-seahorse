@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeaHorse - Home</title>
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="web-client\js\main.js"></script>
+  <script type="module" src="js\main.js"></script>
 </head>
 <body>
   <!-- Por favor, usa um framework, vc vai me agradecer depois... -->
   <section class="top-bar">  <nav>
     <a href="#">Início</a>
     <a href="#">Produtos</a>
-    <a href="#">Sobre</a> 
+    <a href="sobre.html">Sobre</a> 
     
   </nav>
   </section>
@@ -23,9 +23,12 @@
   </header>
 
   <nav>
-    <a href="#">Animais</a>
-    <a href="#">Personagens</a>
-    <a href="#">Frutas</a>
+    <a href="#Animais" class="botao-teleporte">Animais</a>
+
+    <a href="#Personagens" class="botao-teleporte">Personagens</a>
+
+    <a href="#Frutas" class="botao-teleporte">Frutas</a>
+
   </nav>
 
   <section class="banner">
@@ -37,77 +40,141 @@
 
   <section>
     <h3 class="section-title">Mais vendidos!</h3>
+
     <div class="grid">
+
       <div class="item">
         <img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter">
         <p>Harry Potter</p>
+        <h6>R$ 57,90</h6>
         <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim">
         <p>Pinguim</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Capuccino.jpg" alt="Capuccino">
         <p>Capuccino</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
         <div class="item">
         <img src="Assets/Imagens/Abacate.jpg" alt="Abacate">
         <p>Abacate</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
     </div>
+
   </section>
 
   <section>
-    <h3 class="section-title">Animais! 🐾</h3>
+    <h3 class="section-title", id="Animais">Animais! 🐾</h3>
     <div class="grid">
       <div class="item">
         <img src="Assets/Imagens/Raposa.jpg" alt="Raposa">
         <p>Raposa</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim">
         <p>Pinguim</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Elefante.jpg" alt="Elefante">
-        <p>Elefante</p>
+        <p>Elefante</p> 
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Coelho.jpeg" alt="Coelho">
         <p>Coelho</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+      
     </div>
   </section>
 
   <section>
-    <h3 class="section-title">Destaque</h3>
+    <h3 class="section-title", id="Destaque">Destaque</h3>
+
     <div class="grid">
+
       <div class="item">
         <img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger">
         <p>Hermione Granger</p>
+        <h6>R$ 57,90</h6>
         <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
     </div>
   </section>
 
   <section>
-    <h3 class="section-title">Frutas</h3>
+    <h3 class="section-title", id="Frutas">Frutas</h3>
+
     <div class="grid">
+
       <div class="item">
         <img src="Assets/Imagens/Abacaxi.jpg" alt="Abacaxi">
         <p>Abacaxi</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Laranja.jpg" alt="Laranja">
         <p>Laranja</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
       <div class="item">
         <img src="Assets/Imagens/Abacate.jpg" alt="Abacate">
         <p>Abacate</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
       </div>
+
     </div>
+
   </section> 
+
+    <section>
+    <h3 class="section-title", id="Personagens">Personagens</h3>
+
+    <div class="grid">
+
+      <div class="item">
+        <img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger">
+        <p>Hermione Granger</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
+      </div>
+
+      <div class="item">
+        <img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter">
+        <p>Harry Potter</p>
+        <h6>R$ 57,90</h6>
+        <button type="button" class="btn btn-success">Comprar</button>
+      </div>
+
+    </div>
+  </section>
 
  <a href="https://wa.me/5599999999999" 
      class="whatsapp-float" 
