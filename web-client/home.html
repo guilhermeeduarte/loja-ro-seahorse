@@ -8,21 +8,33 @@
   <script type="module" src="js\main.js"></script>
 </head>
 <body>
-  <!-- Por favor, usa um framework, vc vai me agradecer depois... -->
-  <section class="top-bar">  <nav>
-    <a href="#">Início</a>
-    <a href="#">Produtos</a>
-    <a href="sobre.html">Sobre</a> 
-    
-  </nav>
-  </section>
-  <header>
-   <div class="logo">
-       <a href="#" id="logo-img"><img id="logo-seahorse"
-         src="Assets/Imagens/Seahorse.png" alt="LOGO SEAHORSE"></a>
-  </header>
+<style>
+body {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
 
-  <nav>
+</style>
+<nav class="navbar principal">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" id="logo-minimalista"><img id="logo-minimalista"
+         src="Assets/Imagens/logo_minimalista.png" width="101px" height="101px"  alt="logo-minimalista"> </a></a>
+
+    <a class="navbar-brand" href="#" id="perfil"><img id="perfil" 
+         src="Assets/Imagens/perfil.png" width="60px" height="60px"  alt="perfil"> </a></a>
+
+    <a class="navbar-brand" href="#" id="carrinho"><img id="carrinho"
+         src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a></a>
+  
+      <form class="d-flex" role="search">
+        <input class="form-control" type="search" placeholder="Digite aqui" aria-label="Search"/>
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+      </form>
+  </div>
+</nav>
+  </section>
+ 
+  <nav class="menu-teleporte">
     <a href="#Animais" class="botao-teleporte">Animais</a>
 
     <a href="#Personagens" class="botao-teleporte">Personagens</a>
@@ -33,7 +45,7 @@
 
   <section class="banner">
       <div class="banner-img">
-        <img src="Assets/Imagens/Entrega.png.png" alt="Entrega">
+        <img class ="entrega-img" src="Assets/Imagens/Entrega.png.png"  alt="Entrega">
 
       </div>
   </section>

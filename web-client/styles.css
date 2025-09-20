@@ -10,10 +10,13 @@ body {
 /* Cabeçalho */
 top-bar {
 position: fixed;
+}
 
-
-
-
+container-fluid {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  align-items: center;
 }
 
 header {
@@ -23,6 +26,15 @@ header {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ddd;
+}
+
+
+.menu-teleporte {
+  background: #007acc;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
 }
 
 header h1 {
@@ -50,11 +62,16 @@ header .icons {
   display: block;
 }
 
+.logo-minimalista {
+  width: 101px;
+  max-width: 202px;
+}
+
 /* Navegação */
 nav {
   display: flex;
   justify-content: space-around;
-  background: #00a9e0;
+  background: #f68650;
   color: #fff;
   padding: 10px 0;
 }
@@ -67,12 +84,18 @@ nav a {
 
 /* Banner */
 .banner {
-  background: #007acc;
   color: white;
   text-align: center;
-  padding: 10px;
-  align-items: center;;
+  padding: 0;
+  position: relative;
+  height: 40vh;
+}
 
+.entrega-img {
+  width: 100%;
+  height: auto;
+  border-radius: 60px;
+  max-width: 750px;
 }
 
 .banner-img {
@@ -107,6 +130,7 @@ nav a {
 
 .item {
   text-align: center;
+  font-family: "Poppins" sans-serif;
   font-size: 14px;
   background: #fff;
   border-radius: 8px;
