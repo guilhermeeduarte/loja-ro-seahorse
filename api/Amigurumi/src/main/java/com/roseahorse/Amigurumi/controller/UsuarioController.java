@@ -1,15 +1,20 @@
 package com.roseahorse.Amigurumi.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.roseahorse.Amigurumi.model.Usuario;
+import com.roseahorse.Amigurumi.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
-    @GetMapping("/cadastro")
-    public String cadastrarUsuario(){
-        return "cadastro";
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @PostMapping
+    public Usuario cadastrarUsuario(@RequestBody Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
+
 }
