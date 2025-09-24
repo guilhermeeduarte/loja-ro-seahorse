@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeaHorse - Cadastro</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js\main.js"></script>
+</head>
+<body>
+<style>
+body {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
+</style>
+<nav class="navbar principal">
+
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" id="logo-minimalista"><img id="logo-minimalista"
+         src="Assets/Imagens/logo_minimalista.png" width="101px" height="101px"  alt="logo-minimalista"> </a></a>
+
+    <a class="navbar-brand" href="#" id="perfil"><img id="perfil" 
+         src="Assets/Imagens/perfil.png" width="60px" height="60px"  alt="perfil"> </a></a>
+
+    <a class="navbar-brand" href="#" id="carrinho"><img id="carrinho"
+         src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a></a>
+
+  </div>
+
+</nav>
+
+    <section id="titulo-cadastro" class="titulo-cadastro">
+    <h1>Área de Cadastro</h1>
+    </section>
+    
+  <form action ='.' method="post">
+
+  <div class="nome-cadastro">
+    <input type="name" class="form-control" id="input-name" placeholder ="Nome Completo">
+    </div>
+
+  <div class="CPF-cadastro">
+    <input type="CPF" class="form-control" id="input-CPF" placeholder="CPF">
+  </div>
+
+
+  <div class="nascimento-cadastro">
+    <input type="date" class="form-control" id="input-nascimento" placeholder="Data de Nascimento">
+  </div>
+
+
+    <div class="telefone-cadastro">
+    <input type="number" class="form-control" id="input-telefone" placeholder="Número de Telefone">
+  </div>
+
+
+    <div class="endereco-cadastro">
+    <input type="address" class="form-control" id="input-endereco" placeholder="Endereço">
+  </div>
+
+
+    <div class="email-cadastro">
+    <input type="email" class="form-control" id="input-email" placeholder="Endereço de Email">
+  </div>
+
+
+    <div class="senha-cadastro">
+    <input type="password" class="form-control" id="input-senha" placeholder="Senha">
+  </div>
+
+
+  <button type="submit" class="btn submit">
+    <img src="Assets/Imagens/cadastrar.png"  alt="cadastrar">
+  </button>
+</form>

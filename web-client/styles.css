@@ -205,3 +205,63 @@ footer a {
   margin-top: 5px;
   text-decoration: none;
 }
+
+/* Coisas do Cadastro */
+.titulo-cadastro {
+  font-family: "Poppins", sans-serif;
+  font-size: medium;
+  text-align: center;
+  font-size: 25px;
+  font-weight: semi-bold;
+  line-height: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+
+form {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  width: 65%;
+  height: 90%;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  padding: 20px;
+}
+.form-control {
+  width: 100%;
+  height: 80%;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 50px;
+  background-color: #A9DCF2;
+}
+
+
+/* Container para distribuir os links: um à esquerda e outro à direita */
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  margin: 6px 0 18px 0;
+}
+
+/* Responsividade em tela pequena*/
+@media (max-width: 480px) {
+  .form-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .link-cadastro,
+  .link-esqueci {
+    text-align: center;
+    padding: 6px 0;
+  }
+}
+.btn-submit{
+  background-color: #A9DCF2;
+}
