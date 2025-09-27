@@ -3,6 +3,8 @@ package com.roseahorse.Amigurumi.model;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDate;
+
 @Entity(name = "usuario")
 @Table(name = "usuario")
 public class Usuario {
@@ -13,15 +15,21 @@ public class Usuario {
     private String email;
     private String senha;
     private String telefone;
+    private String cpf;
+    private String endereco;
+    private LocalDate dataNascimento;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, String telefone) {
+    public Usuario(String nome, String email, String senha, String telefone, String cpf, String endereco, LocalDate dataNascimento) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.dataNascimento = dataNascimento;
     }
 
     public Long getId() {
@@ -58,5 +66,29 @@ public class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }
