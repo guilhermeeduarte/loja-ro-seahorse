@@ -19,9 +19,6 @@ public class Usuario {
     private String endereco;
     private LocalDate dataNascimento;
 
-    public Usuario() {
-    }
-
     public Usuario(String nome, String email, String senha, String telefone, String cpf, String endereco, LocalDate dataNascimento) {
         this.nome = nome;
         this.email = email;
