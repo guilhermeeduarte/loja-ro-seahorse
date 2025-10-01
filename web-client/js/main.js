@@ -1,6 +1,5 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
+//cadastro
   const form = document.getElementById("cadastro-form");
 
   form.addEventListener("submit", async (e) => {
@@ -35,4 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Não foi possível conectar ao servidor.");
     }
   });
+  //login
+    const loginForm = document.getElementById("loginForm");
+      if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("input-email").value;
+          const senha = document.getElementById("input-senha").value;
+
+          try {
+            const response = await fetch("http://localhost:3000/api/usuario/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, senha })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem("token", data.token); // salva token
+              window.location.href = "home.html";       // redireciona
+            } else {
+              const errorMsg = await response.text();
+              document.getElementById("mensagem").innerText = errorMsg;
+            }
+          } catch (err) {
+            console.error(err);
+            document.getElementById("mensagem").innerText = "Falha na requisição!";
+          }
+        });
+      }
 });
