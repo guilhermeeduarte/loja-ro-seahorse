@@ -265,3 +265,38 @@ form {
 .btn-submit{
   background-color: #A9DCF2;
 }
+
+/* input do código esqueci a senha/verificação */
+
+
+.code-inputs {
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .code-inputs input {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 24px;
+      border-radius: 8px;
+      border: 2px solid #add8e6;
+      background: #dff2ff;
+      outline: none;
+    }
+
+    .verify-btn {
+      width: 200px;
+      padding: 12px;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: linear-gradient(to right, #00aaff, #0057b7);
+      color: white;
+    }
+
+    .verify-btn:hover {
+      opacity: 0.9;
+    }
