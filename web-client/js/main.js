@@ -67,4 +67,33 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       }
+
+      //esqueci a senha
+      const esqueciForm = document.getElementById("esqueciForm");
+            if (esqueciForm) {
+              esqueciForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById("esqueci-email").value;
+
+                try {
+                  const response = await fetch("http://localhost:3000/api/auth/esqueci-senha", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                  });
+
+                  if (response.ok) {
+                    const data = await response.json();
+                    alert("Cadastro realizado com sucesso!");
+                  } else {
+                    const errorMsg = await response.text();
+                    document.getElementById("mensagem").innerText = errorMsg;
+                  }
+                } catch (err) {
+                  console.error(err);
+                  document.getElementById("mensagem").innerText = "Erro na conexão";
+                }
+              });
+            }
 });
