@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 //cadastro
   const form = document.getElementById("cadastro-form");
-
+  if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); 
 
@@ -34,14 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Não foi possível conectar ao servidor.");
     }
   });
+  }
+
+
   //login
     const loginForm = document.getElementById("loginForm");
       if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
           e.preventDefault();
 
-          const email = document.getElementById("input-email").value;
-          const senha = document.getElementById("input-senha").value;
+          const email = document.getElementById("login-email").value;
+          const senha = document.getElementById("login-senha").value;
 
           try {
             const response = await fetch("http://localhost:3000/api/usuario/login", {
