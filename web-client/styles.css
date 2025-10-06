@@ -1,8 +1,11 @@
-
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 /* Estilos gerais */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   margin: 0;
   background: #f5f5f5;
 }
@@ -12,11 +15,31 @@ top-bar {
 position: fixed;
 }
 
-container-fluid {
-  position: fixed;
-  top: 0;
-  width: 100%;
+.barra-pesquisa {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 100px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.barra-digitar {
+  font-size: 20px;
+  border: 0;
+}
+
+.botao-pesquisa {
+  border: 0;
+  background-color: transparent;
+}
+
+.lupa {
+  margin-left:80px;
+  width: 40px;
+  height: auto;
 }
 
 header {
@@ -27,7 +50,6 @@ header {
   align-items: center;
   border-bottom: 1px solid #ddd;
 }
-
 
 .menu-teleporte {
   background: #007acc;
@@ -129,29 +151,28 @@ nav a {
 }
 
 .item {
+  margin: 0px , 16px ;
   text-align: center;
   font-family: "Poppins" sans-serif;
-  font-size: 14px;
-  background: #fff;
+  font-size: 18px;
   border-radius: 8px;
-  padding: 16px;
   width: 150px;
-  min-height: 250px;
-  max-height: 270px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  min-height: 125px;
+  padding: 16px;
 }
 
 .item img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 14px;
 }
 
 .item button {
   margin-top: auto;
   width:auto;
 }
+
 /* Botão Comprar */
 .btn-comprar {
   display: inline-block;
@@ -192,10 +213,14 @@ nav a {
 
 /* Rodapé */
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background: #00a9e0;
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: 10px;
   font-size: 14px;
 }
 
@@ -218,7 +243,6 @@ footer a {
   margin-bottom: 20px;
 }
 
-
 form {
   font-family: "Poppins", sans-serif;
   text-align: center;
@@ -238,7 +262,6 @@ form {
   border-radius: 50px;
   background-color: #A9DCF2;
 }
-
 
 /* Container para distribuir os links: um à esquerda e outro à direita */
 .form-links {
@@ -268,7 +291,6 @@ form {
 
 /* input do código esqueci a senha/verificação */
 
-
 .code-inputs {
       gap: 10px;
       margin-bottom: 20px;
@@ -286,17 +308,122 @@ form {
       outline: none;
     }
 
-    .verify-btn {
+    .botao {
       width: 200px;
+      font-family: "Poppins", sans-serif;
       padding: 12px;
       border: none;
       border-radius: 20px;
-      font-size: 16px;
+      font-size: 20px;
+      font-weight: bold;
       cursor: pointer;
       background: linear-gradient(to right, #00aaff, #0057b7);
       color: white;
     }
 
-    .verify-btn:hover {
+    .botao:hover {
       opacity: 0.9;
+      background: linear-gradient(to right, #00ff80, #0057b7);
     }
+
+    /*FAQ - PERGUNTAS FREQUENTES*/
+
+    /* div do botão*/ .accordion-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: linear-gradient(to right, #00aaff, #0057b7);
+      border-radius: 200px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .accordion-button strong {
+      color: white;
+    }
+
+    /*div do faq inteiro */ #accordionExample.accordion {
+      display:flex;
+      flex-direction: column;
+      width:80%;
+      margin-left: auto;
+      margin-right: auto;
+      align-content: center;
+    }
+
+    /*div de cada item */ .accordion-item {
+      background: #ffffff;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Estilos do carrinho de compras */
+
+    .carrinho {
+    background: #f68650;  
+    align-items: center;
+    }
+
+    /* Página do Produto */
+
+
+
+  .produto {
+    align-items: center;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 50px;
+    margin-top: 30px;
+  }
+  .Pinguim {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+  .descricao {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    margin-left : 30px;
+    margin-right : 30px;
+  }
+
+  .btn-comprar-produto {
+  size:00%;
+  background:#5BED51;
+  color: white;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  padding:20px;
+  border: none;
+  font-family: poppins, sans-serif;
+  }
+
+  .faq {
+    margin-top: 120px;
+    text-align: center;
+    font-size: 32px;
+  }
+
+  .faq1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+footer {
+  position: fixed;
+  width: 100%;
+  background: #00a9e0;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}
+

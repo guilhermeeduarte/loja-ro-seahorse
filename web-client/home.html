@@ -8,13 +8,6 @@
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
-<style>
-body {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-}
-
-</style>
 <nav class="navbar principal">
   <div class="container-fluid">
     <a class="navbar-brand" href="#" id="logo-minimalista"><img id="logo-minimalista"
@@ -26,10 +19,7 @@ body {
     <a class="navbar-brand" href="#" id="carrinho"><img id="carrinho"
          src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a></a>
   
-      <form class="d-flex" role="search">
-        <input class="form-control" type="search" placeholder="Digite aqui"/>
-        <button class="btn btn-primary" type="submit">Pesquisar</button>
-      </form>
+     
   </div>
 </nav>
   </section>
@@ -42,6 +32,13 @@ body {
     <a href="#Frutas" class="botao-teleporte">Frutas</a>
 
   </nav>
+  
+  <form class="barra-pesquisa" role="search">
+        <input class="barra-digitar" type="search" placeholder="Digite aqui"/>
+        <button class="botao-pesquisa" type="submit">
+          <img class="lupa" src="Assets/Imagens/lupa.png" alt="Lupa" width="20px" height="20px">
+        </button>
+  </form>
 
   <section class="banner">
       <div class="banner-img">
@@ -58,29 +55,21 @@ body {
       <div class="item">
         <img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter">
         <p>Harry Potter</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim">
         <p>Pinguim</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Capuccino.jpg" alt="Capuccino">
         <p>Capuccino</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
         <div class="item">
         <img src="Assets/Imagens/Abacate.jpg" alt="Abacate">
         <p>Abacate</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
     </div>
@@ -93,29 +82,21 @@ body {
       <div class="item">
         <img src="Assets/Imagens/Raposa.jpg" alt="Raposa">
         <p>Raposa</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim">
         <p>Pinguim</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Elefante.jpg" alt="Elefante">
         <p>Elefante</p> 
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Coelho.jpeg" alt="Coelho">
         <p>Coelho</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
       
     </div>
@@ -129,8 +110,6 @@ body {
       <div class="item">
         <img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger">
         <p>Hermione Granger</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
     </div>
@@ -144,22 +123,16 @@ body {
       <div class="item">
         <img src="Assets/Imagens/Abacaxi.jpg" alt="Abacaxi">
         <p>Abacaxi</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Laranja.jpg" alt="Laranja">
         <p>Laranja</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Abacate.jpg" alt="Abacate">
         <p>Abacate</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
     </div>
@@ -174,19 +147,23 @@ body {
       <div class="item">
         <img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger">
         <p>Hermione Granger</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter">
         <p>Harry Potter</p>
-        <h6>R$ 57,90</h6>
-        <button type="button" class="btn btn-success">Comprar</button>
       </div>
 
     </div>
   </section>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  
 
  <a href="https://wa.me/5599999999999" 
      class="whatsapp-float" 
@@ -194,10 +171,10 @@ body {
     <img src="Assets/Imagens/whatsapp.png" alt="WhatsApp">
   </a>
 
-  <footer>
+  <footer id="footer">
     <a href="#">Contato : 11 99999-9999</a>
     <a href="#">Localização: Rua Fulano de Tal</a>
-    <a href="#">Dúvidas</a>
+    <a href="faq.html">Dúvidas</a>
     <p>Todos os direitos reservados © 2025 - RO SeaHorse</p>
   </footer>
 </body>
