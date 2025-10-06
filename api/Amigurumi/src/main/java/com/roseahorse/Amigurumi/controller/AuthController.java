@@ -5,15 +5,15 @@ import com.roseahorse.Amigurumi.repository.UsuarioRepository;
 import com.roseahorse.Amigurumi.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
@@ -22,7 +22,10 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
-    // Token aleatorio (esperar henrique para ver token verdadeiro)
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // token temporário meio broxa(talvez mudar? pedro pensadas)
     private Map<String, String> resetTokens = new HashMap<>();
 
     @PostMapping("/esqueci-senha")
@@ -34,11 +37,11 @@ public class AuthController {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        // Token aleatorio (esperar henrique para ver token verdadeiro)
-        String token = java.util.UUID.randomUUID().toString();
-        resetTokens.put(token, email); // Salva token (henriqueblablabla)
 
-        String link = "http://localhost:3000/redefinir.html?token=" + token;
+        String token = java.util.UUID.randomUUID().toString();
+        resetTokens.put(token, email);
+
+        String link = "http://localhost:5173/redefinir.html?token=" + token;
 
         emailService.enviarEmail(
                 usuario.getEmail(),
@@ -64,10 +67,11 @@ public class AuthController {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        usuario.setSenha(novaSenha);
+
+        usuario.setSenha(passwordEncoder.encode(novaSenha));
         usuarioRepository.save(usuario);
 
-        // Invalida token (henriq)
+
         resetTokens.remove(token);
 
         return ResponseEntity.ok("Senha redefinida com sucesso!");

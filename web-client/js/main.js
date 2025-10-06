@@ -1,99 +1,166 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const API_URL = "http://localhost:3000/api";
+
 //cadastro
   const form = document.getElementById("cadastro-form");
-  if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); 
+   if (form) {
+     form.addEventListener("submit", async (e) => {
+       e.preventDefault();
 
-    const usuario = {
-      nome: document.getElementById("input-name").value,
-      cpf: document.getElementById("input-CPF").value,
-      dataNascimento: document.getElementById("input-nascimento").value,
-      telefone: document.getElementById("input-telefone").value,
-      endereco: document.getElementById("input-endereco").value,
-      email: document.getElementById("input-email").value,
-      senha: document.getElementById("input-senha").value,
-    };
+       const usuario = {
+         nome: document.getElementById("input-name").value,
+         cpf: document.getElementById("input-CPF").value,
+         dataNascimento: document.getElementById("input-nascimento").value,
+         telefone: document.getElementById("input-telefone").value,
+         endereco: document.getElementById("input-endereco").value,
+         email: document.getElementById("input-email").value,
+         senha: document.getElementById("input-senha").value,
+       };
 
-    try {
-      const response = await fetch("http://localhost:3000/api/usuario", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(usuario),
-      });
+       try {
+         const response = await fetch(`${API_URL}/usuario`, {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           credentials: "include",
+           body: JSON.stringify(usuario),
+         });
 
-      if (response.ok) {
-        alert("Cadastro realizado com sucesso!");
-        form.reset();
-      } else {
-        const erro = await response.text();
-        alert("Erro no cadastro: " + erro);
+         if (response.ok) {
+           alert("Cadastro realizado com sucesso!");
+           form.reset();
+           window.location.href = "login.html";
+         } else {
+           const erro = await response.text();
+           alert("Erro no cadastro: " + erro);
+         }
+       } catch (err) {
+         console.error("Erro de conexão:", err);
+         alert("Não foi possível conectar ao servidor.");
+       }
+     });
+ }
+  //login
+    const loginForm = document.getElementById("loginForm");
+     if (loginForm) {
+       loginForm.addEventListener("submit", async (e) => {
+         e.preventDefault();
+
+         const email = document.getElementById("login-email").value;
+         const senha = document.getElementById("login-senha").value;
+
+         try {
+           const response = await fetch(`${API_URL}/usuario/login`, {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             credentials: "include",
+             body: JSON.stringify({ email, senha })
+           });
+
+           if (response.ok) {
+             const data = await response.json();
+             alert(`Bem-vindo, ${data.nome}!`);
+             window.location.href = "home.html";
+           } else {
+             const errorMsg = await response.text();
+             document.getElementById("mensagem").innerText = errorMsg;
+           }
+         } catch (err) {
+           console.error(err);
+           document.getElementById("mensagem").innerText = "Falha na requisição!";
+         }
+       });
+     }
+
+//logout(tem q adicionar ainda)
+  const logoutBtn = document.getElementById("logout");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        const response = await fetch(`${API_URL}/usuario/logout`, {
+          method: "POST",
+          credentials: "include"
+        });
+
+        if (response.ok) {
+          alert("Logout realizado com sucesso!");
+          window.location.href = "login.html";
+        }
+      } catch (err) {
+        console.error("Erro no logout:", err);
       }
-    } catch (err) {
-      console.error("Erro de conexão:", err);
-      alert("Não foi possível conectar ao servidor.");
-    }
-  });
+    });
   }
 
 
-  //login
-    const loginForm = document.getElementById("loginForm");
-      if (loginForm) {
-        loginForm.addEventListener("submit", async (e) => {
+      //esqueci a senha
+    const esqueciForm = document.getElementById("esqueciForm");
+      if (esqueciForm) {
+        esqueciForm.addEventListener("submit", async (e) => {
           e.preventDefault();
 
-          const email = document.getElementById("login-email").value;
-          const senha = document.getElementById("login-senha").value;
+          const email = document.getElementById("esqueci-email").value;
 
           try {
-            const response = await fetch("http://localhost:3000/api/usuario/login", {
+            const response = await fetch(`${API_URL}/auth/esqueci-senha`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email, senha })
+              credentials: "include",
+              body: JSON.stringify({ email })
             });
 
             if (response.ok) {
-              const data = await response.json();
-              localStorage.setItem("token", data.token); // salva token
-              window.location.href = "home.html";       // redireciona
+              alert("Email enviado com sucesso! Verifique sua caixa de entrada.");
             } else {
               const errorMsg = await response.text();
-              document.getElementById("mensagem").innerText = errorMsg;
+              alert("Erro: " + errorMsg);
             }
           } catch (err) {
             console.error(err);
-            document.getElementById("mensagem").innerText = "Falha na requisição!";
+            alert("Erro na conexão");
           }
         });
       }
+      const redefinirForm = document.getElementById("redefinirForm");
+        if (redefinirForm) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const token = urlParams.get('token');
 
-      //esqueci a senha
-      const esqueciForm = document.getElementById("esqueciForm");
-            if (esqueciForm) {
-              esqueciForm.addEventListener("submit", async (e) => {
-                e.preventDefault();
+          if (!token) {
+            alert("Token inválido!");
+            window.location.href = "login.html";
+            return;
+          }
 
-                const email = document.getElementById("esqueci-email").value;
+          redefinirForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                try {
-                  const response = await fetch("http://localhost:3000/api/auth/esqueci-senha", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email })
-                  });
+            const novaSenha = document.getElementById("nova-senha").value;
+            const confirmaSenha = document.getElementById("confirma-senha").value;
 
-                  if (response.ok) {
-                    const data = await response.json();
-                    alert("Cadastro realizado com sucesso!");
-                  } else {
-                    const errorMsg = await response.text();
-                    document.getElementById("mensagem").innerText = errorMsg;
-                  }
-                } catch (err) {
-                  console.error(err);
-                  document.getElementById("mensagem").innerText = "Erro na conexão";
-                }
-              });
+            if (novaSenha !== confirmaSenha) {
+              alert("As senhas não coincidem!");
+              return;
             }
+
+            try {
+              const response = await fetch(`${API_URL}/auth/redefinir-senha`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ token, senha: novaSenha })
+              });
+
+              if (response.ok) {
+                alert("Senha redefinida com sucesso!");
+                window.location.href = "login.html";
+              } else {
+                const errorMsg = await response.text();
+                alert("Erro: " + errorMsg);
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Erro na conexão");
+            }
+          });
+        }
 });
