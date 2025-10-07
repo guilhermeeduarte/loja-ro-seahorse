@@ -19,6 +19,9 @@ public class Usuario {
     private String endereco;
     private LocalDate dataNascimento;
 
+    @Enumerated(EnumType.STRING)
+    private TipoUsuario tipoUsuario = TipoUsuario.CLIENTE;
+
     public Usuario() {
 
     }
@@ -32,6 +35,10 @@ public class Usuario {
         this.endereco = endereco;
         this.dataNascimento = dataNascimento;
     }
+
+    public TipoUsuario getTipoUsuario() { return tipoUsuario; }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) { this.tipoUsuario = tipoUsuario; }
 
     public Long getId() {
         return id;
