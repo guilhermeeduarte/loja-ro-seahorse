@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
        e.preventDefault();
 
        const usuario = {
-         nome: document.getElementById("input-name").value,
-         cpf: document.getElementById("input-CPF").value,
-         dataNascimento: document.getElementById("input-nascimento").value,
-         telefone: document.getElementById("input-telefone").value,
-         endereco: document.getElementById("input-endereco").value,
-         email: document.getElementById("input-email").value,
-         senha: document.getElementById("input-senha").value,
+         nome: document.getElementById("cadastro-name").value,
+         cpf: document.getElementById("cadastro-CPF").value,
+         dataNascimento: document.getElementById("cadastro-nascimento").value,
+         telefone: document.getElementById("cadastro-telefone").value,
+         endereco: document.getElementById("cadastro-endereco").value,
+         email: document.getElementById("cadastro-email").value,
+         senha: document.getElementById("cadastro-senha").value,
        };
 
        try {
@@ -163,4 +163,29 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const perfilLink = document.getElementById("perfil");
+
+  perfilLink.addEventListener("click", async (e) => {
+    e.preventDefault(); // impede o redirecionamento imediato
+
+    try {
+      const res = await fetch("http://localhost:3000/api/usuario/me", {
+        credentials: "include", // envia o cookie auth_token
+      });
+
+      if (res.ok) {
+        // Usuário autenticado
+        window.location.href = "/web-client/perfil.html";
+      } else {
+        // Não autenticado
+        window.location.href = "/web-client/cadastro.html";
+      }
+    } catch (error) {
+      console.error("Erro ao verificar login:", error);
+      window.location.href = "/web-client/cadastro.html";
+    }
+  });
 });

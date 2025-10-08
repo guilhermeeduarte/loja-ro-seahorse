@@ -51,4 +51,9 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Produto>> buscarProdutos(@RequestParam String termo) {
+        List<Produto> produtos = produtoRepository.buscarPorNomeOuDescricao(termo);
+        return ResponseEntity.ok(produtos);
+    }
 }
