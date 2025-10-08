@@ -240,7 +240,7 @@ footer a {
   font-weight: semi-bold;
   line-height: 20px;
   margin-top: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 form {
@@ -333,8 +333,8 @@ form {
       justify-content: space-between;
       align-items: center;
       padding: 10px;
+      border-radius: 20px !important;
       background: linear-gradient(to right, #00aaff, #0057b7);
-      border-radius: 200px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -354,7 +354,7 @@ form {
 
     /*div de cada item */ .accordion-item {
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 20px !important;
       margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -367,8 +367,6 @@ form {
     }
 
     /* Página do Produto */
-
-
 
   .produto {
     align-items: center;
@@ -427,3 +425,15 @@ footer {
   font-size: 14px;
 }
 
+.preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+}
+
+.preview-container img {
+      max-width: 200px;
+      border: 1px solid #ccc;
+      padding: 5px;
+}
