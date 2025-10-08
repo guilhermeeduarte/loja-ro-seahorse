@@ -164,3 +164,28 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const perfilLink = document.getElementById("perfil");
+
+  perfilLink.addEventListener("click", async (e) => {
+    e.preventDefault(); // impede o redirecionamento imediato
+
+    try {
+      const res = await fetch("http://localhost:3000/api/usuario/me", {
+        credentials: "include", // envia o cookie auth_token
+      });
+
+      if (res.ok) {
+        // Usuário autenticado
+        window.location.href = "/web-client/perfil.html";
+      } else {
+        // Não autenticado
+        window.location.href = "/web-client/cadastro.html";
+      }
+    } catch (error) {
+      console.error("Erro ao verificar login:", error);
+      window.location.href = "/web-client/cadastro.html";
+    }
+  });
+});

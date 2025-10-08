@@ -13,17 +13,17 @@
     <a class="navbar-brand" href="#" id="logo-minimalista"><img id="logo-minimalista"
          src="Assets/Imagens/logo_minimalista.png" width="101px" height="101px"  alt="logo-minimalista"> </a></a>
 
-    <a class="navbar-brand" href="/web-client/cadastro.html" id="perfil"><img id="perfil"
+    <a class="navbar-brand" href="#" id="perfil"><img id="perfil"
          src="Assets/Imagens/perfil.png" width="60px" height="60px"  alt="perfil"> </a></a>
 
     <a class="navbar-brand" href="#" id="carrinho"><img id="carrinho"
          src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a></a>
-  
-     
+
+
   </div>
 </nav>
   </section>
- 
+
   <nav class="menu-teleporte">
     <a href="#Animais" class="botao-teleporte">Animais</a>
 
@@ -32,13 +32,27 @@
     <a href="#Comidas" class="botao-teleporte">Comidas</a>
 
   </nav>
-  
-  <form class="barra-pesquisa" role="search">
-        <input class="barra-digitar" type="search" placeholder="Digite aqui"/>
-        <button class="botao-pesquisa" type="submit">
-          <img class="lupa" src="Assets/Imagens/lupa.png" alt="Lupa" width="20px" height="20px">
-        </button>
-  </form>
+
+<form class="barra-pesquisa" id="form-busca">
+    <input class="barra-digitar" type="search" id="input-busca"
+           placeholder="Digite aqui" autocomplete="off"/>
+    <button class="botao-pesquisa" type="submit">
+        <img class="lupa" src="Assets/Imagens/lupa.png" alt="Lupa" width="20px" height="20px">
+    </button>
+</form>
+
+
+<div id="mensagem-busca" style="display: none; text-align: center; margin: 20px; font-size: 18px; color: #666;">
+    Nenhum produto encontrado
+</div>
+
+
+<section id="resultados-busca" style="display: none;">
+    <h3 class="section-title">
+        Resultados da busca: "<span id="termo-busca"></span>"
+    </h3>
+    <div class="grid" id="grid-busca"></div>
+</section>
 
   <section class="banner">
       <div class="banner-img">
@@ -91,14 +105,14 @@
 
       <div class="item">
         <img src="Assets/Imagens/Elefante.jpg" alt="Elefante">
-        <p>Elefante</p> 
+        <p>Elefante</p>
       </div>
 
       <div class="item">
         <img src="Assets/Imagens/Coelho.jpeg" alt="Coelho">
         <p>Coelho</p>
       </div>
-      
+
     </div>
   </section>
 
@@ -137,7 +151,7 @@
 
     </div>
 
-  </section> 
+  </section>
 
     <section>
     <h3 class="section-title", id="Personagens">Personagens</h3>
@@ -163,10 +177,10 @@
   <br>
   <br>
   <br>
-  
 
- <a href="https://wa.me/5599999999999" 
-     class="whatsapp-float" 
+
+ <a href="https://wa.me/5599999999999"
+     class="whatsapp-float"
      target="_blank">
     <img src="Assets/Imagens/whatsapp.png" alt="WhatsApp">
   </a>
@@ -177,5 +191,6 @@
     <a href="faq.html">Dúvidas</a>
     <p>Todos os direitos reservados © 2025 - RO SeaHorse</p>
   </footer>
+<script src="js/busca.js"></script>
 </body>
 </html>
