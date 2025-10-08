@@ -440,3 +440,46 @@ footer {
       margin: 5px;
       margin-left: 10px;
 }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centraliza os itens */
+}
+
+.item {
+  flex: 0 1 200px; /* Largura mínima de cada item */
+  box-sizing: border-box;
+}
+
+.secao-conteudo {
+  padding: 0 10px;
+}
+
+.secao-conteudo .section-title {
+  text-align: center;
+  font-size: 25px;
+}
+
+#botao-voltar {
+  width: 250px;
+  text-align: center;
+  display: block;
+  margin: 25px auto;
+  font-family: "Poppins", sans-serif;
+  padding: 8px;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(to right, #00aaff, #0057b7);
+  color: white;
+}
+
+#botao-voltar:hover {
+      opacity: 0.9;
+      background: linear-gradient(to right, #00ff80, #0057b7);
+}
+
+
