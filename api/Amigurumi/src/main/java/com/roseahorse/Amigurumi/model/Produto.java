@@ -11,16 +11,22 @@ public class Produto {
     private String nome;
     private String descricao;
     private Double valor;
+    private Integer estoque;
 
     public Produto() {
 
     }
 
-    public Produto(String nome, String descricao, Double valor) {
+    public Produto(String nome, String descricao, Double valor, Integer estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
+        this.estoque = estoque;
     }
+
+    public Integer getEstoque() { return estoque; }
+
+    public void setEstoque(Integer estoque) { this.estoque = estoque; }
 
     public long getId () {
         return id;

@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
        e.preventDefault();
 
        const usuario = {
-         nome: document.getElementById("input-name").value,
-         cpf: document.getElementById("input-CPF").value,
-         dataNascimento: document.getElementById("input-nascimento").value,
-         telefone: document.getElementById("input-telefone").value,
-         endereco: document.getElementById("input-endereco").value,
-         email: document.getElementById("input-email").value,
-         senha: document.getElementById("input-senha").value,
+         nome: document.getElementById("cadastro-name").value,
+         cpf: document.getElementById("cadastro-CPF").value,
+         dataNascimento: document.getElementById("cadastro-nascimento").value,
+         telefone: document.getElementById("cadastro-telefone").value,
+         endereco: document.getElementById("cadastro-endereco").value,
+         email: document.getElementById("cadastro-email").value,
+         senha: document.getElementById("cadastro-senha").value,
        };
 
        try {
