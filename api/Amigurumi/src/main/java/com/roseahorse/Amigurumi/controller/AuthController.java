@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:63342", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class AuthController {
         String token = java.util.UUID.randomUUID().toString();
         resetTokens.put(token, email);
 
-        String link = "http://localhost:5173/redefinir.html?token=" + token;
+        String link = "http://localhost:63342/redefinir-senha.html?token=" + token;
 
         emailService.enviarEmail(
                 usuario.getEmail(),

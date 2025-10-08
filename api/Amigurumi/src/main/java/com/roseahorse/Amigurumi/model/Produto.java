@@ -11,22 +11,20 @@ public class Produto {
     private String nome;
     private String descricao;
     private Double valor;
-    private Integer estoque;
+    private Integer quantidade;
+    private String categoria;
 
     public Produto() {
 
     }
 
-    public Produto(String nome, String descricao, Double valor, Integer estoque) {
+    public Produto(String nome, String descricao, Double valor, Integer estoque, String categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
-        this.estoque = estoque;
+        this.quantidade = estoque;
+        this.categoria = categoria;
     }
-
-    public Integer getEstoque() { return estoque; }
-
-    public void setEstoque(Integer estoque) { this.estoque = estoque; }
 
     public long getId () {
         return id;
@@ -56,5 +54,16 @@ public class Produto {
         this.valor = valor;
     }
 
+    public Integer getQuantidade() { return quantidade; }
+
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
 }
