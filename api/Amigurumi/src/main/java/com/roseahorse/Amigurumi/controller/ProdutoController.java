@@ -5,22 +5,50 @@ import com.roseahorse.Amigurumi.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/produto")
+@CrossOrigin(origins = "*")
 public class ProdutoController {
 
     @Autowired
-    ProdutoRepository repository;
+    private ProdutoRepository produtoRepository;
+
+    @PostMapping
+    public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
+        Produto novoProduto = produtoRepository.save(produto);
+        return ResponseEntity.ok(novoProduto);
+    }
 
     @GetMapping
-    public ResponseEntity getAll() {
-        List<Produto> listProdutos = repository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(listProdutos);
+    public ResponseEntity<List<Produto>> listarProdutos() {
+        List<Produto> produtos = produtoRepository.findAll();
+        return ResponseEntity.ok(produtos);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
+        return produtoRepository.findById(id)
+                .map(produto -> {
+                    produto.setNome(produtoAtualizado.getNome());
+                    produto.setDescricao(produtoAtualizado.getDescricao());
+                    produto.setValor(produtoAtualizado.getValor());
+                    produtoRepository.save(produto);
+                    return ResponseEntity.ok(produto);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarProduto(@PathVariable Long id) {
+        if (produtoRepository.existsById(id)) {
+            produtoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
