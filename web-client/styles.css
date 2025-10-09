@@ -463,8 +463,8 @@ form {
 }
 
 #botao-voltar:hover {
-      opacity: 0.9;
-      background: linear-gradient(to right, #00ff80, #0057b7);
+  opacity: 0.9;
+  background: linear-gradient(to right, #00ff80, #0057b7);
 }
 
 footer {
@@ -513,6 +513,58 @@ footer {
   text-align: center;
   color: white;
   padding: 5px;
+}
+
+.form-contato {
+  padding: 30px;
+}
+
+.form-contato input {
+  border-radius: 30px;
+  height: 40px;
+  width: 800px;
+  border: 0;
+  margin-bottom: 20px ;
+  padding: 30px;
+}
+
+.form-contato button {
+  width: 170px;
+  height: 50px;
+  margin: 20px;
+  margin-bottom: 0;
+  border-radius: 100px;
+  color: white;
+  background: linear-gradient(to right, #00aaff, #0057b7);
+  border: 0;
+}
+
+.enviar:hover {
+  opacity: 0.9;
+  background: linear-gradient(to right, #00ff80, #0057b7);
+}
+
+.limpar:hover {
+  opacity: 0.9;
+  background-color: linear-gradient(to right, #f68650, #0057b7);
+}
+
+.contato-whatsapp {
+  border-radius: 500px;
+  width: 90px;
+  margin: 30px;
+  margin-top: 0;
+}
+
+.contato-email {
+  width: 90px;
+  margin: 30px;
+  margin-top: 0;
+}
+
+.logos-contato {
+  display: flex;
+  justify-content: center;
 }
 
 
