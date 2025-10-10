@@ -585,4 +585,63 @@ iframe {
   margin-bottom: 10px;
 }
 
+.titulo-adm {
+  margin: 20px;
+}
+
+.titulo-adm h2 {
+  font-weight: 600;
+}
+
+.titulo-area {
+  color: black;
+  font-size: 22px;
+  text-decoration: none;
+  margin-top: 2px;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+.soma {
+  width: 150px;
+  padding: 20px;
+  border: 5px solid #0057b7;
+  border-radius: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.soma:hover {
+  border: 5px solid #f68650;
+}
+
+.edicao {
+  width: 150px;
+  padding: 20px;
+  border: 5px solid #0057b7;
+  border-radius: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.edicao:hover {
+  border: 5px solid #f68650;
+}
+
+.excluir {
+  width: 150px;
+  padding: 20px;
+  border: 5px solid #0057b7;
+  border-radius: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.excluir:hover {
+  border: 5px solid #f68650;
+}
+
+
+
 
