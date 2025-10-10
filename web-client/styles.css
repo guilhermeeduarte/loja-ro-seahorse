@@ -512,7 +512,6 @@ footer {
 .footer-bottom p {
   text-align: center;
   color: white;
-  padding: 5px;
 }
 
 .form-contato {
@@ -673,4 +672,10 @@ iframe {
 
 }
 
-
+.botaos {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
