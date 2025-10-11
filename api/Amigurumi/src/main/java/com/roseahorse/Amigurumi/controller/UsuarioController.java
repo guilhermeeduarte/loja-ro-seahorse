@@ -14,7 +14,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/usuario")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://127.0.0.1:5500/", allowCredentials = "true")
+
 public class UsuarioController {
 
     @Autowired
@@ -99,4 +100,25 @@ public class UsuarioController {
                 "endereco", usuario.getEndereco()
         ));
     }
+    @GetMapping("/perfil")
+    public ResponseEntity<?> getPerfil(@CookieValue(name = "auth_token", required = false) String token) {
+        if (token == null) {
+            return ResponseEntity.status(401).body("Não autenticado");
+        }
+
+        String email = JwtUtil.validateToken(token);
+        if (email == null) {
+            return ResponseEntity.status(401).body("Token inválido ou expirado");
+        }
+
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) {
+            return ResponseEntity.status(404).body("Usuário não encontrado");
+        }
+
+        usuario.setSenha(null);
+
+        return ResponseEntity.ok(usuario);
+    }
+
 }
