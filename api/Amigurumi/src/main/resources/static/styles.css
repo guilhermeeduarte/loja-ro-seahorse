@@ -642,6 +642,9 @@ iframe {
 }
 
 /* Estilos para a página do perfil do usuário */
+
+
+
 .texto-perfil {
   font-family: "Poppins", sans-serif;
   text-align: center;
@@ -650,6 +653,68 @@ iframe {
   line-height: 30px;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.perfil-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin-bottom: 10px;
+}
+
+.perfil-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.perfil-avatar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.perfil-avatar img {  
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+
+.perfil-info-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 500px;
+  height: 60px;
+  
+}
+
+
+
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  margin: 10px 0;
 }
 
 
@@ -668,8 +733,6 @@ iframe {
   margin-top: 20px;
   margin-bottom: 20px;
   align-self: center;
-
-
 }
 
 .botaos {

@@ -41,7 +41,7 @@ public class AuthController {
         String token = java.util.UUID.randomUUID().toString();
         resetTokens.put(token, email);
 
-        String link = "http://localhost:63342/redefinir-senha.html?token=" + token;
+        String link = "http://localhost:3000/redefinir-senha.html?token=" + token;
 
         emailService.enviarEmail(
                 usuario.getEmail(),
