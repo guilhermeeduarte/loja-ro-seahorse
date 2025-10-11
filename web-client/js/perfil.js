@@ -25,7 +25,6 @@ async function carregarPerfil() {
 
   } catch (err) {
     console.error("Erro ao carregar perfil:", err);
-    alert("Erro ao carregar perfil. Tente novamente.");
   }
 }
 
@@ -40,12 +39,6 @@ function exibirDadosUsuario(usuario) {
   document.getElementById("data-nascimento-usuario").textContent =
     formatarData(usuario.dataNascimento);
 
-
-  const badge = document.getElementById("badge-tipo");
-  const tipoUsuario = usuario.tipoUsuario;
-
-  badge.textContent = tipoUsuario;
-  badge.className = "badge-tipo badge-" + tipoUsuario.toLowerCase();
 
 
   if (tipoUsuario === "FUNCIONARIO" || tipoUsuario === "ADMINISTRADOR") {

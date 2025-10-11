@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produto")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://loja-ro-seahorse.onrender.com/")
 public class ProdutoController {
 
     @Autowired

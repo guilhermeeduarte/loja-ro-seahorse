@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/usuario")
-@CrossOrigin(origins = "http://127.0.0.1:5500/", allowCredentials = "true")
+@CrossOrigin(origins = "https://loja-ro-seahorse.onrender.com/", allowCredentials = "true")
 
 public class UsuarioController {
 
@@ -56,10 +56,11 @@ public class UsuarioController {
         String token = jwtUtil.generateToken(email);
         Cookie cookie = new Cookie("auth_token", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(false);   // mudar para true quando hospedar o site
+        cookie.setSecure(true);   // mudar para true quando hospedar o site
         cookie.setPath("/");
         cookie.setMaxAge(21600);    // 21600s = 6 horas
-        cookie.setAttribute("SameSite", "Lax");  //Mudar de lax para "Strict" caso hospede o site
+        cookie.setAttribute("SameSite", "Strict");
+
 
         response.addCookie(cookie);
 

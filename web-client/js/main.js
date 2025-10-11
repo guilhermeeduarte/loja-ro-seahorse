@@ -169,23 +169,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const perfilLink = document.getElementById("perfil");
 
   perfilLink.addEventListener("click", async (e) => {
-    e.preventDefault(); // impede o redirecionamento imediato
+    e.preventDefault();
 
     try {
       const res = await fetch("http://localhost:3000/api/usuario/me", {
-        credentials: "include", // envia o cookie auth_token
+        credentials: "include",
       });
 
       if (res.ok) {
-        // Usuário autenticado
-        window.location.href = "/web-client/perfil.html";
+
+        window.location.href = "perfil.html";
       } else {
-        // Não autenticado
-        window.location.href = "/web-client/cadastro.html";
+
+        window.location.href = "cadastro.html";
       }
     } catch (error) {
       console.error("Erro ao verificar login:", error);
-      window.location.href = "/web-client/cadastro.html";
+      window.location.href = "cadastro.html";
     }
   });
 });
