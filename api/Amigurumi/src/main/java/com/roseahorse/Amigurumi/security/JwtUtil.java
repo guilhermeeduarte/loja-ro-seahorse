@@ -19,10 +19,9 @@ public class JwtUtil {
     private final long expirationTime;
 
     public JwtUtil(
-            @Value("${jwt.secret:}") String secret, SecretKey key, //talvez tirar?
+            @Value("${jwt.secret:}") String secret,
             @Value("${jwt.expiration:3600000}") long expirationTime
     ) {
-        this.key = key;
         this.expirationTime = expirationTime;
     }
 
