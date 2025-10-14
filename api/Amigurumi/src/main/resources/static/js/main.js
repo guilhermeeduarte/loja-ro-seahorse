@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3000/api/usuario/me", {
+      const res = await fetch("`${API_URL}/usuario/me"`, {
         credentials: "include",
       });
 
