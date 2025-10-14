@@ -23,6 +23,21 @@ public class JwtUtil {
             @Value("${jwt.expiration:3600000}") long expirationTime
     ) {
         this.expirationTime = expirationTime;
+
+        if (secret == null || secret.trim().isEmpty()) {
+            System.err.println("⚠️ AVISO: JWT_SECRET não configurado! Usando chave padrão (INSEGURO EM PRODUÇÃO)");
+            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        } else {
+            try {
+
+                byte[] keyBytes = Base64.getDecoder().decode(secret);
+                this.key = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
+                System.out.println("JWT_SECRET carregado com sucesso!");
+            } catch (IllegalArgumentException e) {
+                System.err.println("ERRO: JWT_SECRET inválido! Use Base64.");
+                throw new RuntimeException("JWT_SECRET deve estar em formato Base64", e);
+            }
+        }
     }
 
     public String generateToken(String email) {
