@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*", allowCredentials = "true") // Deixa o SecurityConfig gerenciar CORS
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
