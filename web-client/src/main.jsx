@@ -3,10 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/Home.jsx"; // relativo a src/
-import "../styles.css";
+import "./styles.css";
+import App from "./app.jsx";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>
-);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);

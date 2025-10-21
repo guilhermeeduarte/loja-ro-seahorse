@@ -1,13 +1,20 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Mapa from "./Mapa";
-import Contato from "./Contato";
-import Footer from "./Footer";
-import "./styles.css";
+import Navbar from "../components/Navbar";
+import Mapa from "../components/Mapa";
+import Contato from "../components/Contato";
+import Footer from "../components/Footer";
+import "../styles.css";
+import { Helmet } from "react-helmet";
+
 
 const Localizacao = () => {
   return (
     <div className="pagina">
+        
+    <Helmet>
+        <title>SeaHorse - Carrinho</title>
+    </Helmet>
+
       <Navbar />
 
       <section id="titulo-cadastro" className="titulo-cadastro">

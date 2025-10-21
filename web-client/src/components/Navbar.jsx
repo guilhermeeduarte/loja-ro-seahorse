@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="navbar principal">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#" id="logo-minimalista">
+        {/* Logo leva para Home */}
+        <Link to="/" className="navbar-brand" id="logo-minimalista">
           <img
             id="logo-minimalista"
             src="Assets/Imagens/logo_minimalista.png"
@@ -12,9 +14,10 @@ const Navbar = () => {
             height="101"
             alt="logo-minimalista"
           />
-        </a>
+        </Link>
 
-        <a className="navbar-brand" href="/web-client/cadastro.html" id="perfil">
+        {/* Perfil leva para Cadastro */}
+        <Link to="/cadastro" className="navbar-brand" id="perfil">
           <img
             id="perfil"
             src="Assets/Imagens/perfil.png"
@@ -22,9 +25,10 @@ const Navbar = () => {
             height="60"
             alt="perfil"
           />
-        </a>
+        </Link>
 
-        <a className="navbar-brand" href="#" id="carrinho">
+        {/* Carrinho, exemplo: você pode criar rota /carrinho */}
+        <Link to="/carrinho" className="navbar-brand" id="carrinho">
           <img
             id="carrinho"
             src="Assets/Imagens/carrinho.png"
@@ -32,7 +36,7 @@ const Navbar = () => {
             height="60"
             alt="carrinho"
           />
-        </a>
+        </Link>
       </div>
     </nav>
   );

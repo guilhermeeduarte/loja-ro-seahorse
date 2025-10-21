@@ -13,7 +13,9 @@
     "@vitejs/plugin-react": "^5.0.4",
     "bootstrap": "^5.3.8",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
     "sass": "^1.92.1",

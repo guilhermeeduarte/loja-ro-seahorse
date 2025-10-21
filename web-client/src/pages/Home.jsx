@@ -1,8 +1,8 @@
-
+import { Helmet } from "react-helmet";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "/styles.css";
+import "../styles.css";
 
 const produtos = [
   { categoria: "Mais vendidos", nome: "Harry Potter", img: "Assets/Imagens/Harry_Potter.jpg" },
@@ -68,6 +68,10 @@ export default function Home() {
 
   return (
     <div className="pagina">
+        <Helmet>
+        <title>SeaHorse - Home</title>
+        </Helmet>
+        
       <Navbar />
 
       <nav className="menu-teleporte" style={{ display: pesquisando ? "none" : "flex" }}>
@@ -109,8 +113,8 @@ export default function Home() {
                 <img className="entrega-img" src="Assets/Imagens/Entrega.png.png" alt="Entrega" />
               </div>
             </section>
-
-            <section className="secao-conteudo" id="MaisVendidos">
+ 
+            <section className="secao-conteudo" id="MaisVendidos" marginTop="20px">
               <h3 className="section-title">Mais vendidos! ⭐</h3>
               {renderGrid(produtos.filter((p) => p.categoria === "Mais vendidos"))}
             </section>
