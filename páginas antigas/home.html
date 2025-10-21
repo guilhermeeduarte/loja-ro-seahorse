@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeaHorse - Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="pagina">
+  <nav class="navbar principal">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/web-client/home.html" id="logo-minimalista"><img id="logo-minimalista"
+         src="Assets/Imagens/logo_minimalista.png" width="101px" height="101px"  alt="logo-minimalista"> </a>
+
+    <a class="navbar-brand" href="/web-client/login.html" id="perfil"><img id="perfil"
+         src="Assets/Imagens/perfil.png" width="60px" height="60px"  alt="perfil"> </a>
+
+    <a class="navbar-brand" href="/web-client/carrinho.html" id="carrinho"><img id="carrinho"
+         src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a>
+  </div>
+</nav>
+
+<nav class="menu-teleporte">
+  <a href="#Animais" class="botao-teleporte">Animais</a>
+  <a href="#Personagens" class="botao-teleporte">Personagens</a>
+  <a href="#Comidas" class="botao-teleporte">Comidas</a>
+</nav>
+
+<form class="barra-pesquisa" role="search" id="form-pesquisa">
+  <input class="barra-digitar" type="search" placeholder="Digite aqui" id="input-pesquisa"/>
+  <button class="botao-pesquisa" type="submit">
+    <img class="lupa" src="Assets/Imagens/lupa.png" alt="Lupa" width="20px" height="20px">
+  </button>
+</form>
+
+<button id="botao-voltar" style="display:none;">Voltar para Home</button>
+<div id="resultados-pesquisa"></div>
+
+<section class="banner ocultavel">
+  <div class="banner-img">
+    <img class="entrega-img" src="Assets/Imagens/Entrega.png.png" alt="Entrega">
+  </div>
+</section>
+
+
+<section class="secao-conteudo ocultavel">
+  <h3 class="section-title">Mais vendidos! ⭐</h3>
+  <div class="grid">
+    <div class="item"><img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter"><p>Harry Potter</p></div>
+    <div class="item"><img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim"><p>Pinguim</p></div>
+    <div class="item"><img src="Assets/Imagens/Capuccino.jpg" alt="Capuccino"><p>Capuccino</p></div>
+    <div class="item"><img src="Assets/Imagens/Abacate.jpg" alt="Abacate"><p>Abacate</p></div>
+  </div>
+</section>
+
+<section class="secao-conteudo ocultavel" id="Animais">
+  <h3 class="section-title">Animais! 🐾</h3>
+  <div class="grid">
+    <div class="item"><img src="Assets/Imagens/Raposa.jpg" alt="Raposa"><p>Raposa</p></div>
+    <a href="produto.html"><div class="item"><img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim"><p>Pinguim</p></div></a>
+    <div class="item"><img src="Assets/Imagens/Elefante.jpg" alt="Elefante"><p>Elefante</script></p></div>
+    <div class="item"><img src="Assets/Imagens/Coelho.jpeg" alt="Coelho"><p>Coelho</p></div>
+  </div>
+</section>
+
+<section class="secao-conteudo ocultavel" id="Destaque">
+  <h3 class="section-title">Destaque! 🥇</h3>
+  <div class="grid">
+    <div class="item"><img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger"><p>Hermione Granger</p></div>
+  </div>
+</section>
+
+<section class="secao-conteudo ocultavel" id="Frutas">
+  <h3 class="section-title">Comidas! 🍔</h3>
+  <div class="grid">
+    <div class="item"><img src="Assets/Imagens/Abacaxi.jpg" alt="Abacaxi"><p>Abacaxi</p></div>
+    <div class="item"><img src="Assets/Imagens/Laranja.jpg" alt="Laranja"><p>Laranja</p></div>
+    <div class="item"><img src="Assets/Imagens/Abacate.jpg" alt="Abacate"><p>Abacate</p></div>
+  </div>
+</section>
+
+<section class="secao-conteudo ocultavel" id="Personagens">
+  <h3 class="section-title">Personagens! 🧙‍♂️</h3>
+  <div class="grid">
+    <div class="item"><img src="Assets/Imagens/Hermione.jpg" alt="Hermione Granger"><p>Hermione Granger</p></div>
+    <div class="item"><img src="Assets/Imagens/Harry_Potter.jpg" alt="Harry Potter"><p>Harry Potter</p></div>
+  </div>
+</section>
+
+<a href="https://wa.me/5599999999999" class="whatsapp-float" target="_blank">
+  <img src="Assets/Imagens/whatsapp.png" alt="WhatsApp">
+</a> 
+
+<script>
+  const form = document.getElementById("form-pesquisa");
+  const input = document.getElementById("input-pesquisa");
+  const resultados = document.getElementById("resultados-pesquisa");
+  const botaoVoltar = document.getElementById("botao-voltar");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const termo = input.value.trim().toLowerCase();
+    resultados.innerHTML = "";
+
+    // Oculta tudo que não deve aparecer durante a pesquisa
+    document.querySelectorAll("section, .menu-teleporte, .whatsapp-float").forEach(el => {
+      el.style.display = "none";
+    });
+
+    botaoVoltar.style.display = "block";
+
+    if (termo === "") {
+      resultados.innerHTML = "<p>Digite algo para pesquisar.</p>";
+      return;
+    }
+
+    // Buscar produtos que contenham o termo
+    const produtosEncontrados = [];
+    document.querySelectorAll(".item").forEach(item => {
+      const nomeProduto = item.querySelector("p").textContent.toLowerCase();
+      if (nomeProduto.includes(termo)) {
+        produtosEncontrados.push(item.cloneNode(true));
+      }
+    });
+
+    if (produtosEncontrados.length > 0) {
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      produtosEncontrados.forEach(produto => grid.appendChild(produto));
+      resultados.appendChild(grid);
+    }
+
+    // Buscar áreas cujo título contenha o termo
+    document.querySelectorAll(".secao-conteudo").forEach(secao => {
+      const titulo = secao.querySelector(".section-title");
+      if (titulo && titulo.textContent.toLowerCase().includes(termo)) {
+        const novaSecao = document.createElement("section");
+        novaSecao.className = secao.className;
+        novaSecao.innerHTML = secao.innerHTML;
+        resultados.appendChild(novaSecao);
+      }
+    });
+
+    if (resultados.innerHTML === "") {
+      resultados.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+    }
+  });
+
+  botaoVoltar.addEventListener("click", () => {
+    resultados.innerHTML = "";
+    input.value = "";
+
+    // Restaura todas as seções e elementos ocultos
+    document.querySelectorAll("section, .menu-teleporte, .whatsapp-float").forEach(el => {
+      el.style.display = "block";
+    });
+
+    botaoVoltar.style.display = "none";
+  });
+</script>
+  
+<footer>
+  <div class="footer-top">
+    <ul>
+      <li><a href="contato.html">Contato</a></li>
+      <li><a href="localizacao.html">Localização</a></li>
+      <li><a href="faq.html">Dúvidas</a></li>
+    </ul>
+    <ul class="logo-footer">
+      <li><a href="home.html"><img src="Assets/Imagens/logo_minimalista.png" alt=""></a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <a href="direitosreservados.html"><p>Todos os direitos reservados © 2025 - RO SeaHorse</p></a>
+  </div>
+</footer>
+</div>
+
+</body>
+</html>
