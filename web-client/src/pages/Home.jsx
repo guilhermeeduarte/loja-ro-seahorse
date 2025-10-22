@@ -1,28 +1,29 @@
 import { Helmet } from "react-helmet";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Whatsapp from "../components/Whatsapp";
 import "../styles.css";
 
-const produtos = [
-  { categoria: "Mais vendidos", nome: "Harry Potter", img: "Assets/Imagens/Harry_Potter.jpg" },
-  { categoria: "Mais vendidos", nome: "Pinguim", img: "Assets/Imagens/Pinguim.jpg" },
-  { categoria: "Mais vendidos", nome: "Capuccino", img: "Assets/Imagens/Capuccino.jpg" },
-  { categoria: "Mais vendidos", nome: "Abacate", img: "Assets/Imagens/Abacate.jpg" },
+// Lista de produtos
+export const produtos = [
+  { categoria: "Mais vendidos", nome: "Harry Potter", img: "Imagens/Harry_Potter.jpg" },
+  { categoria: "Mais vendidos", nome: "Pinguim", img: "Imagens/Pinguim.jpg" },
+  { categoria: "Mais vendidos", nome: "Capuccino", img: "Imagens/Capuccino.jpg" },
+  { categoria: "Mais vendidos", nome: "Abacate", img: "Imagens/Abacate.jpg" },
 
-  { categoria: "Animais", nome: "Raposa", img: "Assets/Imagens/Raposa.jpg" },
-  { categoria: "Animais", nome: "Pinguim", img: "Assets/Imagens/Pinguim.jpg" },
-  { categoria: "Animais", nome: "Elefante", img: "Assets/Imagens/Elefante.jpg" },
-  { categoria: "Animais", nome: "Coelho", img: "Assets/Imagens/Coelho.jpeg" },
+  { categoria: "Animais", nome: "Raposa", img: "Imagens/Raposa.jpg" },
+  { categoria: "Animais", nome: "Elefante", img: "Imagens/Elefante.jpg" },
+  { categoria: "Animais", nome: "Coelho", img: "Imagens/Coelho.jpeg" },
 
-  { categoria: "Destaque", nome: "Hermione Granger", img: "Assets/Imagens/Hermione.jpg" },
+  { categoria: "Destaque", nome: "Hermione Granger", img: "Imagens/Hermione.jpg" },
 
-  { categoria: "Comidas", nome: "Abacaxi", img: "Assets/Imagens/Abacaxi.jpg" },
-  { categoria: "Comidas", nome: "Laranja", img: "Assets/Imagens/Laranja.jpg" },
-  { categoria: "Comidas", nome: "Abacate", img: "Assets/Imagens/Abacate.jpg" },
+  { categoria: "Comidas", nome: "Abacaxi", img: "Imagens/Abacaxi.jpg" },
+  { categoria: "Comidas", nome: "Laranja", img: "Imagens/Laranja.jpg" },
 
-  { categoria: "Personagens", nome: "Hermione Granger", img: "Assets/Imagens/Hermione.jpg" },
-  { categoria: "Personagens", nome: "Harry Potter", img: "Assets/Imagens/Harry_Potter.jpg" },
+  { categoria: "Personagens", nome: "Hermione Granger", img: "Imagens/Hermione.jpg" },
+  { categoria: "Personagens", nome: "Harry Potter", img: "Imagens/Harry_Potter.jpg" },
 ];
 
 export default function Home() {
@@ -59,8 +60,10 @@ export default function Home() {
     <div className="grid">
       {items.map((item, index) => (
         <div key={index} className="item">
-          <img src={item.img} alt={item.nome} />
-          <p>{item.nome}</p>
+          <Link to={`/produto/${encodeURIComponent(item.nome)}`}>
+            <img src={`/Assets/${item.img}`} alt={item.nome} />
+            <p>{item.nome}</p>
+          </Link>
         </div>
       ))}
     </div>
@@ -68,10 +71,10 @@ export default function Home() {
 
   return (
     <div className="pagina">
-        <Helmet>
+      <Helmet>
         <title>SeaHorse - Home</title>
-        </Helmet>
-        
+      </Helmet>
+
       <Navbar />
 
       <nav className="menu-teleporte" style={{ display: pesquisando ? "none" : "flex" }}>
@@ -89,7 +92,7 @@ export default function Home() {
           onChange={(e) => setTermo(e.target.value)}
         />
         <button className="botao-pesquisa" type="submit">
-          <img className="lupa" src="Assets/Imagens/lupa.png" alt="Lupa" width="20px" height="20px" />
+          <img className="lupa" src="/Assets/Imagens/lupa.png" alt="Lupa" width="20" height="20" />
         </button>
       </form>
 
@@ -100,50 +103,46 @@ export default function Home() {
       )}
 
       <div id="resultados-pesquisa">
-        {pesquisando ? (
-          resultados.length > 0 ? (
-            renderGrid(resultados)
-          ) : (
-            <p>Nenhum resultado encontrado.</p>
-          )
-        ) : (
-          <>
-            <section className="banner">
-              <div className="banner-img">
-                <img className="entrega-img" src="Assets/Imagens/Entrega.png.png" alt="Entrega" />
-              </div>
-            </section>
- 
-            <section className="secao-conteudo" id="MaisVendidos" marginTop="20px">
-              <h3 className="section-title">Mais vendidos! ⭐</h3>
-              {renderGrid(produtos.filter((p) => p.categoria === "Mais vendidos"))}
-            </section>
+        {pesquisando
+          ? resultados.length > 0
+            ? renderGrid(resultados)
+            : <p>Nenhum resultado encontrado.</p>
+          : (
+            <>
+              <section className="banner">
+                <div className="banner-img">
+                  <img className="entrega-img" src="/Assets/Imagens/Entrega.png.png" alt="Entrega" />
+                </div>
+              </section>
 
-            <section className="secao-conteudo" id="Animais">
-              <h3 className="section-title">Animais! 🐾</h3>
-              {renderGrid(produtos.filter((p) => p.categoria === "Animais"))}
-            </section>
+              <section className="secao-conteudo" id="MaisVendidos">
+                <h3 className="section-title">Mais vendidos! ⭐</h3>
+                {renderGrid(produtos.filter((p) => p.categoria === "Mais vendidos"))}
+              </section>
 
-            <section className="secao-conteudo" id="Destaque">
-              <h3 className="section-title">Destaque! 🥇</h3>
-              {renderGrid(produtos.filter((p) => p.categoria === "Destaque"))}
-            </section>
+              <section className="secao-conteudo" id="Animais">
+                <h3 className="section-title">Animais! 🐾</h3>
+                {renderGrid(produtos.filter((p) => p.categoria === "Animais"))}
+              </section>
 
-            <section className="secao-conteudo" id="Comidas">
-              <h3 className="section-title">Comidas! 🍔</h3>
-              {renderGrid(produtos.filter((p) => p.categoria === "Comidas"))}
-            </section>
+              <section className="secao-conteudo" id="Destaque">
+                <h3 className="section-title">Destaque! 🥇</h3>
+                {renderGrid(produtos.filter((p) => p.categoria === "Destaque"))}
+              </section>
 
-            <section className="secao-conteudo" id="Personagens">
-              <h3 className="section-title">Personagens! 🧙‍♂️</h3>
-              {renderGrid(produtos.filter((p) => p.categoria === "Personagens"))}
-            </section>
+              <section className="secao-conteudo" id="Comidas">
+                <h3 className="section-title">Comidas! 🍔</h3>
+                {renderGrid(produtos.filter((p) => p.categoria === "Comidas"))}
+              </section>
 
-            <a href="https://wa.me/5599999999999" className="whatsapp-float" target="_blank">
-              <img src="Assets/Imagens/whatsapp.png" alt="WhatsApp" />
-            </a>
-          </>
-        )}
+              <section className="secao-conteudo" id="Personagens">
+                <h3 className="section-title">Personagens! 🧙‍♂️</h3>
+                {renderGrid(produtos.filter((p) => p.categoria === "Personagens"))}
+              </section>
+
+              <Whatsapp />
+            </>
+          )}
       </div>
 
       <Footer />

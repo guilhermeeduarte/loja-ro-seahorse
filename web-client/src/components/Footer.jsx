@@ -14,7 +14,7 @@ const Footer = () => {
         <ul className="logo-footer">
           <li>
             <Link to="/">
-              <img src="Assets/Imagens/logo_minimalista.png" alt="Logo" />
+              <img src="/Assets/Imagens/logo_minimalista.png" alt="Logo" />
             </Link>
           </li>
         </ul>
