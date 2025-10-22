@@ -314,11 +314,31 @@ form {
       cursor: pointer;
       background: linear-gradient(to right, #00aaff, #0057b7);
       color: white;
+      margin: 20px;
     }
 
     .botao:hover {
       opacity: 0.9;
       background: linear-gradient(to right, #00ff80, #0057b7);
+    }
+
+    .botao-limpar {
+      width: 200px;
+      font-family: "Poppins", sans-serif;
+      padding: 12px;
+      border: none;
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(to right, #00aaff, #0057b7);
+      color: white;
+      margin: 20px;
+    }
+
+    .botao-limpar:hover {
+      opacity: 0.9;
+      background: linear-gradient(to right, #f68650, #0057b7);
     }
 
     /*FAQ - PERGUNTAS FREQUENTES*/
@@ -539,16 +559,6 @@ footer {
   border: 0;
 }
 
-.enviar:hover {
-  opacity: 0.9;
-  background: linear-gradient(to right, #00ff80, #0057b7);
-}
-
-.limpar:hover {
-  opacity: 0.9;
-  background-color: linear-gradient(to right, #f68650, #0057b7);
-}
-
 .contato-whatsapp {
   border-radius: 500px;
   width: 90px;
@@ -656,6 +666,32 @@ iframe {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.endereco input{
+  margin: 5px;
+  width: 500px;
+  height: 40px;
+  border: 0px;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.endereco textarea {
+  margin: 5px;
+  width: 500px;
+  height: 60px;
+  border: 0px;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+
 
 
 
