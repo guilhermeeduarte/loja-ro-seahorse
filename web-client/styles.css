@@ -787,6 +787,42 @@ iframe {
   margin-top: 20px;
   margin-bottom: 40px;
 }
+
+ul.metodos {
+  margin: 30px auto;        
+  list-style-type: none;
+  padding: 0;
+  width: fit-content;
+  margin-top: 10px;  
+  margin-bottom: 0px ;        
+}
+
+.metodos li {
+  display: flex;
+  align-items: center;         
+  gap: 30px;                  
+  margin-bottom: 10px;
+  font-size: 18px;
+  min-height: 40px;         
+}
+
+.metodos img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;         
+}
+
+.metodos span {
+  line-height: 1;
+}
+
+.bandeiras {
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
 @media (max-width: 480px) {
   .pagina {
     min-height: 100vh;
@@ -838,8 +874,7 @@ iframe {
   }
  
 }
- 
- 
+
  
 @media (max-width:768px) {
   .pagina {
