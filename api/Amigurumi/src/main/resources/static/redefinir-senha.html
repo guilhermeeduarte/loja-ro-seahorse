@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SeaHorse - Login</title>
+  <title>SeaHorse - Redefinição de Senha</title>
   <link rel="stylesheet" href="styles.css">
-    <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
 <div class="pagina">
   <nav class="navbar principal">
 
   <div class="container-fluid">
-    <a class="navbar-brand" href="/web-client/home.html" id="logo-minimalista"><img id="logo-minimalista"
+    <a class="navbar-brand" href="home.html" id="logo-minimalista"><img id="logo-minimalista"
          src="Assets/Imagens/logo_minimalista.png" width="101px" height="101px"  alt="logo-minimalista"> </a></a>
 
-    <a class="navbar-brand" href="/web-client/login.html" id="perfil"><img id="perfil" 
+    <a class="navbar-brand" href="login.html" id="perfil"><img id="perfil"
          src="Assets/Imagens/perfil.png" width="60px" height="60px"  alt="perfil"> </a></a>
 
-    <a class="navbar-brand" href="/web-client/carrinho.html" id="carrinho"><img id="carrinho"
+    <a class="navbar-brand" href="carrinho.html" id="carrinho"><img id="carrinho"
          src="Assets/Imagens/carrinho.png" width="50px" height="60px"  alt="carrinho"> </a></a>
 
   </div>
@@ -26,36 +26,20 @@
 </nav>
 
     <section id="titulo-cadastro" class="titulo-cadastro">
-    <h1>Área de Clientes</h1>
+    <h1>Redefinir Senha</h1>
     </section>
     
-  <form id="loginForm">
+  <form id="redefinirForm">
 
-    <div class="email-login">
-    <input type="email" class="form-control" id="login-email" placeholder="Endereço de Email">
+    <div class="email-cadastro">
+    <input type="password" class="form-control" id="nova-senha" placeholder="Insira nova senha">
+    <input type="password" class="form-control" id="confirma-senha" placeholder="Confirme nova senha">
   </div>
-
-
-    <div class="senha-cadastro">
-    <input type="password" class="form-control" id="login-senha" placeholder="Senha">
-  </div>
-
-  <div class="form-links">
-    <div class="link-cadastro">
-      <a href="cadastro.html">Cadastre-se!</a>
-    </div>
-
-    <div class="link-esqueci">
-      <a href="esqueci.html">Esqueci minha senha!</a>
-    </div>
-  </div>
-
-<br>
+    <br>
   <button type="submit" class="botao">
-    Entrar
+    Confirmar
   </button>
 </form>
-<p id="mensagem" style="color: red;"></p>
 
 <footer>
   <div class="footer-top">
@@ -72,6 +56,7 @@
     <a href="direitosreservados.html"><p>Todos os direitos reservados © 2025 - RO SeaHorse</p></a>
   </div>
 </footer>
+
 </div>
 </body>
 </html>
