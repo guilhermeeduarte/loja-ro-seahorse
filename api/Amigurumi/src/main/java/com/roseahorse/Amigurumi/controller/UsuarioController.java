@@ -158,8 +158,7 @@ public class UsuarioController {
 
         return ResponseEntity.ok(Map.of("mensagem", "Perfil atualizado com sucesso"));
     }
-
-    // Método auxiliar para criar cookies com configuração correta
+    
     private Cookie criarCookie(String nome, String valor, int maxAge) {
         Cookie cookie = new Cookie(nome, valor);
         cookie.setPath("/");
