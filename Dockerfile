@@ -1,22 +1,31 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+FROM node:20-alpine AS build
 
-# Copia o pom.xml e baixa dependências (cache mais eficiente)
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+
 COPY api/Amigurumi/pom.xml .
 RUN mvn dependency:go-offline -B
 
 COPY api/Amigurumi/src ./src
 RUN mvn clean package -DskipTests
 
-# Etapa 2: imagem final, mais leve, só com o .jar pronto
+
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copia o JAR da etapa anterior
+
 COPY --from=build /app/target/*.jar app.jar
 
-# Expõe a porta configurada (3000 no seu caso)
-EXPOSE 3000
 
-# Comando de execução
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
+
 ENTRYPOINT ["java", "-jar", "app.jar"]

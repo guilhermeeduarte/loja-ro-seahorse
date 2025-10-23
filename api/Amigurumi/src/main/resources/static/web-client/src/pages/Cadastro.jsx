@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import "../styles.css"; // ajuste o caminho conforme a localização do seu CSS
-
+import "../js/main.js"
 export default function Cadastro() {
   const [formData, setFormData] = useState({
     nome: "",
