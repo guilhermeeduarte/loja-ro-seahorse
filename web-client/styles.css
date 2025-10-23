@@ -869,6 +869,113 @@ ul.metodos {
   margin-right: 20px; /* espaço à direita do valor total */
 }
 
+/* Status do Pedido Ícones com extensão do Google */
+
+span.material-icons {
+  font-size: 50px;
+  color: white;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.material-icons:hover {
+  color: #007bff; 
+}
+
+.voltar {
+  letter-spacing: -5px; 
+  font-size: 30px; 
+  margin-left: 0px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.voltar:hover {
+  color: #007bff;
+}
+
+.produto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.produto img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.produto-info {
+  text-align: center;
+}
+
+.produto-info h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.produto-info p {
+  color: #666;
+}
+   
+
+.timeline-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.status {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 40px; /* espaço para a bolinha */
+  text-align: left;
+}
+
+.status::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.status.active::before {
+  background-color: #007bff;
+}
+
+.status-text h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.status-text p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #666;
+}
 
 
 @media (max-width: 480px) {
