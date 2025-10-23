@@ -9,6 +9,10 @@ import Esqueci from "./pages/Esqueci.jsx";
 import Login from "./pages/Login.jsx";
 import RedefinirSenha from "./pages/Redefinir-Senha.jsx";
 import ProdutoDetalhe from "./pages/ProdutoDetalhe.jsx";
+import PerfilCliente from "./pages/PerfilCliente";
+import PerfilUsuario from "./pages/PerfilUsuario";
+
+
 
 export default function App() {
   return (
@@ -24,6 +28,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         <Route path="/produto/:produtoNome" element={<ProdutoDetalhe />} />
+        <Route path="/perfil" element={<PerfilCliente />} />
+        <Route path="/perfil_usuario" element={<PerfilUsuario />} />
       </Routes>
     </BrowserRouter>
   );
