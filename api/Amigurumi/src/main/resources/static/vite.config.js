@@ -10,8 +10,12 @@ export default defineConfig({
     emptyOutDir: true
   },
   server: {
-    port: 5173,
-    hot: true,
+   port: 5173,
+     hot: true,
+     proxy: {
+       '/api': {
+         target: `${CORS_ORIGINS}`,
+         changeOrigin: true,
   },
   resolve: {
     alias: {
