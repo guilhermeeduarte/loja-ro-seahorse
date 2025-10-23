@@ -4,10 +4,12 @@ WORKDIR /app
 
 COPY api/Amigurumi/src/main/resources/static/package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
+
 
 COPY api/Amigurumi/src/main/resources/static/ ./
 
+RUN chmod +x node_modules/.bin/vite
 RUN npm run build
 
 FROM maven:3.9.6-eclipse-temurin-17 AS backend-build
