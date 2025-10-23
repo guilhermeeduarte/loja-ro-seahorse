@@ -1,11 +1,10 @@
-# Burro
+# Etapa 1: Build do front-end
 FROM node:20-alpine AS frontend-build
 
 WORKDIR /app
-COPY api/Amigurumi/src/main/resources/static/package.json ./
-COPY api/Amigurumi/src/main/resources/static/package-lock.json ./
+COPY api/Amigurumi/src/main/resources/static/package*.json ./
 RUN npm install
-COPY api/Amigurumi/main/resources/static/ ./
+COPY api/Amigurumi/src/main/resources/static/ ./
 RUN npm run build
 
 FROM maven:3.9.6-eclipse-temurin-17 AS backend-build
