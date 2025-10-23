@@ -1071,6 +1071,13 @@ span.material-icons {
   color: #666;
 }
 
+.grid-fav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left; /* Centraliza os itens */
+}
+
+
 
 @media (max-width: 480px) {
   .pagina {

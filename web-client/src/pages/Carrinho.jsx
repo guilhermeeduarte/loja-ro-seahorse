@@ -1,51 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-import "../styles.css"; // ajuste o caminho conforme sua estrutura
 import { Helmet } from "react-helmet";
+import Footer from "../components/Footer";
+import "../styles.css";
 
 const Carrinho = () => {
-    
   return (
-    
     <div className="pagina">
-
-    <Helmet>
+      <Helmet>
         <title>SeaHorse - Carrinho</title>
-    </Helmet>
+      </Helmet>
 
+      {/* Navbar simplificada para o carrinho */}
       <nav className="navbar carrinho">
         <div className="container-fluid">
-          <Link to="/" className="voltar" aria-label="voltar">
-            &lt;&lt;
+          {/* Botão voltar */}
+          <Link to="/" className="navbar-brand">
+            <span className="voltar">&lt;&lt;</span>
           </Link>
 
           <h2>Seu Carrinho</h2>
 
-          <Link to="/pagamentos" className="navbar-brand" id="pagamentos" aria-label="pagamentos">
+          {/* Ícone de pagamento */}
+          <Link to="/pagamentos" className="navbar-brand" id="pagamentos">
             <img
-              id="carrinho"
-              src="Assets/Imagens/Vector.svg"
+              id="pagamento"
+              src="/Assets/Imagens/Vector.svg"
               width="50"
               height="60"
-              alt="carrinho"
+              alt="Métodos de Pagamento"
             />
           </Link>
         </div>
       </nav>
 
+      {/* Conteúdo principal */}
       <h1 style={{ textAlign: "center", marginTop: "20px" }}>Itens:</h1>
 
       <div className="item-carrinho">
-        <img src="Assets/Imagens/Pinguim.jpg" alt="Pinguim" />
+        <img src="/Assets/Imagens/Pinguim.jpg" alt="Pinguim" />
         <div className="descricao-carrinho">
           <h3 style={{ fontSize: "20px" }}>Pinguim</h3>
-          <p>Preço: 57,90</p>
+          <p>Preço: R$ 57,90</p>
         </div>
         <div className="adicionar-remover">
-          <button>
+          <button className="btn-adicionar">
             <img
-              src="Assets/Imagens/soma.png"
+              src="/Assets/Imagens/soma.png"
               alt="Adicionar produto"
               className="soma-carrinho"
             />
