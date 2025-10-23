@@ -14,7 +14,7 @@ export default defineConfig({
         hot: true,
         proxy: {
           '/api': {
-            target: `${CORS_ORIGINS}`,
+            target: `https://loja-ro-seahorse.onrender.com/`,
             changeOrigin: true,
             }
          }

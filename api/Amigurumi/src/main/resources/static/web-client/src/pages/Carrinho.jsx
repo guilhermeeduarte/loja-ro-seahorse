@@ -7,9 +7,7 @@ import "../styles.css";
 const Carrinho = () => {
   return (
     <div className="pagina">
-      <Helmet>
-        <title>SeaHorse - Carrinho</title>
-      </Helmet>
+
 
       {/* Navbar simplificada para o carrinho */}
       <nav className="navbar carrinho">

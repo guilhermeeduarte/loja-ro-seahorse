@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -113,7 +112,7 @@ export default function Home() {
 
   return (
     <div className="pagina">
-      <Helmet><title>SeaHorse - Home</title></Helmet>
+  
       <Navbar />
 
       <nav className="menu-teleporte" style={{ display: pesquisando ? "none" : "flex" }}>
