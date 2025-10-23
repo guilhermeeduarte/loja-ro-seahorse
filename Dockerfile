@@ -2,9 +2,10 @@
 FROM node:20-alpine AS frontend-build
 
 WORKDIR /app
-COPY src/main/resources/static/package*.json ./
+COPY api/Amigurumi/src/main/resources/static/package.json ./
+COPY api/Amigurumi/src/main/resources/static/package-lock.json ./
 RUN npm install
-COPY src/main/resources/static/ ./
+COPY api/Amigurumi/main/resources/static/ ./
 RUN npm run build
 
 FROM maven:3.9.6-eclipse-temurin-17 AS backend-build
