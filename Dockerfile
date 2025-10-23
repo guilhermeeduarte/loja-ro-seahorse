@@ -1,31 +1,26 @@
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
-FROM node:20-alpine AS build
+FROM node:20-alpine AS frontend-build
 
 WORKDIR /app
-COPY package*.json ./
+COPY src/main/resources/static/package*.json ./
 RUN npm install
-COPY . .
+COPY src/main/resources/static/ ./
 RUN npm run build
 
+FROM maven:3.9.6-eclipse-temurin-17 AS backend-build
 
+WORKDIR /app
 COPY api/Amigurumi/pom.xml .
 RUN mvn dependency:go-offline -B
 
 COPY api/Amigurumi/src ./src
+COPY --from=frontend-build /app/dist ./src/main/resources/static/dist
+
 RUN mvn clean package -DskipTests
 
-
 FROM eclipse-temurin:17-jdk-alpine
+
 WORKDIR /app
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=backend-build /app/target/*.jar app.jar
 
-
-COPY --from=build /app/target/*.jar app.jar
-
-
-EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
-
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
