@@ -9,7 +9,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-brand" id="logo-minimalista">
           <img
             id="logo-minimalista"
-            src="src/main/resources/static/web-client/assets/Imagens/logo_minimalista.png"
+            src="../assets/Imagens/logo_minimalista.png"
             width="101"
             height="101"
             alt="logo-minimalista"
@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/login" className="navbar-brand" id="perfil">
           <img
             id="perfil"
-            src="/assets/Imagens/perfilbranco.png"
+            src="../assets/Imagens/perfilbranco.png"
             width="60"
             height="60"
             alt="perfil"
@@ -43,3 +43,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+/* rapaiz *//* eu to tentando entender pq o logo n ta aparecendo */
