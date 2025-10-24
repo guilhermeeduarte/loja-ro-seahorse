@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/login" className="navbar-brand" id="perfil">
           <img
             id="perfil"
-            src="/assets/Imagens/perfil.png"
+            src="/assets/Imagens/perfilbranco.png"
             width="60"
             height="60"
             alt="perfil"
