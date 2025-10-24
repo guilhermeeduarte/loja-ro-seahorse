@@ -6,9 +6,11 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   root: path.resolve(__dirname, 'web-client'),
+  publicDir: 'public',
   build: {
     outDir: path.resolve(__dirname, 'dist'),
-    emptyOutDir: true
+    emptyOutDir: true,
+    assetsDir: 'assets'
   },
   server: {
     port: 5173,
