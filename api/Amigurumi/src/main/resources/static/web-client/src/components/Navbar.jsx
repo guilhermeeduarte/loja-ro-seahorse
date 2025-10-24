@@ -9,7 +9,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-brand" id="logo-minimalista">
           <img
             id="logo-minimalista"
-            src="/Assets/Imagens/logo_minimalista.png"
+            src="api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/logo_minimalista.png"
             width="101"
             height="101"
             alt="logo-minimalista"
@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/login" className="navbar-brand" id="perfil">
           <img
             id="perfil"
-            src="/Assets/Imagens/perfil.png"
+            src="api\Amigurumi\src\main\resources\static\web-client\Assets\Imagens\perfil.png"
             width="60"
             height="60"
             alt="perfil"
