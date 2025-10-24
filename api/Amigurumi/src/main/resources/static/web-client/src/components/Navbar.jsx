@@ -9,7 +9,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-brand" id="logo-minimalista">
           <img
             id="logo-minimalista"
-            src="/Assets/Imagens/logo_minimalista.png"
+            src="src/main/resources/static/web-client/assets/Imagens/logo_minimalista.png"
             width="101"
             height="101"
             alt="logo-minimalista"
@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/login" className="navbar-brand" id="perfil">
           <img
             id="perfil"
-            src="/Assets/Imagens/perfil.png"
+            src="/assets/Imagens/perfil.png"
             width="60"
             height="60"
             alt="perfil"
@@ -31,7 +31,7 @@ const Navbar = () => {
         <Link to="/carrinho" className="navbar-brand" id="carrinho">
           <img
             id="carrinho"
-            src="/Assets/Imagens/carrinho.png"
+            src="/assets/Imagens/carrinho.png"
             width="50"
             height="60"
             alt="carrinho"

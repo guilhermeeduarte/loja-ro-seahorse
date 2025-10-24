@@ -19,7 +19,7 @@ const Banner = () => {
   return (
     <section className="banner">
       <div className={`banner-img ${activeIndex === 0 ? 'fade-in' : 'fade-out'}`}>
-        <img className="entrega-img" src="/Assets/Imagens/Entrega.png.png" alt="Entrega" />
+        <img className="entrega-img" src="/assets/Imagens/Entrega.png.png" alt="Entrega" />
       </div>
       <div className={`banner-img ${activeIndex === 1 ? 'fade-in' : 'fade-out'}`}>
         <img className="personalizado-img" src="/Assets/Imagens/banner2.png" alt="Personalizados" />
