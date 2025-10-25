@@ -2,8 +2,8 @@ package com.roseahorse.Amigurumi.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "carrinho")
+@Entity(name = "item_carrinho")
+@Table(name = "item_carrinho")
 public class ItemCarrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,7 @@ public class ItemCarrinho {
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
+
     private Integer quantidade;
     private Double precoUnitario;
 

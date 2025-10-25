@@ -4,5 +4,5 @@ import com.roseahorse.Amigurumi.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Usuario findByEmail(String email);
+    Usuario buscarEmail(String email);
 }

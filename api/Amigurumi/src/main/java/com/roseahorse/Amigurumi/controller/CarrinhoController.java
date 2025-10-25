@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/carrinho")
@@ -49,7 +48,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -104,7 +103,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -122,7 +121,7 @@ public class CarrinhoController {
             itemMap.put("subtotal", item.getSubtotal());
             itemMap.put("estoqueDisponivel", item.getProduto().getQuantidade());
             return itemMap;
-        }).collect(Collectors.toList());
+        }).toList();
 
         Double valorTotal = itens.stream()
                 .mapToDouble(ItemCarrinho::getSubtotal)
@@ -150,7 +149,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -198,7 +197,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -231,7 +230,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -254,7 +253,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }

@@ -52,7 +52,7 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -89,7 +89,6 @@ public class PedidoController {
             Produto produto = itemCarrinho.getProduto();
 
             ItemPedido itemPedido = new ItemPedido(
-                    pedido,
                     produto,
                     itemCarrinho.getQuantidade(),
                     itemCarrinho.getPrecoUnitario()
@@ -125,12 +124,12 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        List<Pedido> pedidos = pedidoRepository.findByUsuarioIdOrderByDataPedidoDesc(usuario.getId());
+        List<Pedido> pedidos = pedidoRepository.buscarUsuarioDataPedido(usuario.getId());
 
         List<Map<String, Object>> pedidosResponse = pedidos.stream().map(pedido -> {
             Map<String, Object> pedidoMap = new HashMap<>();
@@ -175,7 +174,7 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
 
         if (pedido == null) {
@@ -236,7 +235,7 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -295,7 +294,7 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -309,12 +308,12 @@ public class PedidoController {
         if (status != null && !status.trim().isEmpty()) {
             try {
                 StatusPedido statusEnum = StatusPedido.valueOf(status);
-                pedidos = pedidoRepository.findByStatus(statusEnum);
+                pedidos = pedidoRepository.buscarPorStatus(statusEnum);
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.status(400).body("Status inválido");
             }
         } else {
-            pedidos = pedidoRepository.findAllByOrderByDataPedidoDesc();
+            pedidos = pedidoRepository.buscarDataPedidoDesc();
         }
 
         List<Map<String, Object>> pedidosResponse = pedidos.stream().map(pedido -> {
@@ -348,7 +347,7 @@ public class PedidoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
 
         if (pedido == null) {

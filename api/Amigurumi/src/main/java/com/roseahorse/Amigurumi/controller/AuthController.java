@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,7 +57,7 @@ public class AuthController {
             return ResponseEntity.status(400).body("Email é obrigatório");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.buscarEmail(email);
         if (usuario == null) {
 
             return ResponseEntity.ok("Se o email existir, você receberá um link de redefinição");
@@ -126,7 +125,7 @@ public class AuthController {
         }
 
 
-        Usuario usuario = usuarioRepository.findByEmail(tokenData.email);
+        Usuario usuario = usuarioRepository.buscarEmail(tokenData.email);
         if (usuario == null) {
             resetTokens.remove(token);
             return ResponseEntity.status(404).body("Usuário não encontrado");
