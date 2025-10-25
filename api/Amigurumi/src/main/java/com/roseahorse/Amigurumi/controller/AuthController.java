@@ -144,7 +144,6 @@ public class AuthController {
         ));
     }
 
-    // Método para validar se um token é válido (opcional - útil para o frontend)
     @GetMapping("/validar-token")
     public ResponseEntity<?> validarToken(@RequestParam String token) {
         TokenData tokenData = resetTokens.get(token);

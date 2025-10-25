@@ -1,6 +1,7 @@
 package com.roseahorse.Amigurumi.repository;
 
 import com.roseahorse.Amigurumi.model.ItemCarrinho;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,8 +17,10 @@ public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Long
     Optional<ItemCarrinho> findByUsuarioIdAndProdutoId(Long usuarioId, Long produtoId);
 
     @Modifying
-    @Query("DELETE FROM ItemCarrinho ic WHERE ic.usuario.id = :usuarioId")
+    @Transactional
+    @Query("DELETE FROM ItemCarrinho i WHERE i.usuario.id = :usuarioId")
     void deleteByUsuarioId(@Param("usuarioId") Long usuarioId);
+
 
     long countByUsuarioId(Long usuarioId);
 
