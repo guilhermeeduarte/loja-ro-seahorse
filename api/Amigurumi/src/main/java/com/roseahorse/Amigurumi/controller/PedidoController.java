@@ -102,7 +102,7 @@ public class PedidoController {
         pedido.calcularValorTotal();
         pedidoRepository.save(pedido);
 
-        itemCarrinhoRepository.deleteByUsuario_Id(usuario.getId());
+        itemCarrinhoRepository.deleteByUsuarioId(usuario.getId());
 
         return ResponseEntity.ok(Map.of(
                 "mensagem", "Pedido criado com sucesso",

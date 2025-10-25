@@ -236,7 +236,7 @@ public class CarrinhoController {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        itemCarrinhoRepository.deleteByUsuario_Id(usuario.getId());
+        itemCarrinhoRepository.deleteByUsuarioId(usuario.getId());
 
         return ResponseEntity.ok(Map.of("mensagem", "Carrinho limpo com sucesso"));
     }
