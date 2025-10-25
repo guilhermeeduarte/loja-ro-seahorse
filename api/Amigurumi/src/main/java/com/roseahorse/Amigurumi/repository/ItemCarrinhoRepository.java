@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Long> {
 
-    List<ItemCarrinho> findByUsuarioId(Long usuarioId);
+    List<ItemCarrinho> findByUsuario_Id(Long usuarioId);
 
-    Optional<ItemCarrinho> findByUsuarioIdAndProdutoId(Long usuarioId, Long produtoId);
+    Optional<ItemCarrinho> findByUsuario_IdAndProduto_Id(Long usuarioId, Long produtoId);
 
     @Modifying
     @Transactional
@@ -24,5 +24,5 @@ public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Long
 
     long countByUsuarioId(Long usuarioId);
 
-    boolean existsByUsuarioIdAndProdutoId(Long usuarioId, Long produtoId);
+    boolean existsByUsuario_IdAndProduto_Id(Long usuarioId, Long produtoId);
 }

@@ -57,7 +57,7 @@ public class PedidoController {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        List<ItemCarrinho> itensCarrinho = itemCarrinhoRepository.findByUsuarioId(usuario.getId());
+        List<ItemCarrinho> itensCarrinho = itemCarrinhoRepository.findByUsuario_Id(usuario.getId());
 
         if (itensCarrinho.isEmpty()) {
             return ResponseEntity.status(400).body("Carrinho vazio");

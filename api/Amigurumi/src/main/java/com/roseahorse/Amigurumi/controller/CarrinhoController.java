@@ -71,7 +71,7 @@ public class CarrinhoController {
         }
 
         ItemCarrinho itemExistente = itemCarrinhoRepository
-                .findByUsuarioIdAndProdutoId(usuario.getId(), produtoId)
+                .findByUsuario_IdAndProduto_Id(usuario.getId(), produtoId)
                 .orElse(null);
 
         if (itemExistente != null) {
@@ -109,7 +109,7 @@ public class CarrinhoController {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        List<ItemCarrinho> itens = itemCarrinhoRepository.findByUsuarioId(usuario.getId());
+        List<ItemCarrinho> itens = itemCarrinhoRepository.findByUsuario_Id(usuario.getId());
 
         List<Map<String, Object>> itensResponse = itens.stream().map(item -> {
             Map<String, Object> itemMap = new HashMap<>();
