@@ -1,57 +1,83 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
 
-        const API_URL = 'https://loja-ro-seahorse.onrender.com/api';
-
 const Carrinho = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [valorTotal, setValorTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const { cartItems, removerDoCarrinho } = useCarrinho();
 
-  useEffect(() => {
-    carregarCarrinho();
-  }, []);
-
-  const carregarCarrinho = async () => {
+  const enviarCarrinho = async () => {
     try {
-      setLoading(true);
-      const response = await fetch(`${API_URL}/carrinho`, {
-        credentials: 'include'
+      const response = await fetch("https://loja-ro-seahorse.onrender.com/api/carrinho/adicionar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itens: cartItems }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setCartItems(data.itens);
-        setValorTotal(data.valorTotal);
-      } else if (response.status === 401) {
-        alert('Você precisa estar logado para ver o carrinho');
-        navigate('/login');
-      }
+      const resultado = await response.json();
+      console.log("Carrinho enviado:", resultado);
     } catch (error) {
-      console.error('Erro ao carregar carrinho:', error);
-    } finally {
-      setLoading(false);
+      console.error("Erro ao enviar carrinho:", error);
     }
   };
 
-  const removerDoCarrinho = async (itemId) => {
-    try {
-      const response = await fetch(`${API_URL}/carrinho/${itemId}`, {
-        method: 'DELETE',
-        credentials: 'include'
-      });
+  return (
+    <div className="pagina">
+      <nav className="navbar carrinho">
+        <div className="container-fluid">
+          <Link to="/" className="navbar-brand">
+            <span className="voltar">&lt;&lt;</span>
+          </Link>
+          <h2>Seu Carrinho</h2>
+          <Link to="/pagamentos" className="navbar-brand" id="pagamentos">
+            <img
+              id="pagamento"
+              src="/Assets/Imagens/Vector.svg"
+              width="50"
+              height="60"
+              alt="Métodos de Pagamento"
+            />
+          </Link>
+        </div>
+      </nav>
 
-      if (response.ok) {
-        alert('Item removido do carrinho');
-        carregarCarrinho(); // Recarrega o carrinho
-      }
-    } catch (error) {
-      console.error('Erro ao remover item:', error);
-    }
-  };
+      <h1 style={{ textAlign: "center", marginTop: "20px" }}>Itens:</h1>
 
-  const atualizarQuantidade = async (itemId, novaQuantidade) => {
-    if (
+      {cartItems.length === 0 ? (
+        <p style={{ textAlign: "center" }}>Seu carrinho está vazio.</p>
+      ) : (
+        cartItems.map((produto, index) => (
+          <div className="item-carrinho" key={index}>
+            <img src={`/Assets/${produto.img}`} alt={produto.nome} />
+            <div className="descricao-carrinho">
+              <h3 style={{ fontSize: "20px" }}>{produto.nome}</h3>
+              <p>Preço: R$ {produto.preco}</p>
+            </div>
+            <div className="adicionar-remover">
+              <button className="btn-danger" onClick={() => removerDoCarrinho(produto.nome)}>
+                Remover
+              </button>
+            </div>
+          </div>
+        ))
+      )}
+
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <button
+          className="btn-comprar-produto"
+          onClick={async () => {
+            await enviarCarrinho();
+            window.location.href = "/finalcompra";
+          }}
+        >
+          Finalizar Compra
+        </button>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Carrinho;
