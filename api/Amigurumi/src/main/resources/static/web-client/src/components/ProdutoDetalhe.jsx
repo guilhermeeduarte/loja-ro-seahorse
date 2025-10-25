@@ -15,7 +15,7 @@ export default function ProdutoDetalhe({ produto }) {
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
         <img
-          src={`/Assets/${produto.img}`}
+          src={`${produto.img}`}
           alt={produto.nome}
           style={{
             width: "350px",
