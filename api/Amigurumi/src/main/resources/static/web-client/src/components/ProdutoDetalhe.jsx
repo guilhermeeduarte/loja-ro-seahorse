@@ -1,16 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { produtos } from "./Home"; // importa array de produtos da Home
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
 
-export default function ProdutoDetalhe() {
-  const { produtoNome } = useParams();
-
-  const produto = produtos.find(
-    (p) => p.nome.toLowerCase() === decodeURIComponent(produtoNome).toLowerCase()
-  );
+export default function ProdutoDetalhe({ produto }) {
+  const { adicionarAoCarrinho } = useCarrinho();
 
   if (!produto) return <p>Produto não encontrado.</p>;
 
@@ -31,7 +26,10 @@ export default function ProdutoDetalhe() {
         />
         <h2>{produto.nome}</h2>
         <h3>R$ {produto.preco ?? "0,00"}</h3>
-        <button type="button" className="btn-comprar-produto">Comprar</button>
+
+        <button className="btn-comprar-produto" onClick={() => adicionarAoCarrinho(produto)}>
+          Adicionar ao Carrinho
+        </button>
 
         <div className="descricao" style={{ marginTop: "20px" }}>
           <h2>Descrição</h2>

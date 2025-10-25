@@ -1,24 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
 
 const Carrinho = () => {
+  const { cartItems, removerDoCarrinho } = useCarrinho();
+
+  const enviarCarrinho = async () => {
+    try {
+      const response = await fetch("https://loja-ro-seahorse.onrender.com/api/carrinho/adicionar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itens: cartItems }),
+      });
+
+      const resultado = await response.json();
+      console.log("Carrinho enviado:", resultado);
+    } catch (error) {
+      console.error("Erro ao enviar carrinho:", error);
+    }
+  };
+
   return (
     <div className="pagina">
-
-
-      {/* Navbar simplificada para o carrinho */}
       <nav className="navbar carrinho">
         <div className="container-fluid">
-          {/* Botão voltar */}
           <Link to="/" className="navbar-brand">
             <span className="voltar">&lt;&lt;</span>
           </Link>
-
           <h2>Seu Carrinho</h2>
-
-          {/* Ícone de pagamento */}
           <Link to="/pagamentos" className="navbar-brand" id="pagamentos">
             <img
               id="pagamento"
@@ -31,25 +42,37 @@ const Carrinho = () => {
         </div>
       </nav>
 
-      {/* Conteúdo principal */}
       <h1 style={{ textAlign: "center", marginTop: "20px" }}>Itens:</h1>
 
-      <div className="item-carrinho">
-        <img src="/Assets/Imagens/Pinguim.jpg" alt="Pinguim" />
-        <div className="descricao-carrinho">
-          <h3 style={{ fontSize: "20px" }}>Pinguim</h3>
-          <p>Preço: R$ 57,90</p>
-        </div>
-        <div className="adicionar-remover">
-          <button className="btn-adicionar" onClick={() => adicionarAoCarrinho(produto)}>
-            <img
-              src="/Assets/Imagens/soma.png"
-              alt="Adicionar produto"
-              className="soma-carrinho"
-            />
-          </button>
-        </div>
+      {cartItems.length === 0 ? (
+        <p style={{ textAlign: "center" }}>Seu carrinho está vazio.</p>
+      ) : (
+        cartItems.map((produto, index) => (
+          <div className="item-carrinho" key={index}>
+            <img src={`/Assets/${produto.img}`} alt={produto.nome} />
+            <div className="descricao-carrinho">
+              <h3 style={{ fontSize: "20px" }}>{produto.nome}</h3>
+              <p>Preço: R$ {produto.preco}</p>
+            </div>
+            <div className="adicionar-remover">
+              <button className="btn-danger" onClick={() => removerDoCarrinho(produto.nome)}>
+                Remover
+              </button>
+            </div>
+          </div>
+        ))
+      )}
 
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <button
+          className="btn-comprar-produto"
+          onClick={async () => {
+            await enviarCarrinho();
+            window.location.href = "/finalcompra";
+          }}
+        >
+          Finalizar Compra
+        </button>
       </div>
 
       <Footer />

@@ -15,8 +15,8 @@ const ItemResumo = ({ nome, preco }) => (
 
 const FinalizacaoCompra = () => {
   const itens = [
-    { nome: 'Pinguim', preco: 'R$ 89,90' },
-    { nome: 'Harry Potter', preco: 'R$ 249,90' },
+    { nome: 'Pinguim', preco: 'R$ 57,90' },
+    { nome: 'Harry Potter', preco: 'R$ 89,90' },
   ]
 
   const total = 'R$ 339,90'
@@ -28,7 +28,6 @@ const FinalizacaoCompra = () => {
 
   return (
     <div className="pagina">
-      <Navbar tipo="carrinho" />
 
       <nav className="navbar carrinho">
         <div className="container-fluid">
@@ -70,7 +69,7 @@ const FinalizacaoCompra = () => {
         style={{ display: 'block', margin: '0 auto', marginTop: '20px', marginBottom: '20px' }}
         onClick={finalizarCompra}
       >
-        Finalizar
+        Ir ao pagamento
       </button>
 
       <Footer />

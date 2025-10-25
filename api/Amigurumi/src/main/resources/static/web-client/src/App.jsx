@@ -8,7 +8,7 @@ import Faq from "./pages/Faq.jsx";
 import Esqueci from "./pages/Esqueci.jsx";
 import Login from "./pages/Login.jsx";
 import RedefinirSenha from "./pages/Redefinir-Senha.jsx";
-import ProdutoDetalhe from "./pages/ProdutoDetalhe.jsx";
+
 import PerfilCliente from "./pages/PerfilCliente";
 import PerfilUsuario from "./pages/PerfilUsuario";
 import React from "react";
@@ -20,12 +20,14 @@ import Pagamentos from "./pages/Pagamentos.jsx";
 import ExclusaoProdutos from "./pages/ExclusaoProdutos.jsx";
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
-
-
+import { CartProvider } from "./contexts/CartContext";
+import ProdutoPage from "./pages/ProdutoPage.jsx";
 
 export default function App() {
   return (
+
     <BrowserRouter>
+    <CartProvider> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/localizacao" element={<Localizacao />} />
@@ -36,7 +38,7 @@ export default function App() {
         <Route path="/esqueci" element={<Esqueci />} />
         <Route path="/login" element={<Login />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
-        <Route path="/produto/:produtoNome" element={<ProdutoDetalhe />} />
+        <Route path="/produto/:produtoNome" element={<ProdutoPage />} />
         <Route path="/perfil" element={<PerfilCliente />} />
         <Route path="/perfil_usuario" element={<PerfilUsuario />} />
         <Route path="/perfil_adm" element={<PerfilAdm />} />
@@ -48,6 +50,9 @@ export default function App() {
         <Route path="/finalcompra" element={<FinalCompra />} />
         <Route path="/statuspedido" element={<StatusPedido />} />
       </Routes>
+      </CartProvider>
     </BrowserRouter>
+  
+    
   );
 }

@@ -170,6 +170,21 @@ nav a {
   cursor: pointer;
 
 }
+.btn-remover {
+  margin-left : 30px;
+  display: flex;
+  justify-content: top;
+  background: red;
+  height: 40px;
+  width:80px;
+  padding: 0;
+  border:none;
+  cursor: pointer;
+  align-self: top;
+} 
+
+
+
 
 .soma-carrinho {
   width: 40px;
@@ -874,6 +889,8 @@ iframe {
 
 .item-carrinho {
   display: flex;
+  gap:30px;
+  align-items: center;
 }
 
 .item-carrinho img{
@@ -956,12 +973,14 @@ ul.metodos {
 .carrinhos li {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   align-items: center;           /* garante alinhamento vertical */
   padding: 6px 12px;
   background-color: rgba(200, 200, 200, 0.3);
   border-bottom: 1px solid black;
+  border-top: 1px solid black;
   font-size: 14px;
-  height: 50px;
+  height: 80px;
 }
 
 .carrinhos .produto {
