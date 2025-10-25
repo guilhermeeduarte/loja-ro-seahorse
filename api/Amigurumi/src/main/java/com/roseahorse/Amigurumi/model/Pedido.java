@@ -53,6 +53,10 @@ public class Pedido {
         return id;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     public List<ItemPedido> getItens() {
         return itens;
     }
@@ -89,6 +93,9 @@ public class Pedido {
         this.status = StatusPedido.PAGO;
     }
 
+    public void adicionarItem(ItemPedido itemPedido) {
+         = itemPedido;
+    }
 
     public void iniciarPreparo() {
         if (status != StatusPedido.PAGO) {
