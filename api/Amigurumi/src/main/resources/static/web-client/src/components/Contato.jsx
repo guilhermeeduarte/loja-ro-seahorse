@@ -9,7 +9,7 @@ const Contato = () => {
         rel="noopener noreferrer"
       >
         <img
-          src="Assets/Imagens/whatsapp.png"
+          src="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/whatsapp.png"
           alt="WhatsApp"
           className="contato-whatsapp"
         />

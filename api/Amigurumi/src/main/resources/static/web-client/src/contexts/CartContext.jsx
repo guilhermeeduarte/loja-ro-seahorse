@@ -7,6 +7,7 @@ export const CartProvider = ({ children }) => {
 
   const adicionarAoCarrinho = (produto) => {
     setCartItems((prev) => [...prev, produto]);
+    alert("Produto adicionado ao carrinho!");
   };
 
   const removerDoCarrinho = (nome) => {

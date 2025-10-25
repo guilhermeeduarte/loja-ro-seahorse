@@ -1,72 +1,75 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import '../styles.css'
+import React from "react";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { useCarrinho } from "../contexts/CartContext";
+import "../styles.css";
 
-// Componente para cada item do resumo
+// Componente para exibir cada item do resumo
 const ItemResumo = ({ nome, preco }) => (
-  <li>
-    <span className="produto" style={{ fontSize: '20px', marginTop: 0, marginLeft: '20px' }}>
+  <li className="item-resumo">
+    <span className="produto" style={{ fontSize: "20px", marginLeft: "20px" }}>
       {nome}
     </span>
     <span className="preco">{preco}</span>
   </li>
-)
+);
 
-const FinalizacaoCompra = () => {
-  const itens = [
-    { nome: 'Pinguim', preco: 'R$ 57,90' },
-    { nome: 'Harry Potter', preco: 'R$ 89,90' },
-  ]
+const FinalCompra = () => {
+  const { cartItems } = useCarrinho();
+  const taxaEntrega = 24.2;
 
-  const total = 'R$ 339,90'
+  const calcularTotal = () => {
+    const somaProdutos = cartItems.reduce((acc, item) => {
+      const precoNumerico = parseFloat(item.preco.replace(",", "."));
+      return acc + precoNumerico;
+    }, 0);
+    return (somaProdutos + taxaEntrega).toFixed(2).replace(".", ",");
+  };
 
-  const finalizarCompra = () => {
-    alert('Compra finalizada com sucesso!')
-    // Aqui você pode redirecionar ou enviar os dados para o backend
-  }
+  const finalizarCompra = async () => {
+    try {
+      const response = await fetch("https://loja-ro-seahorse.onrender.com/api/compra/finalizar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itens: cartItems,
+          taxaEntrega,
+          total: calcularTotal(),
+        }),
+      });
+
+      const resultado = await response.json();
+      alert("Compra finalizada com sucesso!");
+      console.log("Resposta do servidor:", resultado);
+    } catch (error) {
+      console.error("Erro ao finalizar compra:", error);
+      alert("Ocorreu um erro ao finalizar a compra.");
+    }
+  };
 
   return (
     <div className="pagina">
-
-      <nav className="navbar carrinho">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/carrinho">
-            <span className="voltar">&lt;&lt;</span>
-          </a>
-
-          <h2>Seu Carrinho</h2>
-
-          <a className="navbar-brand" href="/pagamentos" id="pagamentos">
-            <img
-              id="carrinho"
-              src="../assets/Imagens/Vector.svg"
-              width="50px"
-              height="60px"
-              alt="carrinho"
-            />
-          </a>
-        </div>
-      </nav>
+      <Navbar />
 
       <section id="titulo-cadastro" className="titulo-cadastro">
         <h1>Resumo da Compra</h1>
       </section>
 
       <ul className="carrinhos">
-        {itens.map((item, index) => (
-          <ItemResumo key={index} nome={item.nome} preco={item.preco} />
+        {cartItems.map((item, index) => (
+          <ItemResumo key={index} nome={item.nome} preco={`R$ ${item.preco}`} />
         ))}
+        <ItemResumo nome="Taxa de Entrega" preco={`R$ ${taxaEntrega.toFixed(2).replace(".", ",")}`} />
       </ul>
 
       <div className="total">
-        <span style={{ marginLeft: '20px', fontSize: '20px' }}>Total:</span>
-        <span className="valor-total">{total}</span>
+        <span style={{ marginLeft: "20px", fontSize: "20px" }}>Total:</span>
+        <span className="valor-total">R$ {calcularTotal()}</span>
       </div>
 
       <button
         className="botao"
-        style={{ display: 'block', margin: '0 auto', marginTop: '20px', marginBottom: '20px' }}
+        style={{ display: "block", margin: "0 auto", marginTop: "20px", marginBottom: "20px" }}
         onClick={finalizarCompra}
       >
         Ir ao pagamento
@@ -74,7 +77,7 @@ const FinalizacaoCompra = () => {
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default FinalizacaoCompra
+export default FinalCompra;

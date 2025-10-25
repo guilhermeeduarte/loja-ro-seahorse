@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
 
 const Carrinho = () => {
   const { cartItems, removerDoCarrinho } = useCarrinho();
+  const navigate = useNavigate(); // ✅ Hook do React Router
 
   const enviarCarrinho = async () => {
     try {
@@ -20,6 +21,11 @@ const Carrinho = () => {
     } catch (error) {
       console.error("Erro ao enviar carrinho:", error);
     }
+  };
+
+  const finalizarCompra = async () => {
+    await enviarCarrinho();
+    navigate("/finalcompra"); // ✅ Navegação sem recarregar a página
   };
 
   return (
@@ -55,7 +61,11 @@ const Carrinho = () => {
               <p>Preço: R$ {produto.preco}</p>
             </div>
             <div className="adicionar-remover">
-              <button className="btn-danger" onClick={() => removerDoCarrinho(produto.nome)}>
+              <button
+                className="btn-danger"
+                style={{ marginLeft: "12px", marginTop: "8px" }}
+                onClick={() => removerDoCarrinho(produto.nome)}
+              >
                 Remover
               </button>
             </div>
@@ -64,13 +74,7 @@ const Carrinho = () => {
       )}
 
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <button
-          className="btn-comprar-produto"
-          onClick={async () => {
-            await enviarCarrinho();
-            window.location.href = "/finalcompra";
-          }}
-        >
+        <button className="btn-comprar-produto" onClick={finalizarCompra}>
           Finalizar Compra
         </button>
       </div>

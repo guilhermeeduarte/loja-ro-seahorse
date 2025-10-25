@@ -28,8 +28,8 @@ const ExclusaoProdutos = () => {
       <section className="secao-conteudo ocultavel">
         <h3 className="section-title">Mais vendidos!</h3>
         <div className="grid">
-          <ProdutoItem nome="Harry Potter" imagem="Harry_Potter.jpg" />
-          <ProdutoItem nome="Pinguim" imagem="Pinguim.jpg" />
+          <ProdutoItem nome="Harry Potter" imagem="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Harry_Potter.jpg" />
+          <ProdutoItem nome="Pinguim" imagem="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Pinguim.jpg" />
           <ProdutoItem nome="Capuccino" imagem="Capuccino.jpg" />
           <ProdutoItem nome="Abacate" imagem="Abacate.jpg" />
         </div>
@@ -40,7 +40,7 @@ const ExclusaoProdutos = () => {
         <h3 className="section-title">Animais! 🐾</h3>
         <div className="grid">
           <ProdutoItem nome="Raposa" imagem="Raposa.jpg" />
-          <ProdutoItem nome="Pinguim" imagem="Pinguim.jpg" />
+          <ProdutoItem nome="Pinguim" imagem="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Pinguim.jpg" />
           <ProdutoItem nome="Elefante" imagem="Elefante.jpg" />
           <ProdutoItem nome="Coelho" imagem="Coelho.jpeg" />
         </div>
@@ -69,7 +69,7 @@ const ExclusaoProdutos = () => {
         <h3 className="section-title">Personagens</h3>
         <div className="grid">
           <ProdutoItem nome="Hermione Granger" imagem="Hermione.jpg" />
-          <ProdutoItem nome="Harry Potter" imagem="Harry_Potter.jpg" />
+          <ProdutoItem nome="Harry Potter" imagem="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Harry_Potter.jpg" />
         </div>
       </section>
 

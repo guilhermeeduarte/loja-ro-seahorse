@@ -19,33 +19,31 @@ const Banner = () => {
   return (
     <section className="banner">
       <div className={`banner-img ${activeIndex === 0 ? 'fade-in' : 'fade-out'}`}>
-        <img className="entrega-img" src="/assets/Imagens/Entrega.png.png" alt="Entrega" />
+        <img className="entrega-img" src="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Entrega.png.png" alt="Entrega" />
       </div>
-      <div className={`banner-img ${activeIndex === 1 ? 'fade-in' : 'fade-out'}`}>
-        <img className="personalizado-img" src="/Assets/Imagens/banner2.png" alt="Personalizados" />
-      </div>
+
     </section>
   )
 }
 
 // Lista de produtos
 export const produtos = [
-  { categoria: "Mais vendidos", nome: "Harry Potter", img: "Imagens/Harry_Potter.jpg" },
-  { categoria: "Mais vendidos", nome: "Pinguim", img: "Imagens/Pinguim.jpg" },
-  { categoria: "Mais vendidos", nome: "Capuccino", img: "Imagens/Capuccino.jpg" },
-  { categoria: "Mais vendidos", nome: "Abacate", img: "Imagens/Abacate.jpg" },
+  { categoria: "Mais vendidos", nome: "Harry Potter", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Harry_Potter.jpg" },
+  { categoria: "Mais vendidos", nome: "Pinguim", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Pinguim.jpeg" },
+  { categoria: "Mais vendidos", nome: "Capuccino", img: "https://github.com/guilhermeeduarte/loja-ro-seahorse/blob/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Capuccino.jpg?raw=true" },
+  { categoria: "Mais vendidos", nome: "Abacate", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Abacate.jpg "},
 
-  { categoria: "Animais", nome: "Raposa", img: "Imagens/Raposa.jpg" },
-  { categoria: "Animais", nome: "Elefante", img: "Imagens/Elefante.jpg" },
-  { categoria: "Animais", nome: "Coelho", img: "Imagens/Coelho.jpeg" },
+  { categoria: "Animais", nome: "Raposa", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Raposa.jpg" },
+  { categoria: "Animais", nome: "Elefante", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Elefante.jpg" },
+  { categoria: "Animais", nome: "Coelho", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Coelho.jpeg" },
 
-  { categoria: "Destaque", nome: "Hermione Granger", img: "Imagens/Hermione.jpg" },
+  { categoria: "Destaque", nome: "Hermione Granger", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Hermione.jpg" },
 
-  { categoria: "Comidas", nome: "Abacaxi", img: "Imagens/Abacaxi.jpg" },
-  { categoria: "Comidas", nome: "Laranja", img: "Imagens/Laranja.jpg" },
+  { categoria: "Comidas", nome: "Abacaxi", img: "https://github.com/guilhermeeduarte/loja-ro-seahorse/blob/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Abacaxi.jpg?raw=true" },
+  { categoria: "Comidas", nome: "Laranja", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Laranja.jpg" },
 
-  { categoria: "Personagens", nome: "Hermione Granger", img: "Imagens/Hermione.jpg" },
-  { categoria: "Personagens", nome: "Harry Potter", img: "Imagens/Harry_Potter.jpg" },
+  { categoria: "Personagens", nome: "Hermione Granger", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Hermione.jpg" },
+  { categoria: "Personagens", nome: "Harry Potter", img: "https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/Harry_Potter.jpg" },
 ]; 
 
 const handlePesquisa = (e) => {
@@ -124,7 +122,7 @@ export default function Home() {
       <form className="barra-pesquisa" onSubmit={handlePesquisa}>
         <input type="search" placeholder="Digite aqui" className="barra-digitar" value={termo} onChange={(e) => setTermo(e.target.value)} />
         <button className="botao-pesquisa" type="submit">
-          <img className="lupa" src="/Assets/Imagens/lupa.png" alt="Lupa" width="20" height="20" />
+          <img className="lupa" src="https://raw.githubusercontent.com/guilhermeeduarte/loja-ro-seahorse/refs/heads/main/api/Amigurumi/src/main/resources/static/web-client/Assets/Imagens/lupa.png" alt="Lupa" width="20" height="20" />
         </button>
       </form>
 
