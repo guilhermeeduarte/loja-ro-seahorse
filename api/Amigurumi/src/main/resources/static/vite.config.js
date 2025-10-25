@@ -17,7 +17,7 @@ export default defineConfig({
         hot: true,
         proxy: {
           '/api': {
-            target: `https://loja-ro-seahorse.onrender.com/`,
+            target: 'https://loja-ro-seahorse.onrender.com/',
             changeOrigin: true,
             }
          }

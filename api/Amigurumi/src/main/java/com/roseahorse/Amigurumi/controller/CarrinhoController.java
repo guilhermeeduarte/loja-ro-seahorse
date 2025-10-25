@@ -56,7 +56,7 @@ public class CarrinhoController {
 
         Long produtoId = Long.valueOf(request.get("produtoId").toString());
         Integer quantidade = Integer.valueOf(request.get("quantidade").toString());
-        Double precoUnitario = Double.valueOf(request.get("precoUnitario").toString());
+
         if (quantidade <= 0) {
             return ResponseEntity.status(400).body("Quantidade deve ser maior que zero");
         }
@@ -84,7 +84,7 @@ public class CarrinhoController {
             itemExistente.setQuantidade(novaQuantidade);
             itemCarrinhoRepository.save(itemExistente);
         } else {
-            ItemCarrinho novoItem = new ItemCarrinho(usuario, produto, quantidade, precoUnitario);
+            ItemCarrinho novoItem = new ItemCarrinho(usuario, produto, quantidade, produto.getValor());
             itemCarrinhoRepository.save(novoItem);
         }
 
