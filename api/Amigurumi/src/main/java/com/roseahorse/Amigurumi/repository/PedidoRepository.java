@@ -8,15 +8,11 @@ import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-    // Buscar pedidos de um usuário ordenados por data (mais recente primeiro)
-    List<Pedido> buscarUsuarioDataPedido(Long usuarioId);
+    List<Pedido> findByUsuarioIdOrderByDataPedidoDesc(Long usuarioId);
 
-    // Buscar pedidos por status
-    List<Pedido> buscarPorStatus(StatusPedido status);
+    List<Pedido> findByStatus(StatusPedido status);
 
-    // Buscar pedidos de um usuário por status
-    List<Pedido> buscarUsuarioIdiStatus(Long usuarioId, StatusPedido status);
+    List<Pedido> findByUsuarioIdAndStatus(Long usuarioId, StatusPedido status);
 
-    // Buscar todos pedidos ordenados por data
-    List<Pedido> buscarDataPedidoDesc();
+    List<Pedido> findAllByOrderByDataPedidoDesc();
 }

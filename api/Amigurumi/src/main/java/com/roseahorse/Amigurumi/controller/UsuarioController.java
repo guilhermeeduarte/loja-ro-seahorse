@@ -33,7 +33,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuario) {
-        if (usuarioRepository.buscarEmail(usuario.getEmail()) != null) {
+        if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
             return ResponseEntity.status(400).body("Email já cadastrado");
         }
 
@@ -47,7 +47,7 @@ public class UsuarioController {
         String email = loginData.get("email");
         String senha = loginData.get("senha");
 
-        Usuario usuario = usuarioRepository.buscarEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -85,7 +85,7 @@ public class UsuarioController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.buscarEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -109,7 +109,7 @@ public class UsuarioController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.buscarEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -141,7 +141,7 @@ public class UsuarioController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.buscarEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }

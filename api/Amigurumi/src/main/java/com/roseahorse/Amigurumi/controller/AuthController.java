@@ -57,7 +57,7 @@ public class AuthController {
             return ResponseEntity.status(400).body("Email é obrigatório");
         }
 
-        Usuario usuario = usuarioRepository.buscarEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
 
             return ResponseEntity.ok("Se o email existir, você receberá um link de redefinição");
@@ -125,7 +125,7 @@ public class AuthController {
         }
 
 
-        Usuario usuario = usuarioRepository.buscarEmail(tokenData.email);
+        Usuario usuario = usuarioRepository.findByEmail(tokenData.email);
         if (usuario == null) {
             resetTokens.remove(token);
             return ResponseEntity.status(404).body("Usuário não encontrado");
