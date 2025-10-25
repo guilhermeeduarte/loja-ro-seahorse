@@ -18,7 +18,6 @@ public class Usuario {
     private String cpf;
     private String endereco;
     private LocalDate dataNascimento;
-
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario = TipoUsuario.CLIENTE;
 
