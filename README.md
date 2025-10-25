@@ -6,7 +6,8 @@
 ## Tecnologias:
 
 <div>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="64"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="64"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="64"/> <img src="https://devicon-website.vercel.app/api/figma/original.svg" width="64"/><br><br><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="64"/> <img src="https://devicon-website.vercel.app/api/spring/original.svg" width="64"/>  <img src="https://devicon-website.vercel.app/api/postgresql/original.svg" width="64"/> <img src="https://devicon-website.vercel.app/api/bootstrap/original.svg" width="64"/><br>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="64"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="64"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="64"/> <img width="64" src="https://devicon-website.vercel.app/api/react/original-wordmark.svg">  <br><br><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="64"/> <img src="https://devicon-website.vercel.app/api/spring/original.svg" width="64"/>  <img src="https://devicon-website.vercel.app/api/postgresql/original.svg" width="64"/> <img width="64" src="https://devicon-website.vercel.app/api/docker/plain-wordmark.svg"> <br> <br>
+    <img src="https://devicon-website.vercel.app/api/bootstrap/original.svg" width="64"/> </img> <img src="https://devicon-website.vercel.app/api/figma/original.svg" width="64"/> <img width="64" src="https://devicon-website.vercel.app/api/nodejs/original.svg"></img></img>
   </div>
 
 </div>
