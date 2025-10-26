@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useCarrinho } from "../contexts/CartContext";
+import SmartImage from "../components/SmartImage";
 import "../styles.css";
 
 const Carrinho = () => {
@@ -55,7 +56,7 @@ const Carrinho = () => {
       ) : (
         cartItems.map((produto, index) => (
           <div className="item-carrinho" key={index}>
-            <img src={`/Assets/${produto.img}`} alt={produto.nome} />
+            <SmartImage src={produto.img} alt={produto.nome} />
             <div className="descricao-carrinho">
               <h3 style={{ fontSize: "20px" }}>{produto.nome}</h3>
               <p>Preço: R$ {produto.preco}</p>

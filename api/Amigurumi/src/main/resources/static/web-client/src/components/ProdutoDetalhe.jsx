@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useCarrinho } from "../contexts/CartContext";
+import SmartImage from "./SmartImage";
 import "../styles.css";
 
 export default function ProdutoDetalhe({ produto }) {
@@ -14,15 +15,10 @@ export default function ProdutoDetalhe({ produto }) {
       <Navbar />
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
-        <img
-          src={`${produto.img}`}
+        <SmartImage
+          src={produto.img}
           alt={produto.nome}
-          style={{
-            width: "350px",
-            height: "350px",
-            borderRadius: "16px",
-            objectFit: "cover",
-          }}
+          style={{ width: "350px", height: "350px", borderRadius: "16px", objectFit: "cover" }}
         />
         <h2>{produto.nome}</h2>
         <h3>R$ {produto.preco ?? "0,00"}</h3>
