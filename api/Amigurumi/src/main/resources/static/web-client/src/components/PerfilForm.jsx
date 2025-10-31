@@ -13,10 +13,16 @@ const PerfilForm = ({ perfilId }) => {
 
   // Carrega perfil ao montar o componente
   useEffect(() => {
-    fetch(`http://localhost:5000/perfil/${perfilId}`)
+    // Add a loading state
+    setPerfil(prev => ({ ...prev, isLoading: true }));
+    
+    fetch(`/api/perfil/${perfilId}`)
       .then((res) => res.json())
-      .then((data) => setPerfil(data))
-      .catch((err) => console.error(err));
+      .then((data) => setPerfil({ ...data, isLoading: false }))
+      .catch((err) => {
+        console.error(err);
+        setPerfil(prev => ({ ...prev, isLoading: false }));
+      });
   }, [perfilId]);
 
   const handleChange = (e) => {
@@ -25,7 +31,7 @@ const PerfilForm = ({ perfilId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/perfil/${perfilId}`, {
+    fetch(`/api/perfil/${perfilId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(perfil),
@@ -40,76 +46,83 @@ const PerfilForm = ({ perfilId }) => {
       <div className="nome-cadastro">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="nome"
-          value={perfil.nome}
+          value={perfil.nome || ''}
           onChange={handleChange}
-          placeholder="Nome completo"
+          placeholder={perfil.isLoading ? 'Carregando...' : 'Nome completo'}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="CPF-cadastro">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="cpf"
-          value={perfil.cpf}
+          value={perfil.cpf || ''}
           onChange={handleChange}
-          placeholder="000.000.000-00"
+          placeholder={perfil.isLoading ? 'Carregando...' : '000.000.000-00'}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="nascimento-cadastro">
         <input
           type="date"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="nascimento"
-          value={perfil.nascimento}
+          value={perfil.nascimento || ''}
           onChange={handleChange}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="telefone-cadastro">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="telefone"
-          value={perfil.telefone}
+          value={perfil.telefone || ''}
           onChange={handleChange}
-          placeholder="+55 11 99999-9999"
+          placeholder={perfil.isLoading ? 'Carregando...' : '+55 11 99999-9999'}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="endereco-cadastro">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="endereco"
-          value={perfil.endereco}
+          value={perfil.endereco || ''}
           onChange={handleChange}
-          placeholder="Rua, número - Bairro"
+          placeholder={perfil.isLoading ? 'Carregando...' : 'Rua, número - Bairro'}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="email-cadastro">
         <input
           type="email"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="email"
-          value={perfil.email}
+          value={perfil.email || ''}
           onChange={handleChange}
-          placeholder="Endereço de Email"
+          placeholder={perfil.isLoading ? 'Carregando...' : 'Endereço de Email'}
+          disabled={perfil.isLoading}
         />
       </div>
 
       <div className="senha-cadastro">
         <input
           type="password"
-          className="form-control"
+          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
           name="senha"
-          value={perfil.senha}
+          value={perfil.senha || ''}
           onChange={handleChange}
           placeholder="********"
+          disabled={perfil.isLoading}
         />
       </div>
 

@@ -1204,3 +1204,24 @@ span.material-icons {
   }
 }
 
+/* Estilos para campos em carregamento */
+.form-control.loading {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+.form-control.loading::placeholder {
+    color: #6c757d;
+}
+
+/* Efeito de pulsação durante o carregamento */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.form-control.loading {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
