@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // Componente para exibir cada item do resumo
 const ItemResumo = ({ nome, preco }) => (

@@ -4,6 +4,9 @@ import Footer from "../components/Footer";
 import { useCarrinho } from "../contexts/CartContext";
 import SmartImage from "../components/SmartImage";
 import "../styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 const Carrinho = () => {
   const { cartItems, removerDoCarrinho } = useCarrinho();

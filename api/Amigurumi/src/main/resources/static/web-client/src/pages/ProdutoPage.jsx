@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProdutoDetalhe from "../components/ProdutoDetalhe";
 import { produtos as produtosLocal } from "../data/produtos";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const ProdutoPage = () => {
   const { produtoNome } = useParams();
@@ -52,7 +54,7 @@ const ProdutoPage = () => {
             descricao: found.descricao,
             preco: found.valor,
             categoria: found.categoria,
-            img: found.img || (found.nome && `Imagens/${found.nome.replace(/\s+/g, '_')}.jpg`),
+            img: found.img || (found.nome && `/assets/imagens/${found.nome.replace(/\s+/g, '_')}.jpg`),
             detalhes: found.detalhes,
           })
           return true

@@ -4,6 +4,8 @@ import Footer from "../components/Footer";
 import Contato from "../components/Contato";
 import RedefinirSenhaForm from "../components/RedefinirSenhaForm";
 import "../styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const RedefinirSenha = () => {
   return (

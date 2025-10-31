@@ -6,6 +6,8 @@ import Contato from "../components/Contato";
 import Mapa from "../components/Mapa";
 import EsqueciForm from "../components/EsqueciForm"; // ✅ import do componente separado
 import "../styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Esqueci = () => {
   return (

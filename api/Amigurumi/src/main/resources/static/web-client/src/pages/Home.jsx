@@ -4,7 +4,10 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Whatsapp from '../components/Whatsapp'
 import SmartImage from '../components/SmartImage'
+import { produtos as produtosLocal } from '../data/produtos'
 import '../styles.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // Banner fora do componente Home
 const Banner = () => {
@@ -27,68 +30,74 @@ const Banner = () => {
   )
 }
 
-// Lista de produtos
-export const produtos = [
-  { categoria: "Mais vendidos", nome: "Harry Potter", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799375897559171/Harry_Potter.jpg?ex=68feba94&is=68fd6914&hm=65c43c90b7ff02d7c28d20ab4133502381b160ad6c9839b89743df76b64a978d&" },
-  { categoria: "Mais vendidos", nome: "Pinguim", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799426497777675/Pinguim.jpg?ex=68febaa0&is=68fd6920&hm=0fcbf04efd9dc671c2467f4871957ed16aae0d234e316743c1277afb789768d6&" },
-  { categoria: "Mais vendidos", nome: "Capuccino", img: "https://media.discordapp.net/attachments/1431799178337583195/1431799331031089203/Capuccino.jpg?ex=68feba8a&is=68fd690a&hm=5549f96bff5c0e22d0ed3864e6faf3fbf0b9e3c555d28fad677bc5ed9ce7e46e&=&format=webp" },
-  { categoria: "Mais vendidos", nome: "Abacate", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799332683645038/Abacate.jpg?ex=68feba8a&is=68fd690a&hm=760933653a58503c7395c586011275e6e5fdd30f717d5e368d900fee1fcd8e32&"},
-
-  { categoria: "Animais", nome: "Raposa", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799467991896276/Raposa.jpg?ex=68febaaa&is=68fd692a&hm=08054db5953e734a372c8c86236f269c500dcdd2d3e114fe0fd036da779dc606&" },
-  { categoria: "Animais", nome: "Elefante", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799373192368351/Elefante.jpg?ex=68feba94&is=68fd6914&hm=110409383ab106c1ddedeb3bf09908c5921e46b226ff1b3078c529d43093fa82&" },
-  { categoria: "Animais", nome: "Coelho", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799332306423859/Coelho.jpeg?ex=68feba8a&is=68fd690a&hm=dfdc355d8ff647525293c323e1b72e3979e58d9becb1b6546af6253d8c27793d&" },
-
-  { categoria: "Destaque", nome: "Hermione Granger", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799423905697933/Hermione.jpg?ex=68febaa0&is=68fd6920&hm=f342d0ea45cda9372b40388a0028c93c1741f9d2dd2244b704d9764f06ae2d72&" },
-
-  { categoria: "Comidas", nome: "Abacaxi", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799333128245308/Abacaxi.jpg?ex=68feba8a&is=68fd690a&hm=cd9d824d2f673ef0d919246770e9f04f51e3f842794ddef65ca93402a09c909c&" },
-  { categoria: "Comidas", nome: "Laranja", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799424526581872/Laranja.jpg?ex=68febaa0&is=68fd6920&hm=06aa8f706ad1152d5982257ecb21b6a81acc0d9855347c61940cb931ca0dff4a&" },
-
-  { categoria: "Personagens", nome: "Hermione Granger", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799423905697933/Hermione.jpg?ex=68febaa0&is=68fd6920&hm=f342d0ea45cda9372b40388a0028c93c1741f9d2dd2244b704d9764f06ae2d72&" },
-  { categoria: "Personagens", nome: "Harry Potter", img: "https://cdn.discordapp.com/attachments/1431799178337583195/1431799375897559171/Harry_Potter.jpg?ex=68feba94&is=68fd6914&hm=65c43c90b7ff02d7c28d20ab4133502381b160ad6c9839b89743df76b64a978d&" },
-]; 
-
-const handlePesquisa = (e) => {
-  e.preventDefault()
-  const termoLower = termo.trim().toLowerCase()
-  setPesquisando(true)
-
-  if (!termoLower) {
-    setResultados([])
-    return
-  }
-
-  const encontrados = produtos.filter(
-    (p) =>
-      p.nome.toLowerCase().includes(termoLower) ||
-      p.categoria.toLowerCase().includes(termoLower)
-  )
-
-  setResultados(encontrados)
-}
+// Lista de produtos local (fallback) é importada de src/data/produtos.js
 
 export default function Home() {
   const [termo, setTermo] = useState("")
   const [resultados, setResultados] = useState([])
   const [pesquisando, setPesquisando] = useState(false)
+  const [produtos, setProdutos] = useState([])
+  // se por algum motivo `produtos` estiver vazio, usar fallback local para renderização
+  const displayProdutos = (produtos && produtos.length > 0) ? produtos : produtosLocal
 
   const handlePesquisa = (e) => {
-  e.preventDefault()
-  const termoLower = termo.trim().toLowerCase()
-  setPesquisando(true)
+    e.preventDefault()
+    const termoLower = termo.trim().toLowerCase()
+    setPesquisando(true)
 
-  if (!termoLower) {
-    setResultados([])
-    return
+    if (!termoLower) {
+      setResultados([])
+      return
+    }
+
+    const encontrados = displayProdutos.filter(
+      (p) =>
+        (p.nome || '').toLowerCase().includes(termoLower) ||
+        (p.categoria || '').toLowerCase().includes(termoLower)
+    )
+
+    setResultados(encontrados)
   }
 
-  const encontrados = produtos.filter(
-    (p) =>
-      p.nome.toLowerCase().includes(termoLower) ||
-      p.categoria.toLowerCase().includes(termoLower)
-  )
+  useEffect(() => {
+    let mounted = true
+    // Tenta carregar do backend; se falhar, usa fallback local
+    fetch('/api/produto')
+      .then((res) => {
+        if (!res.ok) throw new Error(`Erro ao buscar produtos: ${res.status}`)
+        return res.json()
+      })
+        .then((data) => {
+          if (!mounted) return
+          // Mapear campos do backend para o formato esperado pelo front
+          const mapped = (data || []).map((p) => ({
+            id: p.id,
+            nome: p.nome,
+            descricao: p.descricao,
+            preco: p.valor != null ? p.valor.toFixed(2).replace('.', ',') : undefined,
+            categoria: p.categoria,
+            // manter qualquer img vindo do backend ou montar um path padrão a partir do nome
+            img: p.img || `/assets/imagens/${(p.nome || '').replace(/\s+/g, '_')}.jpg`,
+            detalhes: p.detalhes,
+          }))
+          if (!mapped || mapped.length === 0) {
+            console.warn('Backend retornou 0 produtos — usando fallback local')
+            setProdutos(produtosLocal)
+            console.debug('Home: produtos set to fallback, length=', produtosLocal.length)
+          } else {
+            setProdutos(mapped)
+            console.debug('Home: produtos carregados do backend, length=', mapped.length)
+          }
+        })
+      .catch((err) => {
+        console.warn('Não foi possível carregar produtos do backend, usando fallback local:', err)
+        // usar fallback local pré-definido
+        setProdutos(produtosLocal)
+        console.debug('Home: produtos set to fallback in catch, length=', produtosLocal.length)
+      })
 
-  setResultados(encontrados)
-}
+    return () => { mounted = false }
+  }, [])
 
   const handleVoltar = () => {
   setPesquisando(false)
@@ -100,7 +109,7 @@ export default function Home() {
     <div className="grid">
       {items.map((item, index) => (
         <div key={index} className="item">
-          <Link to={`/produto/${encodeURIComponent(item.nome)}`}>
+          <Link to={`/produto/${(item.nome || '').toLowerCase().replace(/\s+/g, '-')}`}>
             <SmartImage src={item.img} alt={item.nome} />
             <p>{item.nome}</p>
           </Link>
@@ -145,27 +154,27 @@ export default function Home() {
               {/* Seções de produtos */}
               <section className="secao-conteudo" id="MaisVendidos">
                 <h3 className="section-title">Mais vendidos! ⭐</h3>
-                {renderGrid(produtos.filter((p) => p.categoria === "Mais vendidos"))}
+                {renderGrid(displayProdutos.filter((p) => p.categoria === "Mais vendidos"))}
               </section>
 
               <section className="secao-conteudo" id="Animais">
                 <h3 className="section-title">Animais! 🐾</h3>
-                {renderGrid(produtos.filter((p) => p.categoria === "Animais"))}
+                {renderGrid(displayProdutos.filter((p) => p.categoria === "Animais"))}
               </section>
 
               <section className="secao-conteudo" id="Destaque">
                 <h3 className="section-title">Destaque! 🥇</h3>
-                {renderGrid(produtos.filter((p) => p.categoria === "Destaque"))}
+                {renderGrid(displayProdutos.filter((p) => p.categoria === "Destaque"))}
               </section>
 
               <section className="secao-conteudo" id="Comidas">
                 <h3 className="section-title">Comidas! 🍔</h3>
-                {renderGrid(produtos.filter((p) => p.categoria === "Comidas"))}
+                {renderGrid(displayProdutos.filter((p) => p.categoria === "Comidas"))}
               </section>
 
               <section className="secao-conteudo" id="Personagens">
                 <h3 className="section-title">Personagens! 🧙‍♂️</h3>
-                {renderGrid(produtos.filter((p) => p.categoria === "Personagens"))}
+                {renderGrid(displayProdutos.filter((p) => p.categoria === "Personagens"))}
               </section>
 
               <Whatsapp />

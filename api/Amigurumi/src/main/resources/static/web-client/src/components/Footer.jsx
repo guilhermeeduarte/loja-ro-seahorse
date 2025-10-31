@@ -14,7 +14,7 @@ const Footer = () => {
         <ul className="logo-footer">
           <li>
             <Link to="/">
-              <img src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799425142882384/logo_minimalista.png?ex=68febaa0&is=68fd6920&hm=638eeee0ebd793f40cfff57ffba149e5ec5df33776214dd0dff306478fde6bf9&" alt="Logo" />
+              <img src="/assets/imagens/logo-azul.png" alt="Logo" />
             </Link>
           </li>
         </ul>

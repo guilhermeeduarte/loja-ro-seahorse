@@ -9,9 +9,10 @@ const Navbar = () => {
         <Link to="/" className="navbar-brand" id="logo-minimalista">
           <img
             id="logo-minimalista"
-            src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799425142882384/logo_minimalista.png?ex=68febaa0&is=68fd6920&hm=638eeee0ebd793f40cfff57ffba149e5ec5df33776214dd0dff306478fde6bf9&"
+            src="/assets/imagens/logo_minimalista.png"
             width="101"
             height="101"
+            border-radius= "80px"
             alt="logo-minimalista"
           />
         </Link>
@@ -20,7 +21,7 @@ const Navbar = () => {
         <Link to="/login" className="navbar-brand" id="perfil">
           <img
             id="perfil"
-            src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799425847525501/perfil.png?ex=68febaa0&is=68fd6920&hm=fae9357778726e1288481b1a41bcd4f803910ab53ec4605a4d15a7765ff45c5b&"
+            src="/assets/imagens/perfil.png"
             width="60"
             height="60"
             alt="perfil"
@@ -31,7 +32,7 @@ const Navbar = () => {
         <Link to="/carrinho" className="navbar-brand" id="carrinho">
           <img
             id="carrinho"
-            src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799331500982404/carrinho.png?ex=68feba8a&is=68fd690a&hm=d838e8caed684904fdaa908fb00705df6bf1b6c1b42ad666f798ba98a04c475e&"
+            src="/assets/imagens/carrinho.png"
             width="50"
             height="60"
             alt="carrinho"

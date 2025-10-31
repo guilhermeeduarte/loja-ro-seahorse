@@ -4,6 +4,9 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import "../styles.css";
 // import "../js/main.js"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 export default function Cadastro() {
 const API_URL = `${CORS_ORIGINS}`;

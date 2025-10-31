@@ -6,6 +6,8 @@ import Mapa from "../components/Mapa";
 import Contato from "../components/Contato";
 import LoginForm from "../components/LoginForm";
 import "../styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Login = () => {
   return (
