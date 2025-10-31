@@ -23,7 +23,10 @@ const FinalCompra = () => {
 
   const calcularTotal = () => {
     const somaProdutos = cartItems.reduce((acc, item) => {
-      const precoNumerico = parseFloat(item.preco.replace(",", "."));
+      // Handle both string and number price formats
+      const precoNumerico = typeof item.preco === 'string' 
+        ? parseFloat(item.preco.replace(",", "."))
+        : parseFloat(item.preco);
       return acc + precoNumerico;
     }, 0);
     return (somaProdutos + taxaEntrega).toFixed(2).replace(".", ",");
@@ -33,7 +36,7 @@ const FinalCompra = () => {
 
   const finalizarCompra = async () => {
     try {
-      const response = await fetch("https://localhost:5173/api/compra/finalizar", {
+      const response = await fetch("/api/compra/finalizar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
