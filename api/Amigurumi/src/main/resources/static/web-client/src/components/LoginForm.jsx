@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (email.trim() === "" || senha.trim() === "") {
@@ -14,12 +15,36 @@ const LoginForm = () => {
       return;
     }
 
-    // Aqui entraria a lógica real de login (API, autenticação etc.)
-    if (email === "teste@teste.com" && senha === "123456") {
-      setMensagem("Login realizado com sucesso!");
-      alert("Bem-vindo!");
-    } else {
-      setMensagem("E-mail ou senha incorretos.");
+    try {
+      const response = await fetch("/api/usuario/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMensagem(data || "Erro ao fazer login");
+        return;
+      }
+
+      // Redireciona com base no tipo de usuário
+      switch (data.tipoUsuario) {
+        case "ADMIN":
+          navigate("/perfil-adm");
+          break;
+        case "CLIENTE":
+          navigate("/perfil-cliente");
+          break;
+        default:
+          navigate("/perfil-usuario");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setMensagem("Erro ao conectar com o servidor");
     }
   };
 

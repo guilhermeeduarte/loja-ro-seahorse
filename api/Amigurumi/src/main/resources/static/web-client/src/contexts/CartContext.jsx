@@ -11,7 +11,15 @@ export const CartProvider = ({ children }) => {
   };
 
   const removerDoCarrinho = (nome) => {
-    setCartItems((prev) => prev.filter((item) => item.nome !== nome));
+    setCartItems((prev) => {
+      const index = prev.findIndex(item => item.nome === nome);
+      if (index === -1) return prev;
+      
+      return [
+        ...prev.slice(0, index),
+        ...prev.slice(index + 1)
+      ];
+    });
   };
 
   return (
