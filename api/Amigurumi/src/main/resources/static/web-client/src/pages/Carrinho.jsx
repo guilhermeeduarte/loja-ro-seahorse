@@ -11,7 +11,7 @@ const Carrinho = () => {
 
   const enviarCarrinho = async () => {
     try {
-      const response = await fetch("https://loja-ro-seahorse.onrender.com/api/carrinho/adicionar", {
+      const response = await fetch("https://localhost:5173/api/carrinho/adicionar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ itens: cartItems }),

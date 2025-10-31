@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
+import { useNavigate } from "react-router-dom";
 
 // Componente para exibir cada item do resumo
 const ItemResumo = ({ nome, preco }) => (
@@ -26,9 +27,11 @@ const FinalCompra = () => {
     return (somaProdutos + taxaEntrega).toFixed(2).replace(".", ",");
   };
 
+  const navigate = useNavigate();
+
   const finalizarCompra = async () => {
     try {
-      const response = await fetch("https://loja-ro-seahorse.onrender.com/api/compra/finalizar", {
+      const response = await fetch("https://localhost:5173/api/compra/finalizar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -43,7 +46,8 @@ const FinalCompra = () => {
       console.log("Resposta do servidor:", resultado);
     } catch (error) {
       console.error("Erro ao finalizar compra:", error);
-      alert("Ocorreu um erro ao finalizar a compra.");
+    } finally {
+      navigate('/pagamentos'); // Will navigate regardless of success or error
     }
   };
 

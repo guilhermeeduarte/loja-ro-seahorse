@@ -26,7 +26,11 @@ const Pagamentos = () => {
           </a>
         </div>
       </nav>
-
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <ul className="metodos">
         <li>
           <img src="../assets/Imagens/pix.png" alt="Pix" />
@@ -46,13 +50,7 @@ const Pagamentos = () => {
         </li>
       </ul>
 
-      <div className="bandeiras">
-        <img
-          src="../assets/Imagens/bandeiras.png"
-          alt="Bandeira Cartões"
-          width="450px"
-        />
-      </div>
+  
 
       <Footer />
     </div>
