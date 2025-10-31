@@ -9,6 +9,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Tentando fazer login...");
 
     if (email.trim() === "" || senha.trim() === "") {
       setMensagem("Por favor, preencha todos os campos.");
@@ -16,18 +17,24 @@ const LoginForm = () => {
     }
 
     try {
+      setMensagem("Conectando ao servidor...");
+      console.log("Enviando requisição para:", "/api/usuario/login");
+      
       const response = await fetch("/api/usuario/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, senha }),
+        credentials: 'include' // Importante para o cookie ser salvo
       });
 
+      console.log("Status da resposta:", response.status);
       const data = await response.json();
+      console.log("Dados recebidos:", data);
 
       if (!response.ok) {
-        setMensagem(data || "Erro ao fazer login");
+        setMensagem(typeof data === 'string' ? data : "Erro ao fazer login");
         return;
       }
 
