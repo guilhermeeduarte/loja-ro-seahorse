@@ -35,7 +35,7 @@ const Pagamentos = () => {
       <br></br>
       <ul className="metodos">
         <li>
-          <img src="../assets/Imagens/pix.png" alt="Pix" />
+          <img src="../Assets/Imagens/pix.png" alt="Pix" />
           <span>Pix</span>
         </li>
         <li>

@@ -8,7 +8,7 @@ import Faq from "./pages/Faq.jsx";
 import Esqueci from "./pages/Esqueci.jsx";
 import Login from "./pages/Login.jsx";
 import RedefinirSenha from "./pages/Redefinir-Senha.jsx";
-
+import Devolucao from "./pages/Devolucao.jsx";
 import PerfilCliente from "./pages/PerfilCliente";
 import PerfilUsuario from "./pages/PerfilUsuario";
 import React from "react";
@@ -22,6 +22,7 @@ import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
 import { CartProvider } from "./contexts/CartContext";
 import ProdutoPage from "./pages/ProdutoPage.jsx";
+
 
 export default function App() {
   return (
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/exclusaoprodutos" element={<ExclusaoProdutos />} />
         <Route path="/finalcompra" element={<FinalCompra />} />
         <Route path="/statuspedido" element={<StatusPedido />} />
+        <Route path="/devolucao" element={<Devolucao />} />
       </Routes>
       </CartProvider>
     </BrowserRouter>

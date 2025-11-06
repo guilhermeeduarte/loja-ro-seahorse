@@ -1225,3 +1225,20 @@ span.material-icons {
     animation: pulse 1.5s infinite ease-in-out;
 }
 
+
+
+/* Estilos para devolução de produtos */
+
+.campo-estilizado {
+  border-radius: 25px;
+  background-color: #A9DCF2; /* azul claro */
+  padding: 10px 15px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.campo-estilizado:focus {
+  border-color: #42a5f5;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(66, 165, 245, 0.25);
+}

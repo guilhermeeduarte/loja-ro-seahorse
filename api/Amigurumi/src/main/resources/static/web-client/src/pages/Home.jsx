@@ -23,7 +23,7 @@ const Banner = () => {
   return (
     <section className="banner">
       <div className={`banner-img ${activeIndex === 0 ? 'fade-in' : 'fade-out'}`}>
-        <img className="entrega-img" src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799374266105957/Entrega.png.png?ex=68feba94&is=68fd6914&hm=d1c5555ec2662d13a31ac9d0313d2f9e3641808ea64a22034e369f0de8e57f4b&" alt="Entrega" />
+        <img className="entrega-img" src="/assets/imagens/Entrega.png.png" alt="Entrega" />
       </div>
 
     </section>
@@ -132,7 +132,7 @@ export default function Home() {
       <form className="barra-pesquisa" onSubmit={handlePesquisa}>
         <input type="search" placeholder="Digite aqui" className="barra-digitar" value={termo} onChange={(e) => setTermo(e.target.value)} />
         <button className="botao-pesquisa" type="submit">
-          <img className="lupa" src="https://cdn.discordapp.com/attachments/1431799178337583195/1431799425495339029/lupa.png?ex=68febaa0&is=68fd6920&hm=850c15e585c1e4f32bc4da94a5417dbae6f89dbbb83ec241cf6582e53561fd0d&" alt="Lupa" width="20" height="20" />
+          <img className="lupa" src="/assets/imagens/lupa.png" alt="Lupa" width="20" height="20" />
         </button>
       </form>
 
