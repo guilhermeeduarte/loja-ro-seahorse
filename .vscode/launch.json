@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AmigurumiApplication<Amigurumi>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.roseahorse.Amigurumi.AmigurumiApplication",
+            "projectName": "Amigurumi",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

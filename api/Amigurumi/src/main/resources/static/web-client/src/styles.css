@@ -13,7 +13,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
 }
  
 .pagina > :not(footer) {
@@ -128,9 +128,10 @@ nav a {
 }
 
 .navbar.carrinho .container-fluid {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
@@ -143,8 +144,11 @@ nav a {
   align-items: center;
 }
 
-/* título central */
+/* título centralizado */
 .navbar.carrinho h2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   margin: 0;
   color: #fff;
   font-size: 1.125rem;
@@ -1027,15 +1031,16 @@ span.material-icons {
 }
 
 .voltar {
-  letter-spacing: -5px; 
-  font-size: 30px; 
-  margin-left: 0px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  transition: color 0.2s ease;
+  font-size: 25px !important;
+  font-family: Poppins, sans-serif;
+  letter-spacing: -3px;
+  display: inline-block;
+  line-height: 1;
   cursor: pointer;
+  transition: color 0.2s ease;
+
 }
+
 
 .voltar:hover {
   color: #007bff;
@@ -1241,4 +1246,114 @@ span.material-icons {
   border-color: #42a5f5;
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(66, 165, 245, 0.25);
+}
+
+.perfil-usuarios {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+/* Seções */
+.secao {
+  width: 100%;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Títulos */
+.titulo {
+  padding:1em;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Mensagens */
+.mensagem {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Grid de desejos */
+.grid-fav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Item da lista de desejos */
+.desejo {
+  width: 200px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: center;
+  overflow: hidden; /* impede que o conteúdo ultrapasse */
+}
+
+.desejo img {
+  max-width: 100%; /* garante que a imagem nunca ultrapasse a largura da div */
+  height: auto;     /* mantém proporção */
+  display: block;   /* remove espaços indesejados abaixo da imagem */
+  margin: 0 auto;   /* centraliza horizontalmente */
+  border-radius: 6px; /* opcional: deixa a imagem com cantos arredondados */
+}
+
+/* Botão remover */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Lista de pedidos */
+.lista-pedidos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.pedido {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+/* Imagem de edição */
+.edicao {
+  width: 150px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.edicao:hover {
+  transform: scale(1.05);
+}
+
+/* Carregando */
+.carregando {
+  font-size: 1.2rem;
+  margin-top: 50px;
+  color: #555;
 }

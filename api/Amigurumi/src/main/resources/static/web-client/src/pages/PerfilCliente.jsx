@@ -15,43 +15,40 @@ const PerfilCliente = () => {
   const { wishlistItems, removerDoDesejo, recarregarDesejo } = useWishlist();
 
   useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        const resUsuario = await fetch(`${API_URL}/usuario/perfil`, {
+          credentials: "include"
+        });
+        if (resUsuario.ok) {
+          const dadosUsuario = await resUsuario.json();
+          setUsuario(dadosUsuario);
+        }
+
+        const resPedidos = await fetch(`${API_URL}/pedido/meus-pedidos`, {
+          credentials: "include"
+        });
+        if (resPedidos.ok) {
+          const dadosPedidos = await resPedidos.json();
+          setPedidos(dadosPedidos);
+        }
+
+        await recarregarDesejo();
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     carregarDados();
   }, []);
-
-  const carregarDados = async () => {
-    try {
-      const resUsuario = await fetch(`${API_URL}/usuario/perfil`, {
-        credentials: "include"
-      });
-
-      if (resUsuario.ok) {
-        const dadosUsuario = await resUsuario.json();
-        setUsuario(dadosUsuario);
-      }
-
-      const resPedidos = await fetch(`${API_URL}/pedido/meus-pedidos`, {
-        credentials: "include"
-      });
-
-      if (resPedidos.ok) {
-        const dadosPedidos = await resPedidos.json();
-        setPedidos(dadosPedidos);
-      }
-
-      await recarregarDesejo();
-
-    } catch (error) {
-      console.error("Erro ao carregar dados:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
       <div className="pagina">
         <Navbar />
-        <p style={{ textAlign: "center", marginTop: "50px" }}>Carregando perfil...</p>
+        <p className="carregando">Carregando perfil...</p>
         <Footer />
       </div>
     );
@@ -61,29 +58,26 @@ const PerfilCliente = () => {
     <div className="pagina">
       <Navbar />
 
-      <div className="titulo-adm">
-        <h2>Bem-vindo, {usuario?.nome || "Usuário"}!</h2>
+      {/* Boas-vindas */}
+      <div className="secao">
+        <h2 className="titulo">Bem-vindo, {usuario?.nome}!</h2>
       </div>
 
-      {/* ✅ LISTA DE DESEJOS */}
-      <h3 className="titulo-area">Lista de Desejos:</h3>
-      <div className="cadastro-produto">
+      {/* Lista de Desejos */}
+      <div className="secao">
+        <h3 className="subtitulo">Lista de Desejos:</h3>
         {wishlistItems.length === 0 ? (
-          <p style={{ textAlign: "center", padding: "20px" }}>Sua lista de desejos está vazia.</p>
+          <p className="mensagem">Sua lista de desejos está vazia.</p>
         ) : (
           <div className="grid-fav">
             {wishlistItems.map((item) => (
-              <div className="item" key={item.produtoId}>
+              <div className="desejo" key={item.produtoId}>
                 <Link to={`/produto/${item.produtoNome.toLowerCase().replace(/\s+/g, "-")}`}>
                   <SmartImage src="/assets/imagens/boneco.jpg" alt={item.produtoNome} />
                   <p>{item.produtoNome}</p>
                   <h6>R$ {item.produtoValor.toFixed(2).replace(".", ",")}</h6>
                 </Link>
-                <button 
-                  className="btn-danger" 
-                  style={{ marginTop: "10px" }}
-                  onClick={() => removerDoDesejo(item.produtoId)}
-                >
+                <button className="btn-danger" onClick={() => removerDoDesejo(item.produtoId)}>
                   Remover
                 </button>
               </div>
@@ -92,53 +86,30 @@ const PerfilCliente = () => {
         )}
       </div>
 
-      <br />
-
-      {/* ✅ PEDIDOS ANTERIORES */}
-      <h3 className="titulo-area">Pedidos anteriores:</h3>
-      {pedidos.length === 0 ? (
-        <p style={{ textAlign: "center", padding: "20px" }}>Você ainda não fez nenhum pedido.</p>
-      ) : (
-        pedidos.slice(0, 3).map((pedido) => (
-          <div
-            key={pedido.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              margin: "20px 0",
-              borderBottom: "1px solid #ccc",
-              paddingBottom: "15px"
-            }}
-          >
-            <div style={{ marginLeft: "40px" }}>
-              <h3 style={{ margin: 0, fontSize: "18px", color: "#333" }}>
-                Pedido #{pedido.id}
-              </h3>
-              <p style={{ margin: "5px 0 0", fontSize: "16px", color: "#666" }}>
-                Total: R$ {pedido.valorTotal.toFixed(2).replace(".", ",")}
-              </p>
-              <p style={{ fontSize: "14px", color: "#999" }}>
-                Status: {pedido.status} | Data: {new Date(pedido.dataPedido).toLocaleDateString("pt-BR")}
-              </p>
-              <Link to={`/statuspedido?pedidoId=${pedido.id}`} style={{ textDecoration: "none" }}>
-                Acompanhar status do pedido →
-              </Link>
-            </div>
+      {/* Pedidos Anteriores */}
+      <div className="secao">
+        <h3 className="subtitulo">Pedidos anteriores:</h3>
+        {pedidos.length === 0 ? (
+          <p className="mensagem">Você ainda não fez nenhum pedido.</p>
+        ) : (
+          <div className="lista-pedidos">
+            {pedidos.slice(0, 3).map((pedido) => (
+              <div className="pedido" key={pedido.id}>
+                <h4>Pedido #{pedido.id}</h4>
+                <p>Total: R$ {pedido.valorTotal.toFixed(2).replace(".", ",")}</p>
+                <p>Status: {pedido.status} | Data: {new Date(pedido.dataPedido).toLocaleDateString("pt-BR")}</p>
+                <Link to={`/statuspedido?pedidoId=${pedido.id}`}>Acompanhar status →</Link>
+              </div>
+            ))}
           </div>
-        ))
-      )}
+        )}
+      </div>
 
-      <br />
-
-      {/* EDIÇÃO DO PERFIL */}
-      <h3 className="titulo-area">Edição do perfil:</h3>
-      <div className="edicao-produto" style={{ marginBottom: "30px" }}>
+      {/* Edição de Perfil */}
+      <div className="secao">
+        <h3 className="subtitulo">Edição do perfil:</h3>
         <Link to="/perfil_edicao">
-          <img
-            src="/Assets/Imagens/edicao.png"
-            alt="Edição de perfil"
-            className="edicao"
-          />
+          <img src="/Assets/Imagens/edicao.png" alt="Editar perfil" className="edicao" />
         </Link>
       </div>
 

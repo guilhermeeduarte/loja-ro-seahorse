@@ -67,17 +67,13 @@ const StatusPedido = () => {
 
   return (
     <div className="pagina">
-      <Navbar />
 
       <nav className="navbar carrinho">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
-            <span className="voltar">&lt;&lt;</span>
+          <a className="navbar-brand" href="/perfil">
+            <span className="voltar">&#x276E;&#x276E;</span>
           </a>
           <h2>Status do Pedido #{pedido.id}</h2>
-          <a className="navbar-brand" href="/perfil">
-            <span className="material-icons" style={{ fontSize: '50px' }}>person</span>
-          </a>
         </div>
       </nav>
 
