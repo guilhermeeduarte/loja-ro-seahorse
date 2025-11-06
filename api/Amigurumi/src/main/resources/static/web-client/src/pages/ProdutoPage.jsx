@@ -4,6 +4,7 @@ import ProdutoDetalhe from "../components/ProdutoDetalhe";
 import { produtos as produtosLocal } from "../data/produtos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+const API_URL = `http://localhost:3000/api`;
 
 const ProdutoPage = () => {
   const { produtoNome } = useParams();
@@ -39,7 +40,7 @@ const ProdutoPage = () => {
         }
 
         // Se não encontrou localmente, tenta buscar da API
-        const res = await fetch(`/api/produto/buscar?termo=${encodeURIComponent(termo)}`)
+        const res = await fetch(`${API_URL}/produto/buscar?termo=${encodeURIComponent(termo)}`)
         if (!res.ok) throw new Error(`Erro ao buscar produto: ${res.status}`)
         const data = await res.json()
         console.debug('ProdutoPage: termo', termo, 'resultado', data)
@@ -54,7 +55,7 @@ const ProdutoPage = () => {
             descricao: found.descricao,
             preco: found.valor,
             categoria: found.categoria,
-            img: found.img || (found.nome && `/assets/imagens/${found.nome.replace(/\s+/g, '_')}.jpg`),
+            img: found.img || (found.nome && `/assets/imagens/boneco.jpg`), //PLACEHOLDER
             detalhes: found.detalhes,
           })
           return true

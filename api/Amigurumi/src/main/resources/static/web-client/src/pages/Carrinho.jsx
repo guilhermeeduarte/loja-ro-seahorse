@@ -7,14 +7,13 @@ import "../styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-
 const Carrinho = () => {
   const { cartItems, removerDoCarrinho } = useCarrinho();
   const navigate = useNavigate(); // ✅ Hook do React Router
 
   const enviarCarrinho = async () => {
     try {
-      const response = await fetch("https://localhost:5173/api/carrinho/adicionar", {
+      const response = await fetch("http://localhost:3000/api/carrinho/adicionar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ itens: cartItems }),
