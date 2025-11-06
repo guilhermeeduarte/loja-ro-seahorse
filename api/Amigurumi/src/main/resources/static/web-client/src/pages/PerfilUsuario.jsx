@@ -17,11 +17,7 @@ const PerfilUsuario = () => {
       </div>
 
       <div id="guilherme" className="guilherme">
-        <img
-          id="guilherme"
-          src="/Assets/Imagens/guilherme.jpeg"
-          alt="guilherme"
-        />
+
 
         <PerfilForm />
       </div>

@@ -21,6 +21,7 @@ import ExclusaoProdutos from "./pages/ExclusaoProdutos.jsx";
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
 import { CartProvider } from "./contexts/CartContext";
+import { WishlistProvider } from "./contexts/WishlistContext";
 import ProdutoPage from "./pages/ProdutoPage.jsx";
 
 
@@ -28,30 +29,32 @@ export default function App() {
   return (
 
     <BrowserRouter>
-    <CartProvider> 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/localizacao" element={<Localizacao />} />
-        <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/contatar" element={<Contatar />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/esqueci" element={<Esqueci />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
-        <Route path="/produto/:produtoNome" element={<ProdutoPage />} />
-        <Route path="/perfil_seila" element={<PerfilCliente />} />
-        <Route path="/perfil" element={<PerfilUsuario />} />
-        <Route path="/perfil_adm" element={<PerfilAdm />} />
-        <Route path="/cadastroproduto" element={<CadastroProduto />} />
-        <Route path="/addendereco" element={<AddEndereco />} />
-        <Route path="/perfil2" element={<Perfil />} />
-        <Route path="/pagamentos" element={<Pagamentos />} />
-        <Route path="/exclusaoprodutos" element={<ExclusaoProdutos />} />
-        <Route path="/finalcompra" element={<FinalCompra />} />
-        <Route path="/statuspedido" element={<StatusPedido />} />
-        <Route path="/devolucao" element={<Devolucao />} />
-      </Routes>
+    <CartProvider>
+        <WishlistProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/localizacao" element={<Localizacao />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/carrinho" element={<Carrinho />} />
+            <Route path="/contatar" element={<Contatar />} />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="/esqueci" element={<Esqueci />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+            <Route path="/produto/:produtoNome" element={<ProdutoPage />} />
+            <Route path="/perfil" element={<PerfilCliente />} />
+            <Route path="/perfil_edicao" element={<PerfilUsuario />} />
+            <Route path="/perfil_adm" element={<PerfilAdm />} />
+            <Route path="/cadastroproduto" element={<CadastroProduto />} />
+            <Route path="/addendereco" element={<AddEndereco />} />
+            <Route path="/perfil2" element={<Perfil />} />
+            <Route path="/pagamentos" element={<Pagamentos />} />
+            <Route path="/exclusaoprodutos" element={<ExclusaoProdutos />} />
+            <Route path="/finalcompra" element={<FinalCompra />} />
+            <Route path="/statuspedido" element={<StatusPedido />} />
+            <Route path="/devolucao" element={<Devolucao />} />
+          </Routes>
+        </WishlistProvider>
       </CartProvider>
     </BrowserRouter>
   

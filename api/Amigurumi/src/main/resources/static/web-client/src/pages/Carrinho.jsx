@@ -1,35 +1,44 @@
-import React from "react";
+// web-client/src/pages/Carrinho.jsx
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useCarrinho } from "../contexts/CartContext";
 import SmartImage from "../components/SmartImage";
 import "../styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Carrinho = () => {
-  const { cartItems, removerDoCarrinho } = useCarrinho();
-  const navigate = useNavigate(); // ✅ Hook do React Router
+  const { cartItems, removerDoCarrinho, recarregarCarrinho, loading } = useCarrinho();
+  const navigate = useNavigate();
 
-  const enviarCarrinho = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/carrinho/adicionar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itens: cartItems }),
-      });
+  // ✅ Recarrega carrinho do backend ao abrir a página
+  useEffect(() => {
+    recarregarCarrinho();
+  }, []);
 
-      const resultado = await response.json();
-      console.log("Carrinho enviado:", resultado);
-    } catch (error) {
-      console.error("Erro ao enviar carrinho:", error);
+  const finalizarCompra = () => {
+    if (cartItems.length === 0) {
+      alert("Seu carrinho está vazio!");
+      return;
     }
+    navigate("/finalcompra");
   };
 
-  const finalizarCompra = async () => {
-    await enviarCarrinho();
-    navigate("/finalcompra"); // ✅ Navegação sem recarregar a página
-  };
+  if (loading) {
+    return (
+      <div className="pagina">
+        <nav className="navbar carrinho">
+          <div className="container-fluid">
+            <Link to="/" className="navbar-brand">
+              <span className="voltar">&lt;&lt;</span>
+            </Link>
+            <h2>Seu Carrinho</h2>
+          </div>
+        </nav>
+        <p style={{ textAlign: "center", marginTop: "50px" }}>Carregando carrinho...</p>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="pagina">
@@ -62,12 +71,13 @@ const Carrinho = () => {
             <div className="descricao-carrinho">
               <h3 style={{ fontSize: "20px" }}>{produto.nome}</h3>
               <p>Preço: R$ {produto.preco}</p>
+              <p>Quantidade: {produto.quantidade || 1}</p>
             </div>
             <div className="adicionar-remover">
               <button
                 className="btn-danger"
                 style={{ marginLeft: "12px", marginTop: "8px" }}
-                onClick={() => removerDoCarrinho(produto.nome)}
+                onClick={() => removerDoCarrinho(produto.id)}
               >
                 Remover
               </button>
