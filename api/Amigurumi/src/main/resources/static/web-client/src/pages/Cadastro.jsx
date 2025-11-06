@@ -9,7 +9,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 export default function Cadastro() {
-const API_URL = `${CORS_ORIGINS}`;
+const API_URL = `http://localhost:3000/api`;
 
   const [formData, setFormData] = useState({
     nome: "",

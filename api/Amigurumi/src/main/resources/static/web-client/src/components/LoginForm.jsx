@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_URL = `http://localhost:3000/api`;
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -18,9 +20,9 @@ const LoginForm = () => {
 
     try {
       setMensagem("Conectando ao servidor...");
-      console.log("Enviando requisição para:", "/api/usuario/login");
+      console.log("Enviando requisição para:", "/usuario/login");
       
-      const response = await fetch("/api/usuario/login", {
+      const response = await fetch(`${API_URL}/usuario/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
