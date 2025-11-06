@@ -21,7 +21,7 @@ const LoginForm = () => {
     try {
       setMensagem("Conectando ao servidor...");
       console.log("Enviando requisição para:", "/usuario/login");
-      
+
       const response = await fetch(`${API_URL}/usuario/login`, {
         method: "POST",
         headers: {
@@ -40,21 +40,14 @@ const LoginForm = () => {
         return;
       }
 
-      // Redireciona com base no tipo de usuário
-      switch (data.tipoUsuario) {
-        case "ADMIN":
-          navigate("/perfil-adm");
-          break;
-        case "CLIENTE":
-          navigate("/perfil-cliente");
-          break;
-        default:
-          navigate("/perfil-usuario");
-      }
+        navigate("/");
+
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setMensagem("Erro ao conectar com o servidor");
     }
+    localStorage.setItem("usuarioLogado", "true");
+
   };
 
   return (

@@ -11,130 +11,206 @@ const PerfilForm = ({ perfilId }) => {
     senha: "",
   });
 
-  // Carrega perfil ao montar o componente
+  const [isLoading, setIsLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+
+  // Carrega o perfil ao montar o componente
   useEffect(() => {
-    // Add a loading state
-    setPerfil(prev => ({ ...prev, isLoading: true }));
-    
-    fetch(`/api/perfil/${perfilId}`)
-      .then((res) => res.json())
-      .then((data) => setPerfil({ ...data, isLoading: false }))
-      .catch((err) => {
+    const carregarPerfil = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch("http://localhost:3000/api/usuario/perfil", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`Erro ${res.status}: ${text}`);
+        }
+
+        const data = await res.json();
+        setPerfil(data);
+      } catch (err) {
         console.error(err);
-        setPerfil(prev => ({ ...prev, isLoading: false }));
-      });
+        alert("Erro ao carregar perfil");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    carregarPerfil();
   }, [perfilId]);
 
   const handleChange = (e) => {
     setPerfil({ ...perfil, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch(`/api/perfil/${perfilId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(perfil),
-    })
-      .then((res) => res.json())
-      .then(() => alert("Perfil atualizado com sucesso!"))
-      .catch((err) => console.error(err));
+    setIsLoading(true);
+    try {
+      const res = await fetch("http://localhost:3000/api/usuario/perfil", {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(perfil),
+      });
+
+      if (!res.ok) throw new Error("Erro ao atualizar perfil");
+      alert("Perfil atualizado com sucesso!");
+      setEditMode(false);
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao salvar alterações.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 🧩 Função de Logout
+  const handleLogout = async () => {
+    if (!window.confirm("Deseja realmente sair?")) return;
+
+    try {
+      const res = await fetch("http://localhost:3000/api/usuario/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Erro ao realizar logout");
+      }
+
+      const data = await res.json();
+      console.log(data.mensagem || "Logout realizado");
+
+      // Limpa informações locais
+      localStorage.removeItem("usuarioLogado");
+
+      alert("Logout realizado com sucesso!");
+      window.location.href = "/"; // Redireciona para a home
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao realizar logout.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Nome */}
       <div className="nome-cadastro">
         <input
           type="text"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="nome"
-          value={perfil.nome || ''}
+          value={perfil.nome || ""}
           onChange={handleChange}
-          placeholder={perfil.isLoading ? 'Carregando...' : 'Nome completo'}
-          disabled={perfil.isLoading}
+          placeholder={isLoading ? "Carregando..." : "Nome completo"}
+          disabled={!editMode || isLoading}
         />
       </div>
 
+      {/* CPF */}
       <div className="CPF-cadastro">
         <input
           type="text"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="cpf"
-          value={perfil.cpf || ''}
+          value={perfil.cpf || ""}
           onChange={handleChange}
-          placeholder={perfil.isLoading ? 'Carregando...' : '000.000.000-00'}
-          disabled={perfil.isLoading}
+          placeholder={isLoading ? "Carregando..." : "000.000.000-00"}
+          disabled={!editMode || isLoading}
         />
       </div>
 
+      {/* Data de nascimento */}
       <div className="nascimento-cadastro">
         <input
           type="date"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="nascimento"
-          value={perfil.nascimento || ''}
+          value={perfil.dataNascimento || ""}
           onChange={handleChange}
-          disabled={perfil.isLoading}
+          disabled={!editMode || isLoading}
         />
       </div>
 
+      {/* Telefone */}
       <div className="telefone-cadastro">
         <input
           type="text"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="telefone"
-          value={perfil.telefone || ''}
+          value={perfil.telefone || ""}
           onChange={handleChange}
-          placeholder={perfil.isLoading ? 'Carregando...' : '+55 11 99999-9999'}
-          disabled={perfil.isLoading}
+          placeholder={isLoading ? "Carregando..." : "+55 11 99999-9999"}
+          disabled={!editMode || isLoading}
         />
       </div>
 
+      {/* Endereço */}
       <div className="endereco-cadastro">
         <input
           type="text"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="endereco"
-          value={perfil.endereco || ''}
+          value={perfil.endereco || ""}
           onChange={handleChange}
-          placeholder={perfil.isLoading ? 'Carregando...' : 'Rua, número - Bairro'}
-          disabled={perfil.isLoading}
+          placeholder={isLoading ? "Carregando..." : "Rua, número - Bairro"}
+          disabled={!editMode || isLoading}
         />
       </div>
 
+      {/* Email */}
       <div className="email-cadastro">
         <input
           type="email"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
+          className={`form-control ${isLoading ? "loading" : ""}`}
           name="email"
-          value={perfil.email || ''}
+          value={perfil.email || ""}
           onChange={handleChange}
-          placeholder={perfil.isLoading ? 'Carregando...' : 'Endereço de Email'}
-          disabled={perfil.isLoading}
+          placeholder={isLoading ? "Carregando..." : "Endereço de Email"}
+          disabled={!editMode || isLoading}
         />
       </div>
 
-      <div className="senha-cadastro">
-        <input
-          type="password"
-          className={`form-control ${perfil.isLoading ? 'loading' : ''}`}
-          name="senha"
-          value={perfil.senha || ''}
-          onChange={handleChange}
-          placeholder="********"
-          disabled={perfil.isLoading}
-        />
-      </div>
-
-      {/* Mantendo a mesma estilização dos botões */}
+      {/* Botões */}
       <div className="botaos">
-        <button type="submit" className="botao">
-          Editar
-        </button>
+        {!editMode ? (
+          <button
+            type="button"
+            className="botao"
+            onClick={() => setEditMode(true)}
+            disabled={isLoading}
+          >
+            Editar
+          </button>
+        ) : (
+          <>
+            <button type="submit" className="botao" disabled={isLoading}>
+              Salvar
+            </button>
+            <button
+              type="button"
+              className="botao"
+              onClick={() => setEditMode(false)}
+              disabled={isLoading}
+            >
+              Cancelar
+            </button>
+          </>
+        )}
+
+        {/* Botão de Logout */}
         <button
           type="button"
           className="botao"
-          onClick={() => alert("Logout ainda não implementado")}
+          onClick={handleLogout}
+          disabled={isLoading}
         >
           Logout
         </button>

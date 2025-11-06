@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  // Verifica se o usuário está logado (exemplo: cookie ou localStorage)
+  const isLoggedIn = localStorage.getItem("usuarioLogado") === "true";
+
   return (
     <nav className="navbar principal">
       <div className="container-fluid">
@@ -12,13 +15,17 @@ const Navbar = () => {
             src="/assets/imagens/logo_minimalista.png"
             width="101"
             height="101"
-            border-radius= "80px"
+            style={{ borderRadius: "80px" }}
             alt="logo-minimalista"
           />
         </Link>
 
-        {/* Perfil leva para Login */}
-        <Link to="/login" className="navbar-brand" id="perfil">
+        {/* Perfil leva para /perfil se logado, /login se não */}
+        <Link
+          to={isLoggedIn ? "/perfil" : "/login"}
+          className="navbar-brand"
+          id="perfil"
+        >
           <img
             id="perfil"
             src="/assets/imagens/perfil.png"
@@ -28,7 +35,7 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Carrinho, exemplo: você pode criar rota /carrinho */}
+        {/* Carrinho */}
         <Link to="/carrinho" className="navbar-brand" id="carrinho">
           <img
             id="carrinho"
@@ -44,6 +51,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-/* rapaiz *//* eu to tentando entender pq o logo n ta aparecendo */

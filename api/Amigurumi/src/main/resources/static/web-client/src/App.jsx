@@ -40,12 +40,12 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         <Route path="/produto/:produtoNome" element={<ProdutoPage />} />
-        <Route path="/perfil" element={<PerfilCliente />} />
-        <Route path="/perfil_usuario" element={<PerfilUsuario />} />
+        <Route path="/perfil_seila" element={<PerfilCliente />} />
+        <Route path="/perfil" element={<PerfilUsuario />} />
         <Route path="/perfil_adm" element={<PerfilAdm />} />
         <Route path="/cadastroproduto" element={<CadastroProduto />} />
         <Route path="/addendereco" element={<AddEndereco />} />
-        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/perfil2" element={<Perfil />} />
         <Route path="/pagamentos" element={<Pagamentos />} />
         <Route path="/exclusaoprodutos" element={<ExclusaoProdutos />} />
         <Route path="/finalcompra" element={<FinalCompra />} />
