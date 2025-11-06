@@ -1,4 +1,5 @@
-
+<div align="center">
+    
 # E-Commerce Ro-seaHorse  
 ### Site de vendas de bonecos de crochê, conhecidos como Amigurumis.  
 
