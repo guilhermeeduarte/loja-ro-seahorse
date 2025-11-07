@@ -113,14 +113,6 @@ export default function App() {
               }
             />
             <Route
-              path="/exclusaoprodutos"
-              element={
-                <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
-                  <ExclusaoProdutos />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/gerenciar-pedidos"
               element={
                 <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
