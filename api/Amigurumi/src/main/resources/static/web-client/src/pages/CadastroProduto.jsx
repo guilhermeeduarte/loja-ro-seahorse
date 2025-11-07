@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../styles.css'
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
 
-const API_URL = `http://localhost:3000/api`;
+const API_URL = `http://localhost:3000/api`
 
 const CadastroProduto = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
@@ -16,9 +16,40 @@ const CadastroProduto = () => {
     categoria: 'Animais',
   })
 
-  const [preview, setPreview] = useState([])
+  const [imagemFile, setImagemFile] = useState(null)
+  const [preview, setPreview] = useState(null)
   const [mensagem, setMensagem] = useState(null)
   const [loading, setLoading] = useState(false)
+
+
+  useEffect(() => {
+    const verificarPermissao = async () => {
+      try {
+        const response = await fetch(`${API_URL}/usuario/perfil`, {
+          credentials: 'include'
+        })
+
+        if (!response.ok) {
+          alert('Você precisa estar logado!')
+          navigate('/login')
+          return
+        }
+
+        const usuario = await response.json()
+
+
+        if (usuario.tipoUsuario === 'CLIENTE') {
+          alert('Você não tem permissão para acessar esta página!')
+          navigate('/')
+        }
+      } catch (error) {
+        console.error('Erro ao verificar permissão:', error)
+        navigate('/login')
+      }
+    }
+
+    verificarPermissao()
+  }, [navigate])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,17 +57,13 @@ const CadastroProduto = () => {
   }
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files)
-
-    const readers = files.map((file) => {
-      return new Promise((resolve) => {
-        const reader = new FileReader()
-        reader.onload = () => resolve(reader.result)
-        reader.readAsDataURL(file)
-      })
-    })
-
-    Promise.all(readers).then((results) => setPreview(results))
+    const file = e.target.files[0]
+    if (file) {
+      setImagemFile(file)
+      const reader = new FileReader()
+      reader.onload = () => setPreview(reader.result)
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -50,7 +77,6 @@ const CadastroProduto = () => {
       return
     }
 
-    // Validação: quantidade deve ser >= 0
     if (parseInt(formData.quantidade) < 0) {
       setMensagem('Quantidade não pode ser negativa.')
       setLoading(false)
@@ -58,15 +84,36 @@ const CadastroProduto = () => {
     }
 
     try {
+      let imagemUrl = null
+
+
+      if (imagemFile) {
+        const formDataImagem = new FormData()
+        formDataImagem.append('file', imagemFile)
+
+        const uploadResponse = await fetch(`${API_URL}/imagem/upload`, {
+          method: 'POST',
+          credentials: 'include',
+          body: formDataImagem
+        })
+
+        if (!uploadResponse.ok) {
+          throw new Error('Erro ao fazer upload da imagem')
+        }
+
+        const uploadData = await uploadResponse.json()
+        imagemUrl = uploadData.url
+      }
+
+
       const produto = {
         nome: formData.nome,
         descricao: formData.descricao,
         valor: parseFloat(formData.valor),
         quantidade: parseInt(formData.quantidade),
-        categoria: formData.categoria
+        categoria: formData.categoria,
+        imagemUrl: imagemUrl
       }
-
-      console.log('Enviando produto:', produto)
 
       const response = await fetch(`${API_URL}/produto`, {
         method: 'POST',
@@ -78,10 +125,7 @@ const CadastroProduto = () => {
       })
 
       if (response.ok) {
-        const produtoCadastrado = await response.json()
-        console.log('Produto cadastrado:', produtoCadastrado)
-
-        setMensagem('✅ Produto cadastrado com sucesso!')
+        setMensagem('Produto cadastrado com sucesso!')
 
         // Limpa o formulário
         setFormData({
@@ -91,11 +135,11 @@ const CadastroProduto = () => {
           quantidade: '',
           categoria: 'Animais',
         })
-        setPreview([])
+        setImagemFile(null)
+        setPreview(null)
 
-        // Redireciona para home após 2 segundos
         setTimeout(() => {
-          window.location.href = '/'
+          navigate('/')
         }, 2000)
       } else {
         const erro = await response.text()
@@ -118,22 +162,25 @@ const CadastroProduto = () => {
           <h1>Cadastro de Produtos</h1>
         </section>
 
-        {/* Preview de imagens (decorativo por enquanto) */}
+        {/* ✅ Upload de imagem */}
         <div className="campos-formulario">
+          <label htmlFor="imagem" style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
+            Imagem do Produto *
+          </label>
           <input
             type="file"
             name="imagem"
             id="imagem"
             className="form-control"
             accept="image/*"
-            multiple
             onChange={handleImageChange}
+            required
           />
-          <div className="preview-container">
-            {preview.map((src, index) => (
-              <img key={index} src={src} alt={`preview-${index}`} />
-            ))}
-          </div>
+          {preview && (
+            <div className="preview-container" style={{ marginTop: '15px' }}>
+              <img src={preview} alt="Preview" style={{ maxWidth: '200px', borderRadius: '10px' }} />
+            </div>
+          )}
         </div>
 
         <div className="campos-formulario">

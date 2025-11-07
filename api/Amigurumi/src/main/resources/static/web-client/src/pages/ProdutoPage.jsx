@@ -4,6 +4,7 @@ import ProdutoDetalhe from "../components/ProdutoDetalhe";
 import { produtos as produtosLocal } from "../data/produtos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 const API_URL = `http://localhost:3000/api`;
 
 const ProdutoPage = () => {
@@ -55,11 +56,12 @@ const ProdutoPage = () => {
             descricao: found.descricao,
             preco: found.valor,
             categoria: found.categoria,
-            img: found.img || (found.nome && `/assets/imagens/boneco.jpg`), //PLACEHOLDER
+            img: found.imagemUrl || `/assets/imagens/boneco.jpg`,
             detalhes: found.detalhes,
           })
           return true
         }
+
           
         setProduto(null)
         return false

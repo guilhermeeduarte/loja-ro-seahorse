@@ -13,17 +13,19 @@ public class Produto {
     private Double valor;
     private Integer quantidade;
     private String categoria;
+    private String imagemUrl;
 
     public Produto() {
 
     }
 
-    public Produto(String nome, String descricao, Double valor, Integer estoque, String categoria) {
+    public Produto(String nome, String descricao, Double valor, Integer estoque, String categoria, String imagemUrl) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
         this.quantidade = estoque;
         this.categoria = categoria;
+        this.imagemUrl = imagemUrl;
     }
 
     public long getId () {
@@ -54,9 +56,13 @@ public class Produto {
         this.valor = valor;
     }
 
-    public Integer getQuantidade() { return quantidade; }
+    public Integer getQuantidade() {
+        return quantidade;
+    }
 
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public String getCategoria() {
         return categoria;
@@ -66,4 +72,11 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
 }

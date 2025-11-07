@@ -23,10 +23,11 @@ export const CartProvider = ({ children }) => {
         const data = await response.json();
         // Mapeia itens do backend para o formato do Context
         const itensFormatados = data.itens.map(item => ({
-          id: item.produtoId,
+          id: item.id,
+          produtoId: item.produtoId,
           nome: item.produtoNome,
           preco: item.precoUnitario.toFixed(2).replace(".", ","),
-          img: `/assets/imagens/boneco.jpg`, // ou buscar do produto
+          img: item.imagemUrl || `/assets/imagens/boneco.jpg`, // ou buscar do produto
           quantidade: item.quantidade
         }));
         setCartItems(itensFormatados);
@@ -82,7 +83,10 @@ export const CartProvider = ({ children }) => {
       if (response.ok) {
         setCartItems((prev) => prev.filter(item => item.id !== itemId));
         alert("Produto removido do carrinho!");
-      }
+      } else {
+              const erro = await response.text();
+              throw new Error(erro);
+            }
     } catch (error) {
       console.error("Erro ao remover do carrinho:", error);
       alert("Erro ao remover produto");

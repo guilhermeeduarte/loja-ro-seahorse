@@ -1,0 +1,245 @@
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import '../styles.css'
+
+const API_URL = 'http://localhost:3000/api'
+
+const GerenciarPedidos = () => {
+  const [pedidos, setPedidos] = useState([])
+  const [filtroStatus, setFiltroStatus] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [atualizando, setAtualizando] = useState(null)
+
+  useEffect(() => {
+    carregarPedidos()
+  }, [filtroStatus])
+
+  const carregarPedidos = async () => {
+    try {
+      const url = filtroStatus
+        ? `${API_URL}/pedido/todos?status=${filtroStatus}`
+        : `${API_URL}/pedido/todos`
+
+      const response = await fetch(url, {
+        credentials: 'include'
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao carregar pedidos')
+      }
+
+      const data = await response.json()
+      setPedidos(data)
+    } catch (error) {
+      console.error('Erro:', error)
+      alert('Erro ao carregar pedidos')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const atualizarStatus = async (pedidoId, novoStatus) => {
+    setAtualizando(pedidoId)
+    try {
+      const response = await fetch(`${API_URL}/pedido/${pedidoId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ status: novoStatus })
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar status')
+      }
+
+      alert('Status atualizado com sucesso!')
+      carregarPedidos()
+    } catch (error) {
+      console.error('Erro:', error)
+      alert('Erro ao atualizar status')
+    } finally {
+      setAtualizando(null)
+    }
+  }
+
+  const getStatusColor = (status) => {
+    const colors = {
+      PENDENTE: '#ffc107',
+      PAGO: '#17a2b8',
+      EM_PREPARO: '#007bff',
+      ENVIADO: '#6f42c1',
+      ENTREGUE: '#28a745',
+      CANCELADO: '#dc3545'
+    }
+    return colors[status] || '#6c757d'
+  }
+
+  const getProximoStatus = (statusAtual) => {
+    const fluxo = {
+      PENDENTE: 'PAGO',
+      PAGO: 'EM_PREPARO',
+      EM_PREPARO: 'ENVIADO',
+      ENVIADO: 'ENTREGUE'
+    }
+    return fluxo[statusAtual] || null
+  }
+
+  const getTextoProximoStatus = (status) => {
+    const textos = {
+      PAGO: 'Marcar como Pago',
+      EM_PREPARO: 'Iniciar Preparo',
+      ENVIADO: 'Marcar como Enviado',
+      ENTREGUE: 'Confirmar Entrega'
+    }
+    return textos[status] || 'Próximo Status'
+  }
+
+  if (loading) {
+    return (
+      <div className="pagina">
+        <Navbar />
+        <p style={{ textAlign: 'center', padding: '50px' }}>Carregando pedidos...</p>
+        <Footer />
+      </div>
+    )
+  }
+
+  return (
+    <div className="pagina">
+      <Navbar />
+
+      <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>
+          Gerenciamento de Pedidos
+        </h2>
+
+        {/* Filtros */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '30px', flexWrap: 'wrap' }}>
+          <button
+            className="botao"
+            onClick={() => setFiltroStatus('')}
+            style={{ background: !filtroStatus ? '#007bff' : '#6c757d' }}
+          >
+            Todos
+          </button>
+          <button
+            className="botao"
+            onClick={() => setFiltroStatus('PENDENTE')}
+            style={{ background: filtroStatus === 'PENDENTE' ? '#ffc107' : '#6c757d' }}
+          >
+            Pendentes
+          </button>
+          <button
+            className="botao"
+            onClick={() => setFiltroStatus('PAGO')}
+            style={{ background: filtroStatus === 'PAGO' ? '#17a2b8' : '#6c757d' }}
+          >
+            Pagos
+          </button>
+          <button
+            className="botao"
+            onClick={() => setFiltroStatus('EM_PREPARO')}
+            style={{ background: filtroStatus === 'EM_PREPARO' ? '#007bff' : '#6c757d' }}
+          >
+            Em Preparo
+          </button>
+          <button
+            className="botao"
+            onClick={() => setFiltroStatus('ENVIADO')}
+            style={{ background: filtroStatus === 'ENVIADO' ? '#6f42c1' : '#6c757d' }}
+          >
+            Enviados
+          </button>
+        </div>
+
+        {/* Lista de Pedidos */}
+        {pedidos.length === 0 ? (
+          <p style={{ textAlign: 'center' }}>Nenhum pedido encontrado.</p>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {pedidos.map((pedido) => {
+              const proximoStatus = getProximoStatus(pedido.status)
+
+              return (
+                <div
+                  key={pedido.id}
+                  style={{
+                    border: '2px solid #ddd',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    backgroundColor: '#fff'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                    <div>
+                      <h3 style={{ margin: 0 }}>Pedido #{pedido.id}</h3>
+                      <p style={{ margin: '5px 0', color: '#666' }}>
+                        Cliente: {pedido.usuarioNome} ({pedido.usuarioEmail})
+                      </p>
+                      <p style={{ margin: '5px 0', fontWeight: 'bold', fontSize: '18px' }}>
+                        Total: R$ {pedido.valorTotal.toFixed(2).replace('.', ',')}
+                      </p>
+                    </div>
+
+                    <div style={{ textAlign: 'right' }}>
+                      <span
+                        style={{
+                          padding: '8px 16px',
+                          borderRadius: '20px',
+                          backgroundColor: getStatusColor(pedido.status),
+                          color: 'white',
+                          fontWeight: 'bold',
+                          display: 'inline-block',
+                          marginBottom: '10px'
+                        }}
+                      >
+                        {pedido.status}
+                      </span>
+                      <p style={{ margin: '5px 0', color: '#666', fontSize: '14px' }}>
+                        {new Date(pedido.dataPedido).toLocaleString('pt-BR')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ marginBottom: '15px' }}>
+                    <p style={{ marginBottom: '5px' }}><strong>Endereço:</strong> {pedido.enderecoEntrega}</p>
+                    <p style={{ marginBottom: '5px' }}><strong>Pagamento:</strong> {pedido.formaPagamento}</p>
+                  </div>
+
+                  {/* Ações */}
+                  <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                    <Link to={`/statuspedido?pedidoId=${pedido.id}`}>
+                      <button className="botao" style={{ background: '#007bff' }}>
+                        Ver Detalhes
+                      </button>
+                    </Link>
+
+                    {proximoStatus && pedido.status !== 'ENTREGUE' && pedido.status !== 'CANCELADO' && (
+                      <button
+                        className="botao"
+                        onClick={() => atualizarStatus(pedido.id, proximoStatus)}
+                        disabled={atualizando === pedido.id}
+                        style={{ background: '#28a745' }}
+                      >
+                        {atualizando === pedido.id
+                          ? 'Atualizando...'
+                          : getTextoProximoStatus(proximoStatus)
+                        }
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      <Footer />
+    </div>
+  )
+}
+
+export default GerenciarPedidos

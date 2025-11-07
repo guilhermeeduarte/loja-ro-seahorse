@@ -117,6 +117,7 @@ public class CarrinhoController {
             itemMap.put("produtoId", item.getProduto().getId());
             itemMap.put("produtoNome", item.getProduto().getNome());
             itemMap.put("produtoDescricao", item.getProduto().getDescricao());
+            itemMap.put("imagemUrl", item.getProduto().getImagemUrl());
             itemMap.put("quantidade", item.getQuantidade());
             itemMap.put("precoUnitario", item.getPrecoUnitario());
             itemMap.put("subtotal", item.getSubtotal());

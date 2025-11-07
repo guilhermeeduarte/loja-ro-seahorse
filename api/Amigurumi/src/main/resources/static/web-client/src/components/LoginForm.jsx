@@ -40,6 +40,9 @@ const LoginForm = () => {
         return;
       }
 
+        localStorage.setItem("usuarioLogado", "true");
+        localStorage.setItem("tipoUsuario", data.tipoUsuario);
+
         navigate("/");
 
     } catch (error) {

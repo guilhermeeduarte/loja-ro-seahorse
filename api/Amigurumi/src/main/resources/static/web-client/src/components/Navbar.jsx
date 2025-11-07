@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   // Verifica se o usuário está logado (exemplo: cookie ou localStorage)
   const isLoggedIn = localStorage.getItem("usuarioLogado") === "true";
+  const tipoUsuario = localStorage.getItem("tipoUsuario");
+
+  // Define o link correto para o perfil
+    const perfilLink = !isLoggedIn
+      ? "/login"
+      : tipoUsuario === "ADMINISTRADOR"
+        ? "/perfil_adm"
+        : "/perfil";
 
   return (
     <nav className="navbar principal">
@@ -20,9 +28,9 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Perfil leva para /perfil se logado, /login se não */}
+        {/* Perfil leva para /perfil se CLIENTE, /perfil se ADMINISTRADOR, /login se nada */}
         <Link
-          to={isLoggedIn ? "/perfil" : "/login"}
+          to={perfilLink}
           className="navbar-brand"
           id="perfil"
         >

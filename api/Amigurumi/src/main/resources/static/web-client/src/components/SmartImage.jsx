@@ -1,17 +1,22 @@
 import React, { useState, useMemo } from 'react'
 
 // Componente que tenta múltiplos caminhos para carregar uma imagem
-// Recebe 'src' que pode ser URL absoluta, caminho relativo ou apenas filename
-// Tenta em ordem: direta (se for http), /assets/imagens/, /Assets/Imagens/, /web-client/assets/imagens/, /web-client/Assets/Imagens/ e por fim placeholder
+// Suporta: URLs absolutas, caminhos da API (/api/imagem/...), caminhos locais e fallback
 export default function SmartImage({ src, alt, className, style, width, height, ...rest }) {
   const [index, setIndex] = useState(0)
 
+  const API_BASE = 'http://localhost:3000' // ajuste se necessário para produção
+
   const candidates = useMemo(() => {
     const trimmed = String(src || '').trim()
-    // url absoluta
+
+    // URL absoluta
     if (/^https?:\/\//i.test(trimmed)) return [trimmed]
 
-    // extrai filename
+    // Caminho da API (ex: /api/imagem/abc.jpg)
+    if (/^\/api\/imagem\//i.test(trimmed)) return [`${API_BASE}${trimmed}`]
+
+    // Extrai apenas o nome do arquivo
     const filename = trimmed ? trimmed.split(/[/\\]/).pop() : 'placeholder.png'
 
     return [

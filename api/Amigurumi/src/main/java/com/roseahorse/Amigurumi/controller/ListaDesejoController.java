@@ -97,6 +97,7 @@ public class ListaDesejoController {
             desejoMap.put("produtoNome", desejo.getProduto().getNome());
             desejoMap.put("produtoDescricao", desejo.getProduto().getDescricao());
             desejoMap.put("produtoValor", desejo.getProduto().getValor());
+            desejoMap.put("imagemUrl", desejo.getProduto().getImagemUrl());
             return desejoMap;
         }).collect(Collectors.toList());
 

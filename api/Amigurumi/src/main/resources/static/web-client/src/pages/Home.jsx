@@ -6,9 +6,9 @@ import Whatsapp from '../components/Whatsapp'
 import SmartImage from '../components/SmartImage'
 import { produtos as produtosLocal } from '../data/produtos'
 import '../styles.css'
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
-const API_URL = `http://localhost:3000/api`;
+
+const API_URL = `http://localhost:3000/api`
+
 const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -35,13 +35,11 @@ export default function Home() {
   const [produtos, setProdutos] = useState([])
   const [loading, setLoading] = useState(true)
 
-  // Carrega produtos do backend
   useEffect(() => {
     let mounted = true
 
     async function carregarProdutos() {
       try {
-        console.log('🔄 Buscando produtos do backend...')
         const response = await fetch(`${API_URL}/produto`, {
           credentials: 'include'
         })
@@ -51,30 +49,26 @@ export default function Home() {
         }
 
         const data = await response.json()
-        console.log('✅ Produtos recebidos do backend:', data)
 
         if (!mounted) return
 
         if (data && data.length > 0) {
-          // Mapeia os produtos do backend para o formato do frontend
           const produtosMapeados = data
-            .filter(p => p.quantidade > 0) // Só mostra produtos em estoque
+            .filter(p => p.quantidade > 0)
             .map(p => ({
               id: p.id,
               nome: p.nome,
               descricao: p.descricao,
               preco: p.valor ? p.valor.toFixed(2).replace('.', ',') : '0,00',
               categoria: p.categoria || 'Destaque',
-              // Tenta usar img do produto ou gera um path baseado no nome
-              img: p.img || `/assets/imagens/${(p.nome || '').replace(/\s+/g, '_')}.jpg`,
+              // ✅ Usa a imagem do backend se existir
+              img: p.imagemUrl || `/assets/imagens/boneco.jpg`,
               detalhes: p.detalhes,
               quantidade: p.quantidade
             }))
 
           setProdutos(produtosMapeados)
-          console.log('Produtos mapeados:', produtosMapeados)
         } else {
-          console.warn('⚠️ Backend retornou 0 produtos, usando fallback local')
           setProdutos(produtosLocal)
         }
       } catch (err) {
@@ -132,7 +126,8 @@ export default function Home() {
         {items.map((item, index) => (
           <div key={item.id || index} className="item">
             <Link to={`/produto/${(item.nome || '').toLowerCase().replace(/\s+/g, '-')}`}>
-              <SmartImage src="/assets/imagens/boneco.jpg" alt={item.nome} />
+              {/* ✅ Renderiza a imagem correta */}
+              <SmartImage src={item.img} alt={item.nome} />
               <p>{item.nome}</p>
               <h6>R$ {item.preco}</h6>
             </Link>
@@ -195,32 +190,26 @@ export default function Home() {
           : (
             <>
               <Banner />
-
-              {/* Mais vendidos */}
               <section className="secao-conteudo" id="MaisVendidos">
                 <h3 className="section-title">Mais vendidos! ⭐</h3>
                 {renderGrid(getProdutosPorCategoria("Mais vendidos"))}
               </section>
 
-              {/* Animais */}
               <section className="secao-conteudo" id="Animais">
                 <h3 className="section-title">Animais! 🐾</h3>
                 {renderGrid(getProdutosPorCategoria("Animais"))}
               </section>
 
-              {/* Destaque */}
               <section className="secao-conteudo" id="Destaque">
                 <h3 className="section-title">Destaque! 🥇</h3>
                 {renderGrid(getProdutosPorCategoria("Destaque"))}
               </section>
 
-              {/* Comidas */}
               <section className="secao-conteudo" id="Comidas">
                 <h3 className="section-title">Comidas! 🍔</h3>
                 {renderGrid(getProdutosPorCategoria("Comidas"))}
               </section>
 
-              {/* Personagens */}
               <section className="secao-conteudo" id="Personagens">
                 <h3 className="section-title">Personagens! 🧙‍♂️</h3>
                 {renderGrid(getProdutosPorCategoria("Personagens"))}
