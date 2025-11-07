@@ -23,7 +23,7 @@ const Contato = () => {
         <input type="text" id="nome" name="nome" placeholder="Nome completo" /><br />
         <input type="email" id="email" name="email" placeholder="E-mail" /><br />
         <input type="tel" id="whatsapp" name="whatsapp" placeholder="WhatsApp" /><br />
-        <textarea id="mensagem" name="mensagem" placeholder="Mensagem"></textarea><br />
+        <input id="mensagem" name="mensagem" placeholder="Mensagem:"></input><br />
         <button type="submit" className="enviar"><strong>Enviar</strong></button>
         <button type="reset" className="limpar"><strong>Limpar</strong></button>
       </form>

@@ -1,15 +1,13 @@
-// api/Amigurumi/src/main/resources/static/web-client/src/pages/Cadastro.jsx
 import React, { useState } from "react";
+import { cpf } from "cpf-cnpj-validator";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import "../styles.css";
-// import "../js/main.js"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-
 export default function Cadastro() {
-const API_URL = `http://localhost:3000/api`;
+  const API_URL = `http://localhost:3000/api`;
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -23,12 +21,29 @@ const API_URL = `http://localhost:3000/api`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Máscara manual para CPF
+    if (name === "cpf") {
+      const raw = value.replace(/\D/g, "").slice(0, 11);
+      const masked = raw
+        .replace(/^(\d{3})(\d)/, "$1.$2")
+        .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+      setFormData((prev) => ({ ...prev, cpf: masked }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    const cpfLimpo = formData.cpf.replace(/\D/g, "");
+    if (!cpf.isValid(cpfLimpo)) {
+      alert("CPF inválido! Verifique os números digitados.");
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/usuario`, {
         method: "POST",
@@ -36,7 +51,7 @@ const API_URL = `http://localhost:3000/api`;
         credentials: "include",
         body: JSON.stringify({
           nome: formData.nome,
-          cpf: formData.cpf,
+          cpf: cpfLimpo,
           dataNascimento: formData.dataNascimento,
           telefone: formData.telefone,
           endereco: formData.endereco,
@@ -47,7 +62,7 @@ const API_URL = `http://localhost:3000/api`;
 
       if (response.ok) {
         alert("Cadastro realizado com sucesso!");
-        window.location.href = "/login"; // Usar react-router depois
+        window.location.href = "/login";
       } else {
         const erro = await response.text();
         alert("Erro no cadastro: " + erro);
@@ -72,7 +87,6 @@ const API_URL = `http://localhost:3000/api`;
             type="text"
             className="form-control"
             name="nome"
-            id="cadastro-name"
             placeholder="Nome Completo"
             value={formData.nome}
             onChange={handleChange}
@@ -85,7 +99,6 @@ const API_URL = `http://localhost:3000/api`;
             type="text"
             className="form-control"
             name="cpf"
-            id="cadastro-CPF"
             placeholder="CPF"
             value={formData.cpf}
             onChange={handleChange}
@@ -98,7 +111,6 @@ const API_URL = `http://localhost:3000/api`;
             type="date"
             className="form-control"
             name="dataNascimento"
-            id="cadastro-nascimento"
             value={formData.dataNascimento}
             onChange={handleChange}
             required
@@ -110,7 +122,6 @@ const API_URL = `http://localhost:3000/api`;
             type="text"
             className="form-control"
             name="telefone"
-            id="cadastro-telefone"
             placeholder="Número de Telefone"
             value={formData.telefone}
             onChange={handleChange}
@@ -123,7 +134,6 @@ const API_URL = `http://localhost:3000/api`;
             type="text"
             className="form-control"
             name="endereco"
-            id="cadastro-endereco"
             placeholder="Endereço"
             value={formData.endereco}
             onChange={handleChange}
@@ -136,7 +146,6 @@ const API_URL = `http://localhost:3000/api`;
             type="email"
             className="form-control"
             name="email"
-            id="cadastro-email"
             placeholder="Endereço de Email"
             value={formData.email}
             onChange={handleChange}
@@ -149,7 +158,6 @@ const API_URL = `http://localhost:3000/api`;
             type="password"
             className="form-control"
             name="senha"
-            id="cadastro-senha"
             placeholder="Senha"
             value={formData.senha}
             onChange={handleChange}

@@ -71,13 +71,13 @@ export default function Devolucao() {
 
             <div className="mb-3">
               <label htmlFor="mensagem" className="form-label">Mensagem adicional (opcional)</label>
-              <textarea
+              <input
                 className="form-control"
                 id="mensagem"
                 rows="4"
                 value={mensagem}
                 onChange={(e) => setMensagem(e.target.value)}
-              ></textarea>
+              ></input>
             </div>
 
             <div className="mb-3">
@@ -108,7 +108,14 @@ export default function Devolucao() {
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">Enviar Solicitação</button>
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              style={{ borderRadius: "20px", height: "50px", marginTop: "30px" }}
+            >
+              Enviar Solicitação
+            </button>
+
           </form>
         )}
       </section>

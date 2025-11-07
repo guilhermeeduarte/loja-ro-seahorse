@@ -31,7 +31,8 @@ const Carrinho = () => {
             <Link to="/" className="navbar-brand">
               <span className="voltar">&lt;&lt;</span>
             </Link>
-            <h2>Seu Carrinho</h2>
+            <h2 className="texto-preto">Seu Carrinho</h2>
+
           </div>
         </nav>
         <p style={{ textAlign: "center", marginTop: "50px" }}>Carregando carrinho...</p>
@@ -48,12 +49,13 @@ const Carrinho = () => {
             <span className="voltar">&lt;&lt;</span>
           </Link>
           <h2>Seu Carrinho</h2>
-          <Link to="/pagamentos" className="navbar-brand" id="pagamentos">
+          <Link to="/pagamentos" className="navbar-brand ms-auto" id="pagamentos">
             <img
               id="pagamento"
-              src="/Assets/Imagens/Vector.svg"
-              width="50"
-              height="60"
+              src="/Assets/Imagens/dinheiro.png"
+              width="80"
+              height="65"
+              
               alt="Métodos de Pagamento"
             />
           </Link>

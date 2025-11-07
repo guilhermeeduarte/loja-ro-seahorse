@@ -196,13 +196,14 @@ const CadastroProduto = () => {
         </div>
 
         <div className="campos-formulario">
-          <textarea
+          <input
+            type="text"
             name="descricao"
             value={formData.descricao}
             onChange={handleChange}
             className="form-control"
             placeholder="Descrição"
-            rows="3"
+
           />
         </div>
 

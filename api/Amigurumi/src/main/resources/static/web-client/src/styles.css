@@ -1357,3 +1357,22 @@ span.material-icons {
   margin-top: 50px;
   color: #555;
 }
+
+.barra-digitar:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.navbar.carrinho h2 {
+  color: black !important;
+}
+.navbar.carrinho span {
+  color: black !important;
+}
+
+
+.botao-teleporte:hover {
+  color: black !important;
+  text-decoration: none;
+}

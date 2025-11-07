@@ -28,6 +28,7 @@ export const WishlistProvider = ({ children }) => {
 
   const adicionarAoDesejo = async (produtoId) => {
     setLoading(true);
+
     try {
       const response = await fetch(`${API_URL}/lista-desejo/adicionar/${produtoId}`, {
         method: "POST",
@@ -36,14 +37,13 @@ export const WishlistProvider = ({ children }) => {
 
       if (!response.ok) {
         const erro = await response.text();
-        throw new Error(erro);
+        throw new Error(erro || "Erro ao adicionar aos favoritos.");
       }
 
       await carregarListaDesejo();
-      alert("Produto adicionado à lista de desejos!");
     } catch (error) {
-      console.error("Erro:", error);
-      alert(`Erro: ${error.message}`);
+      console.error("Erro ao adicionar aos favoritos:", error);
+      throw error; // Propaga o erro para o componente capturar
     } finally {
       setLoading(false);
     }
@@ -58,10 +58,13 @@ export const WishlistProvider = ({ children }) => {
 
       if (response.ok) {
         await carregarListaDesejo();
-        alert("Produto removido da lista de desejos!");
+      } else {
+        const erro = await response.text();
+        throw new Error(erro || "Erro ao remover dos favoritos.");
       }
     } catch (error) {
-      console.error("Erro:", error);
+      console.error("Erro ao remover dos favoritos:", error);
+      throw error;
     }
   };
 
@@ -77,20 +80,22 @@ export const WishlistProvider = ({ children }) => {
       }
       return false;
     } catch (error) {
-      console.error("Erro:", error);
+      console.error("Erro ao verificar lista de desejos:", error);
       return false;
     }
   };
 
   return (
-    <WishlistContext.Provider value={{
-      wishlistItems,
-      adicionarAoDesejo,
-      removerDoDesejo,
-      verificarSeEstaNoDesejo,
-      recarregarDesejo: carregarListaDesejo,
-      loading
-    }}>
+    <WishlistContext.Provider
+      value={{
+        wishlistItems,
+        adicionarAoDesejo,
+        removerDoDesejo,
+        verificarSeEstaNoDesejo,
+        recarregarDesejo: carregarListaDesejo,
+        loading
+      }}
+    >
       {children}
     </WishlistContext.Provider>
   );

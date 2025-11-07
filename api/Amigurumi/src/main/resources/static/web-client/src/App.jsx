@@ -16,7 +16,8 @@ import PerfilAdm from "./pages/PerfilAdm.jsx";
 import CadastroProduto from "./pages/CadastroProduto.jsx";
 import AddEndereco from "./pages/AddEndereco.jsx";
 import Pagamentos from "./pages/Pagamentos.jsx";
-import ExclusaoProdutos from "./pages/ExclusaoProdutos.jsx";
+
+
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
 import GerenciarPedidos from "./pages/GerenciarPedidos.jsx";

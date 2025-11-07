@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Footer from "../components/Footer.jsx";
 
 export default function Faq() {
   useEffect(() => {
@@ -163,35 +164,7 @@ export default function Faq() {
         </div>
       </div>
 
-      <footer>
-        <div className="footer-top">
-          <ul>
-            <li>
-              <Link to="/contato">Contato</Link>
-            </li>
-            <li>
-              <Link to="/localizacao">Localização</Link>
-            </li>
-            <li>
-              <Link to="/faq">Dúvidas</Link>
-            </li>
-          </ul>
-
-          <ul className="logo-footer">
-            <li>
-              <Link to="/">
-                <img src="Assets/Imagens/logo_minimalista.png" alt="Logo" />
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="footer-bottom">
-          <Link to="/direitosreservados">
-            <p>Todos os direitos reservados © 2025 - RO SeaHorse</p>
-          </Link>
-        </div>
-      </footer>
+     <Footer />
     </div>
   );
 }
