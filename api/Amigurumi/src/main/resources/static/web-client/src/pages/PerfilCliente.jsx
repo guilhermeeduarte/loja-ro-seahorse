@@ -73,7 +73,7 @@ const PerfilCliente = () => {
             {wishlistItems.map((item) => (
               <div className="desejo" key={item.produtoId}>
                 <Link to={`/produto/${item.produtoNome.toLowerCase().replace(/\s+/g, "-")}`}>
-                  <SmartImage src="/assets/imagens/boneco.jpg" alt={item.produtoNome} />
+                  <SmartImage src={item.imagemUrl} alt={item.produtoNome} />
                   <p>{item.produtoNome}</p>
                   <h6>R$ {item.produtoValor.toFixed(2).replace(".", ",")}</h6>
                 </Link>
