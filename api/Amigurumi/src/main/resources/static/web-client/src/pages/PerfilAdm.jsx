@@ -38,7 +38,7 @@ const PerfilAdm = () => {
  <div className="testediv2">
     <h3 className="titulo-area">Cadastro de produtos:</h3>
     <h3 className="titulo-area">Edição de produtos:</h3>
-   <h3 className="titulo-area">Exclusão de produtos:</h3>
+   <h3 className="titulo-area">Gerenciar Funcionários:</h3>
    </div>
 
       <section className="HENRIQUE">
@@ -67,11 +67,11 @@ const PerfilAdm = () => {
         </div>
 
 
-        <div className="exclusao-produto">
-          <Link to="/exclusaoprodutos">
+        <div className="ger-fun">
+          <Link to="/gerenciar_funcionarios">
             <img
-              src="/Assets/Imagens/excluir.png"
-              alt="Exclusão de produtos"
+              src="/Assets/Imagens/ger-fun.png"
+              alt="Gerenciar Funcionários"
               className="excluir"
             />
           </Link>
@@ -79,7 +79,7 @@ const PerfilAdm = () => {
    </section>
 
     <div className="testediv">
-   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Meu perfil:</h3>  <h3 className="subtitulo2">Devoluções:</h3>
+   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Editar meu perfil:</h3>  
     </div>
  <section className="HENRIQUE2">
         {/* ✅ NOVO: Gerenciamento de Pedidos */}
@@ -113,17 +113,6 @@ const PerfilAdm = () => {
               src="/Assets/Imagens/man.png"
               alt="Editar perfil"
               className="edicao"
-            />
-          </Link>
-        </div>
-
-        <div className="corinthians3">
-          <Link to="/devolucao_adm">
-            <img
-              src="/Assets/Imagens/devolucao.png"
-              width="150px"
-              alt="devoluçaõ"
-              className="devolucao"
             />
           </Link>
         </div>

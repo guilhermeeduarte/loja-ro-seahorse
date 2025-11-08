@@ -16,7 +16,7 @@ import PerfilAdm from "./pages/PerfilAdm.jsx";
 import CadastroProduto from "./pages/CadastroProduto.jsx";
 import AddEndereco from "./pages/AddEndereco.jsx";
 import Pagamentos from "./pages/Pagamentos.jsx";
-
+import EdicaoProdutos from "./pages/EdicaoProdutos.jsx";
 
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
@@ -96,6 +96,14 @@ export default function App() {
             />
 
             {/* Rotas apenas para FUNCIONARIO e ADMINISTRADOR */}
+              <Route
+              path="/edicaoproduto"
+              element={
+                <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
+                  <EdicaoProdutos />
+                </ProtectedRoute>
+              }
+              />
             <Route
               path="/perfil_adm"
               element={
@@ -119,7 +127,9 @@ export default function App() {
                   <GerenciarPedidos />
                 </ProtectedRoute>
               }
+            
             />
+            
           </Routes>
         </WishlistProvider>
       </CartProvider>

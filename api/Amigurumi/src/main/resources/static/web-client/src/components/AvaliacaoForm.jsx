@@ -55,6 +55,7 @@ const AvaliacaoForm = ({ produtoId, onAvaliacaoEnviada }) => {
   return (
     <form onSubmit={handleSubmit} style={{
       background: '#fff',
+      width: '100%',
       padding: '20px',
       borderRadius: '10px',
       boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -104,7 +105,7 @@ const AvaliacaoForm = ({ produtoId, onAvaliacaoEnviada }) => {
         disabled={loading}
         className="botao"
         style={{
-          width: '100%',
+          width: '90%',
           padding: '12px',
           opacity: loading ? 0.6 : 1,
           cursor: loading ? 'not-allowed' : 'pointer'

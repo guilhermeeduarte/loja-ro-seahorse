@@ -167,7 +167,7 @@ export default function ProdutoDetalhe({ produto }) {
             <button
               className="botao"
               onClick={() => setMostrarFormulario(true)}
-              style={{ width: '100%', marginTop: '20px' }}
+              style={{ width: '90%', marginTop: '20px' }}
             >
               ⭐ Avaliar este produto
             </button>

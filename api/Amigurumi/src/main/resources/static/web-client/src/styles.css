@@ -318,6 +318,7 @@ footer img:hover {
   height: 120px;
   object-fit: cover;
   border-radius: 14px;
+  margin-bottom:3px;
   transform: scale(1.1) !important
 }
 
@@ -1447,8 +1448,8 @@ span.material-icons {
 }
 .HENRIQUE2 {
    display: flex;
-   width: 90vw;
-     gap: 14em;
+   width: 92vw;
+     gap: 18em;
      justify-content: center;
 }
 .corinthians {
@@ -1460,13 +1461,13 @@ span.material-icons {
 
 .testediv {
    display: flex;
-   width: 90vw;
+   width: 95vw;
      gap: 16em;
      justify-content: center;
 }
 .testediv2 {
    display: flex;
-   width: 90vw;
+   width: 92vw;
      gap: 12em;
      justify-content: center;
 }
@@ -1642,4 +1643,18 @@ span.material-icons {
 
 .botao-bloco img:hover {
   transform: scale(1.1);
+}
+
+
+.form-edicao{
+  padding: 30px;
+  width: 200%;
+  box-sizing: border-box;
+}
+
+.grid-edicao {
+  display: flex;
+  gap: 200px;
+  overflow-x: auto;
+  padding: 0 15px 15px;
 }
