@@ -98,17 +98,6 @@ export default function ProdutoDetalhe({ produto }) {
             className={estaNoDesejo ? "btn-remover-desejo" : "btn-adicionar-desejo"}
             onClick={handleToggleDesejo}
             disabled={desejoLoading}
-            style={{
-              background: estaNoDesejo ? "#ff4444" : "#ff6b9d",
-              color: "white",
-              borderRadius: "20px",
-              fontSize: "20px",
-              fontWeight: "bold",
-              padding: "20px",
-              border: "none",
-              fontFamily: "poppins, sans-serif",
-              cursor: "pointer"
-            }}
           >
             {desejoLoading
               ? "..."
