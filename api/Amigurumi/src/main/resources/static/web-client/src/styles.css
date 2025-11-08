@@ -700,6 +700,7 @@ form {
 
 .secao-conteudo {
   padding: 0 10px;
+  max-width:100vw;
 }
 
 .secao-conteudo .section-title {
@@ -1653,8 +1654,9 @@ span.material-icons {
 }
 
 .grid-edicao {
-  display: flex;
-  gap: 200px;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* várias colunas responsivas */
+  gap: 20px;
+  overflow-y: auto; /* scroll vertical */
   padding: 0 15px 15px;
 }
