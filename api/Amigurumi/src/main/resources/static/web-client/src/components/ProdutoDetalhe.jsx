@@ -1,12 +1,14 @@
-
-
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useCarrinho } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
 import SmartImage from "./SmartImage";
+import AvaliacaoForm from "./AvaliacaoForm";
+import AvaliacoesList from "./AvaliacoesList";
 import "../styles.css";
+
+const API_URL = 'http://localhost:3000/api';
 
 export default function ProdutoDetalhe({ produto }) {
   const { adicionarAoCarrinho, loading: carrinhoLoading } = useCarrinho();
@@ -19,12 +21,24 @@ export default function ProdutoDetalhe({ produto }) {
 
   const [estaNoDesejo, setEstaNoDesejo] = useState(false);
   const [erroFavorito, setErroFavorito] = useState("");
+  const [jaAvaliou, setJaAvaliou] = useState(false);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [refreshAvaliacoes, setRefreshAvaliacoes] = useState(0);
 
   useEffect(() => {
     const verificar = async () => {
       if (produto?.id) {
         const resultado = await verificarSeEstaNoDesejo(produto.id);
         setEstaNoDesejo(resultado);
+        
+        // Verificar se já avaliou
+        const resAvaliacao = await fetch(`${API_URL}/avaliacao/verificar/${produto.id}`, {
+          credentials: 'include'
+        });
+        if (resAvaliacao.ok) {
+          const data = await resAvaliacao.json();
+          setJaAvaliou(data.jaAvaliou);
+        }
       }
     };
     verificar();
@@ -48,7 +62,7 @@ export default function ProdutoDetalhe({ produto }) {
   };
 
   const handleToggleDesejo = async () => {
-    setErroFavorito(""); // limpa erro anterior
+    setErroFavorito("");
 
     try {
       if (estaNoDesejo) {
@@ -61,6 +75,12 @@ export default function ProdutoDetalhe({ produto }) {
     } catch (error) {
       setErroFavorito(error.message || "Erro ao atualizar favoritos.");
     }
+  };
+
+  const handleAvaliacaoEnviada = () => {
+    setJaAvaliou(true);
+    setMostrarFormulario(false);
+    setRefreshAvaliacoes(prev => prev + 1);
   };
 
   return (
@@ -86,7 +106,6 @@ export default function ProdutoDetalhe({ produto }) {
             : produto.preco?.toFixed(2).replace(".", ",") || "0,00"}
         </h3>
 
-        {/* ✅ Botões lado a lado */}
         <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginTop: "20px" }}>
           <button
             className="btn-comprar-produto"
@@ -101,34 +120,17 @@ export default function ProdutoDetalhe({ produto }) {
             onClick={handleToggleDesejo}
             disabled={desejoLoading}
             style={{
-                          background: estaNoDesejo ? "#ff4444" : "#ff6b9d",
-
-
-                          color: "white",
-
-
-                          borderRadius: "20px",
-
-
-                          fontSize: "20px",
-
-
-                          fontWeight: "bold",
-
-
-                          padding: "20px",
-
-
-                          border: "none",
-
-
-                          fontFamily: "poppins, sans-serif",
-
-
-                          cursor: "pointer",
-
-                          transition: "width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s"
-                        }}
+              background: estaNoDesejo ? "#ff4444" : "#ff6b9d",
+              color: "white",
+              borderRadius: "20px",
+              fontSize: "20px",
+              fontWeight: "bold",
+              padding: "20px",
+              border: "none",
+              fontFamily: "poppins, sans-serif",
+              cursor: "pointer",
+              transition: "width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s"
+            }}
           >
             {desejoLoading
               ? "..."
@@ -137,7 +139,7 @@ export default function ProdutoDetalhe({ produto }) {
                 : "🤍 Adicionar aos Favoritos"}
           </button>
         </div>
-        {/* ✅ Mensagem de erro */}
+
         {erroFavorito && (
           <p style={{ color: "red", marginTop: "10px", fontWeight: "bold" }}>
             {erroFavorito}
@@ -148,12 +150,40 @@ export default function ProdutoDetalhe({ produto }) {
           <h2>Descrição</h2>
           <p>{produto.descricao}</p>
 
-
           {produto.detalhes && (
             <>
               <h2>Detalhes do Produto</h2>
               <p>{produto.detalhes}</p>
             </>
+          )}
+        </div>
+
+        {/* Seção de Avaliações */}
+        <div style={{ maxWidth: "800px", margin: "40px auto", textAlign: "left" }}>
+          <AvaliacoesList produtoId={produto.id} refresh={refreshAvaliacoes} />
+          
+          {/* Botão/Formulário de Avaliação */}
+          {!jaAvaliou && !mostrarFormulario && (
+            <button
+              className="botao"
+              onClick={() => setMostrarFormulario(true)}
+              style={{ width: '100%', marginTop: '20px' }}
+            >
+              ⭐ Avaliar este produto
+            </button>
+          )}
+
+          {mostrarFormulario && !jaAvaliou && (
+            <AvaliacaoForm
+              produtoId={produto.id}
+              onAvaliacaoEnviada={handleAvaliacaoEnviada}
+            />
+          )}
+
+          {jaAvaliou && (
+            <p style={{ textAlign: 'center', color: '#28a745', marginTop: '20px', fontWeight: 'bold' }}>
+              ✅ Você já avaliou este produto
+            </p>
           )}
         </div>
       </div>

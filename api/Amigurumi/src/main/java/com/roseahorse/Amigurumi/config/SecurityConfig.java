@@ -49,7 +49,9 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/produto",
                                 "/api/produto/**",
-                                "/api/imagem/**"
+                                "/api/imagem/**",
+                                "/api/avaliacao/produto/**",
+                                "/api/avaliacao/verificar/**"
                         ).permitAll()
 
                         // Endpoints que exigem autenticação
@@ -58,7 +60,9 @@ public class SecurityConfig {
                                 "/api/lista-desejo/**",
                                 "/api/pedido/**",
                                 "/api/usuario/me",
-                                "/api/usuario/perfil"
+                                "/api/usuario/perfil",
+                                "/api/avaliacao",
+                                "/api/avaliacao/*/excluir"
                         ).authenticated()
 
                         // Endpoints apenas para ADMIN e FUNCIONARIO
