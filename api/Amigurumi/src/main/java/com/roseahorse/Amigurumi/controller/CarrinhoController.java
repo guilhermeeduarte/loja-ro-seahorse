@@ -49,7 +49,8 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -57,13 +58,20 @@ public class CarrinhoController {
         Long produtoId = Long.valueOf(request.get("produtoId").toString());
         Integer quantidade = Integer.valueOf(request.get("quantidade").toString());
         Double precoUnitario = Double.valueOf(request.get("precoUnitario").toString());
+
         if (quantidade <= 0) {
             return ResponseEntity.status(400).body("Quantidade deve ser maior que zero");
         }
 
-        Produto produto = produtoRepository.findById(produtoId).orElse(null);
+
+        Produto produto = produtoRepository.findByIdAndNotDeleted(produtoId).orElse(null);
         if (produto == null) {
-            return ResponseEntity.status(404).body("Produto não encontrado");
+            return ResponseEntity.status(404).body("Produto não encontrado ou indisponível");
+        }
+
+
+        if (!produto.isDisponivel()) {
+            return ResponseEntity.status(400).body("Produto não disponível");
         }
 
         if (produto.getQuantidade() < quantidade) {
@@ -104,28 +112,32 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
         List<ItemCarrinho> itens = itemCarrinhoRepository.findByUsuario_Id(usuario.getId());
 
-        List<Map<String, Object>> itensResponse = itens.stream().map(item -> {
-            Map<String, Object> itemMap = new HashMap<>();
-            itemMap.put("id", item.getId());
-            itemMap.put("produtoId", item.getProduto().getId());
-            itemMap.put("produtoNome", item.getProduto().getNome());
-            itemMap.put("produtoDescricao", item.getProduto().getDescricao());
-            itemMap.put("imagemUrl", item.getProduto().getImagemUrl());
-            itemMap.put("quantidade", item.getQuantidade());
-            itemMap.put("precoUnitario", item.getPrecoUnitario());
-            itemMap.put("subtotal", item.getSubtotal());
-            itemMap.put("estoqueDisponivel", item.getProduto().getQuantidade());
-            return itemMap;
-        }).collect(Collectors.toList());
+
+        List<Map<String, Object>> itensResponse = itens.stream()
+                .filter(item -> item.getProduto().isAtivo()) // Remove produtos excluídos
+                .map(item -> {
+                    Map<String, Object> itemMap = new HashMap<>();
+                    itemMap.put("id", item.getId());
+                    itemMap.put("produtoId", item.getProduto().getId());
+                    itemMap.put("produtoNome", item.getProduto().getNome());
+                    itemMap.put("produtoDescricao", item.getProduto().getDescricao());
+                    itemMap.put("imagemUrl", item.getProduto().getImagemUrl());
+                    itemMap.put("quantidade", item.getQuantidade());
+                    itemMap.put("precoUnitario", item.getPrecoUnitario());
+                    itemMap.put("subtotal", item.getSubtotal());
+                    itemMap.put("estoqueDisponivel", item.getProduto().getQuantidade());
+                    return itemMap;
+                }).collect(Collectors.toList());
 
         Double valorTotal = itens.stream()
+                .filter(item -> item.getProduto().isAtivo())
                 .mapToDouble(ItemCarrinho::getSubtotal)
                 .sum();
 
@@ -151,7 +163,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -159,6 +171,10 @@ public class CarrinhoController {
         ItemCarrinho item = itemCarrinhoRepository.findById(itemId).orElse(null);
         if (item == null) {
             return ResponseEntity.status(404).body("Item não encontrado no carrinho");
+        }
+
+        if (!item.getProduto().isAtivo()) {
+            return ResponseEntity.status(400).body("Produto não está mais disponível");
         }
 
         if (!item.getUsuario().getId().equals(usuario.getId())) {
@@ -199,7 +215,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -232,7 +248,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
@@ -255,7 +271,7 @@ public class CarrinhoController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }

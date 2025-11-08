@@ -620,7 +620,9 @@ form {
 .btn-adicionar-desejo:hover {
   transform: scale(1.08);
 }
-
+.btn-remover-desejo:hover {
+  transform: scale(1.08);
+}
 
 .faq {
   margin-top: 120px;
@@ -1394,6 +1396,38 @@ span.material-icons {
   justify-content: center;
 
 
+}
+
+.HENRIQUE {
+   display: flex;
+   width: 90vw;
+     gap: 16em;
+     justify-content: center;
+}
+.HENRIQUE2 {
+   display: flex;
+   width: 90vw;
+     gap: 14em;
+     justify-content: center;
+}
+.corinthians {
+   margin-left: 4em !important;
+}
+.corinthians2 {
+   margin-left: 1.5em !important;
+}
+
+.testediv {
+   display: flex;
+   width: 90vw;
+     gap: 16em;
+     justify-content: center;
+}
+.testediv2 {
+   display: flex;
+   width: 90vw;
+     gap: 12em;
+     justify-content: center;
 }
 
 /* Seções */

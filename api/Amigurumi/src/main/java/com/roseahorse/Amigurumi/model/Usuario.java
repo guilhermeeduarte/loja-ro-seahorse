@@ -21,6 +21,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario = TipoUsuario.CLIENTE;
 
+    @Column(name = "excluido", nullable = false)
+    private Boolean excluido = false;
+
+
     public Usuario() {
 
     }
@@ -33,6 +37,7 @@ public class Usuario {
         this.cpf = cpf;
         this.endereco = endereco;
         this.dataNascimento = dataNascimento;
+        this.excluido = false;
     }
 
     public TipoUsuario getTipoUsuario() { return tipoUsuario; }
@@ -98,4 +103,15 @@ public class Usuario {
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+    public Boolean getExcluido() { return excluido; }
+
+    public void setExcluido(Boolean excluido) { this.excluido = excluido; }
+
+    public void excluir() { this.excluido = true; }
+
+    public void reativar() { this.excluido = false; }
+
+
+    public boolean isAtivo() { return !this.excluido; }
 }

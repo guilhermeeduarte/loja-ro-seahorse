@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -98,6 +100,35 @@ export default function ProdutoDetalhe({ produto }) {
             className={estaNoDesejo ? "btn-remover-desejo" : "btn-adicionar-desejo"}
             onClick={handleToggleDesejo}
             disabled={desejoLoading}
+            style={{
+                          background: estaNoDesejo ? "#ff4444" : "#ff6b9d",
+
+
+                          color: "white",
+
+
+                          borderRadius: "20px",
+
+
+                          fontSize: "20px",
+
+
+                          fontWeight: "bold",
+
+
+                          padding: "20px",
+
+
+                          border: "none",
+
+
+                          fontFamily: "poppins, sans-serif",
+
+
+                          cursor: "pointer",
+
+                          transition: "width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s"
+                        }}
           >
             {desejoLoading
               ? "..."

@@ -1,20 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../styles.css'
 
+const API_URL = "http://localhost:3000/api";
+
 const PerfilAdm = () => {
+  const [usuario, setUsuario] = useState(null);
+
+  useEffect(() => {
+    const carregarUsuario = async () => {
+      try {
+        const res = await fetch(`${API_URL}/usuario/perfil`, {
+          credentials: "include"
+        });
+        if (res.ok) {
+          const dados = await res.json();
+          setUsuario(dados);
+        } else {
+          console.error("Erro ao buscar usuário:", res.status);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar usuário:", error);
+      }
+    };
+
+    carregarUsuario();
+  }, []);
+
   return (
     <div className="pagina">
       <Navbar />
+      <div className="secao">
+          <h2 className="titulo">Bem-vindo, {usuario?.nome}!</h2>
+        </div>
+ <div className="testediv2">
+    <h3 className="titulo-area">Cadastro de produtos:</h3>
+    <h3 className="titulo-area">Edição de produtos:</h3>
+   <h3 className="titulo-area">Exclusão de produtos:</h3>
+   </div>
 
-      <div className="titulo-adm">
-        <h2>Bem vindo, administrador(a)!</h2>
-      </div>
+      <section className="HENRIQUE">
 
-      <section>
-        <h3 className="titulo-area">Cadastro de produtos:</h3>
         <div className="cadastro-produto">
           <Link to="/cadastroproduto">
             <img
@@ -25,8 +53,9 @@ const PerfilAdm = () => {
           </Link>
         </div>
 
-        <h3 className="titulo-area">Edição de produtos:</h3>
+
         <div className="edicao-produto">
+             <div className="botoes-adm">
           <Link to="/edicaoproduto">
             <img
               src="/Assets/Imagens/edicao.png"
@@ -34,9 +63,10 @@ const PerfilAdm = () => {
               className="edicao"
             />
           </Link>
+             </div>
         </div>
 
-        <h3 className="titulo-area">Exclusão de produtos:</h3>
+
         <div className="exclusao-produto">
           <Link to="/exclusaoprodutos">
             <img
@@ -46,10 +76,15 @@ const PerfilAdm = () => {
             />
           </Link>
         </div>
+   </section>
 
+    <div className="testediv">
+   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Meu perfil:</h3>
+    </div>
+ <section className="HENRIQUE2">
         {/* ✅ NOVO: Gerenciamento de Pedidos */}
-        <h3 className="titulo-area">Gerenciar Pedidos:</h3>
-        <div className="gerenciar-pedidos">
+
+        <div className="corinthians">
           <Link to="/gerenciar-pedidos">
             <img
               src="/Assets/Imagens/pedidos.png"
@@ -69,11 +104,23 @@ const PerfilAdm = () => {
             />
           </Link>
         </div>
+
+        {/* Editar perfil */}
+
+        <div className="corinthians2">
+          <Link to="/perfil_edicao">
+            <img
+              src="/Assets/Imagens/man.png"
+              alt="Editar perfil"
+              className="edicao"
+            />
+          </Link>
+        </div>
       </section>
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default PerfilAdm
+export default PerfilAdm;

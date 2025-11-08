@@ -1,9 +1,12 @@
 package com.roseahorse.Amigurumi.controller;
 
+import com.roseahorse.Amigurumi.model.TipoUsuario;
 import com.roseahorse.Amigurumi.model.Usuario;
 import com.roseahorse.Amigurumi.repository.UsuarioRepository;
 import com.roseahorse.Amigurumi.security.JwtUtil;
+import com.roseahorse.Amigurumi.security.RateLimitFilter;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +31,9 @@ public class UsuarioController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RateLimitFilter rateLimitFilter;
+
     @Value("${spring.profiles.active:dev}")
     private String activeProfile;
 
@@ -43,21 +49,29 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) {
         String email = loginData.get("email");
         String senha = loginData.get("senha");
+        String ip = getClientIP(request);
 
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmailAndNotDeleted(email);
         if (usuario == null) {
+            rateLimitFilter.recordFailedAttempt(ip);
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
         if (!passwordEncoder.matches(senha, usuario.getSenha())) {
+            rateLimitFilter.recordFailedAttempt(ip);
             return ResponseEntity.status(401).body("Senha incorreta");
         }
 
+        // Login bem-sucedido - reseta tentativas
+        rateLimitFilter.resetAttempts(ip);
+
         String token = jwtUtil.generateToken(email);
-        Cookie cookie = criarCookie("auth_token", token, 21600); // 6 horas
+        Cookie cookie = criarCookie("auth_token", token, 21600);
         response.addCookie(cookie);
 
         return ResponseEntity.ok(Map.of(
@@ -65,6 +79,14 @@ public class UsuarioController {
                 "nome", usuario.getNome(),
                 "tipoUsuario", usuario.getTipoUsuario().toString()
         ));
+    }
+
+    private String getClientIP(HttpServletRequest request) {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null) {
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 
     @PostMapping("/logout")
@@ -169,5 +191,65 @@ public class UsuarioController {
         cookie.setAttribute("SameSite", isProduction ? "None" : "Lax");
 
         return cookie;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> desativarUsuario(
+            @PathVariable Long id,
+            @CookieValue(name = "auth_token", required = false) String token) {
+
+        if (token == null) {
+            return ResponseEntity.status(401).body("Não autenticado");
+        }
+
+        String emailLogado = jwtUtil.validateToken(token);
+        Usuario usuarioLogado = usuarioRepository.findByEmailAndNotDeleted(emailLogado);
+
+        // Verifica se é ADMIN
+        if (usuarioLogado == null || usuarioLogado.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
+            return ResponseEntity.status(403).body("Acesso negado");
+        }
+
+        return usuarioRepository.findByIdAndNotDeleted(id)
+                .map(usuario -> {
+                    usuario.excluir();
+                    usuarioRepository.save(usuario);
+                    return ResponseEntity.ok(Map.of(
+                            "mensagem", "Usuário desativado com sucesso"
+                    ));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    @PutMapping("/{id}/reativar")
+    public ResponseEntity<?> reativarUsuario(
+            @PathVariable Long id,
+            @CookieValue(name = "auth_token", required = false) String token) {
+
+        if (token == null) {
+            return ResponseEntity.status(401).body("Não autenticado");
+        }
+
+        String emailLogado = jwtUtil.validateToken(token);
+        Usuario usuarioLogado = usuarioRepository.findByEmailAndNotDeleted(emailLogado);
+
+        if (usuarioLogado == null || usuarioLogado.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
+            return ResponseEntity.status(403).body("Acesso negado");
+        }
+
+        return usuarioRepository.findById(id)
+                .map(usuario -> {
+                    if (!usuario.getExcluido()) {
+                        return ResponseEntity.badRequest()
+                                .body(Map.of("erro", "Usuário já está ativo"));
+                    }
+                    usuario.reativar();
+                    usuarioRepository.save(usuario);
+                    return ResponseEntity.ok(Map.of(
+                            "mensagem", "Usuário reativado com sucesso"
+                    ));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
