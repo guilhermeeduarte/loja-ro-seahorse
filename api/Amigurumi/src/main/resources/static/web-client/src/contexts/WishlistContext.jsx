@@ -37,7 +37,7 @@ export const WishlistProvider = ({ children }) => {
 
       if (!response.ok) {
         const erro = await response.text();
-        throw new Error(erro || "Erro ao adicionar aos favoritos.");
+        throw new Error(erro || "Você não está logado.");
       }
 
       await carregarListaDesejo();

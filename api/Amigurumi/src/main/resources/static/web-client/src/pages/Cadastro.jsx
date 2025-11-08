@@ -22,7 +22,7 @@ export default function Cadastro() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Máscara manual para CPF
+    // ✅ Máscara manual para CPF
     if (name === "cpf") {
       const raw = value.replace(/\D/g, "").slice(0, 11);
       const masked = raw
@@ -30,7 +30,29 @@ export default function Cadastro() {
         .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
         .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
       setFormData((prev) => ({ ...prev, cpf: masked }));
-    } else {
+    }
+    // ✅ Máscara manual para Telefone
+    else if (name === "telefone") {
+      const raw = value.replace(/\D/g, "").slice(0, 13); // só números, até 13 dígitos
+      let masked = raw;
+
+      if (raw.length > 2) {
+        masked = `+${raw.slice(0, 2)} ${raw.slice(2)}`;
+      }
+      if (raw.length > 4) {
+        masked = `+${raw.slice(0, 2)} (${raw.slice(2, 4)}) ${raw.slice(4)}`;
+      }
+      if (raw.length > 9) {
+        masked = `+${raw.slice(0, 2)} (${raw.slice(2, 4)}) ${raw.slice(
+          4,
+          9
+        )}-${raw.slice(9)}`;
+      }
+
+      setFormData((prev) => ({ ...prev, telefone: masked }));
+    }
+    // Campos normais
+    else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
@@ -122,7 +144,7 @@ export default function Cadastro() {
             type="text"
             className="form-control"
             name="telefone"
-            placeholder="Número de Telefone"
+            placeholder="+55 (11) 99999-9999"
             value={formData.telefone}
             onChange={handleChange}
             required

@@ -79,7 +79,7 @@ const PerfilAdm = () => {
    </section>
 
     <div className="testediv">
-   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Meu perfil:</h3>
+   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Meu perfil:</h3>  <h3 className="subtitulo2">Devoluções:</h3>
     </div>
  <section className="HENRIQUE2">
         {/* ✅ NOVO: Gerenciamento de Pedidos */}
@@ -116,6 +116,18 @@ const PerfilAdm = () => {
             />
           </Link>
         </div>
+
+        <div className="corinthians3">
+          <Link to="/devolucao_adm">
+            <img
+              src="/Assets/Imagens/devolucao.png"
+              width="150px"
+              alt="devoluçaõ"
+              className="devolucao"
+            />
+          </Link>
+        </div>
+
       </section>
 
       <Footer />

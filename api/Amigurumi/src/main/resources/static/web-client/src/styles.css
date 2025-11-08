@@ -45,13 +45,14 @@ top-bar {
 
 .barra-pesquisa {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: right;
   background-color: white;
   border-radius: 100px;
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 100vh;
+  max-height:62px;
 }
 
 .barra-digitar {
@@ -60,9 +61,10 @@ top-bar {
 }
 
 .botao-pesquisa {
+  margin-left:25.5vh;
   border: 0;
   background-color: transparent;
-
+  align-content:right;
 }
 
 .botao-pesquisa img {
@@ -75,7 +77,6 @@ top-bar {
 }
 
 .lupa {
-  margin-left: 80px;
   width: 40px;
   height: auto;
 }
@@ -91,7 +92,7 @@ header {
 
 .menu-teleporte {
   background: #007acc;
-  padding: 10px 0;
+  padding: 10px 1;
   display: flex;
   justify-content: space-around;
   color: #fff;
@@ -436,6 +437,10 @@ form {
 
 .btn-submit {
   background-color: #A9DCF2;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+.btn-submit:hover{
+  transform: scale(1.1);
 }
 
 /* input do código esqueci a senha/verificação */
@@ -567,7 +572,7 @@ form {
 }
 
 .descricao {
-  max-width: 600px;
+  min-width: 300px;
 }
 
 .Pinguim {
@@ -578,13 +583,24 @@ form {
 }
 
 .descricao {
+  display:flex;
+  flex-direction: column;
+  text-align:center;
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
-  text-align: left;
   font-family: "Poppins", sans-serif;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+.devolucao {  
+  width: 150px;
+  padding: 20px;
+  border: 5px solid #0057b7;
+  border-radius: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 .btn-comprar-produto {
@@ -601,6 +617,22 @@ form {
 }
 
 .btn-comprar-produto:hover {
+  transform: scale(1.1);
+}
+
+.enviar {
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.limpar {
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.enviar:hover {
+  transform: scale(1.1);
+}
+
+.limpar:hover {
   transform: scale(1.1);
 }
 
@@ -868,6 +900,15 @@ iframe {
   border: 5px solid #f68650;
 }
 
+.logout img{
+  width: 150px;
+  padding: 20px;
+  border: 5px solid #0057b7;
+  border-radius: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 .titulo-exclusao {
   font-size: medium;
   text-align: center;
@@ -1576,4 +1617,29 @@ span.material-icons {
   color: black !important;
   text-decoration: none;
   transform: scale(1.15)
+}
+
+.secao-top{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+}
+.botoes-container {
+  display: flex;
+  justify-content: center;
+  gap: 120px; /* espaço entre os blocos */
+  margin-top: 20px;
+}
+
+.botao-bloco {
+  text-align: center; /* centraliza título e imagem */
+}
+
+.botao-bloco img {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.botao-bloco img:hover {
+  transform: scale(1.1);
 }

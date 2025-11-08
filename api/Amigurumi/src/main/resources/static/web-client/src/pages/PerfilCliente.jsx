@@ -105,12 +105,34 @@ const PerfilCliente = () => {
         )}
       </div>
 
-      {/* Edição de Perfil */}
+      {/* Botões lado a lado */}
       <div className="secao">
-        <h3 className="subtitulo">Edição do perfil:</h3>
-        <Link to="/perfil_edicao">
-          <img src="/Assets/Imagens/edicao.png" alt="Editar perfil" className="edicao" />
-        </Link>
+        <section className="botoes-container">
+          {/* Edição de Perfil */}
+          <div className="botao-bloco">
+            <h3 className="titulo-area">Editar Perfil:</h3>
+            <Link to="/perfil_edicao">
+              <img
+                src="/Assets/Imagens/edicao.png"
+                alt="Edição de perfil"
+                className="edicao"
+              />
+            </Link>
+          </div>
+
+          {/* Devolução */}
+          <div className="botao-bloco">
+            <h3 className="titulo-area">Devolução:</h3>
+            <Link to="/devolucao">
+              <img
+                src="/Assets/Imagens/devolucao.png"
+                width="150px"
+                alt="devolução"
+                className="edicao"
+              />
+            </Link>
+          </div>
+        </section>
       </div>
 
       <Footer />

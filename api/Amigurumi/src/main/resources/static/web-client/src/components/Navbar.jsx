@@ -21,8 +21,8 @@ const Navbar = () => {
           <img
             id="logo-minimalista"
             src="/assets/imagens/logo_minimalista.png"
-            width="101"
-            height="101"
+            width="70"
+            height="70"
             style={{ borderRadius: "80px" }}
             alt="logo-minimalista"
           />
@@ -48,7 +48,7 @@ const Navbar = () => {
           <img
             id="carrinho"
             src="/assets/imagens/carrinho.png"
-            width="50"
+            width="60"
             height="60"
             alt="carrinho"
           />

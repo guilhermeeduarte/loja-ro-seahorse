@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 const PerfilForm = ({ perfilId }) => {
   const [perfil, setPerfil] = useState({
     nome: "",
-    cpf: "",
     nascimento: "",
     telefone: "",
     endereco: "",
@@ -45,8 +44,32 @@ const PerfilForm = ({ perfilId }) => {
     carregarPerfil();
   }, [perfilId]);
 
+  // ✅ handleChange com máscara de telefone
   const handleChange = (e) => {
-    setPerfil({ ...perfil, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "telefone") {
+      const raw = value.replace(/\D/g, "").slice(0, 13); // só números, até 13 dígitos
+      let masked = raw;
+
+      // Formata como +55 (11) 99999-9999
+      if (raw.length > 2) {
+        masked = `+${raw.slice(0, 2)} ${raw.slice(2)}`;
+      }
+      if (raw.length > 4) {
+        masked = `+${raw.slice(0, 2)} (${raw.slice(2, 4)}) ${raw.slice(4)}`;
+      }
+      if (raw.length > 9) {
+        masked = `+${raw.slice(0, 2)} (${raw.slice(2, 4)}) ${raw.slice(
+          4,
+          9
+        )}-${raw.slice(9)}`;
+      }
+
+      setPerfil((prev) => ({ ...prev, telefone: masked }));
+    } else {
+      setPerfil((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -88,11 +111,10 @@ const PerfilForm = ({ perfilId }) => {
       const data = await res.json();
       console.log(data.mensagem || "Logout realizado");
 
-      // Limpa informações locais
       localStorage.removeItem("usuarioLogado");
 
       alert("Logout realizado com sucesso!");
-      window.location.href = "/"; // Redireciona para a home
+      window.location.href = "/";
     } catch (error) {
       console.error(error);
       alert("Erro ao realizar logout.");
@@ -114,26 +136,13 @@ const PerfilForm = ({ perfilId }) => {
         />
       </div>
 
-      {/* CPF */}
-      <div className="CPF-cadastro">
-        <input
-          type="text"
-          className={`form-control ${isLoading ? "loading" : ""}`}
-          name="cpf"
-          value={perfil.cpf || ""}
-          onChange={handleChange}
-          placeholder={isLoading ? "Carregando..." : "000.000.000-00"}
-          disabled={!editMode || isLoading}
-        />
-      </div>
-
       {/* Data de nascimento */}
       <div className="nascimento-cadastro">
         <input
           type="date"
           className={`form-control ${isLoading ? "loading" : ""}`}
           name="nascimento"
-          value={perfil.dataNascimento || ""}
+          value={perfil.nascimento || ""}
           onChange={handleChange}
           disabled={!editMode || isLoading}
         />
@@ -147,7 +156,7 @@ const PerfilForm = ({ perfilId }) => {
           name="telefone"
           value={perfil.telefone || ""}
           onChange={handleChange}
-          placeholder={isLoading ? "Carregando..." : "+55 11 99999-9999"}
+          placeholder={isLoading ? "Carregando..." : "+55 (11) 99999-9999"}
           disabled={!editMode || isLoading}
         />
       </div>
@@ -205,7 +214,6 @@ const PerfilForm = ({ perfilId }) => {
           </>
         )}
 
-        {/* Botão de Logout */}
         <button
           type="button"
           className="botao"

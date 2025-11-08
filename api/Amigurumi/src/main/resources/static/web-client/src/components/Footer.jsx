@@ -21,9 +21,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <Link to="/direitosreservados">
           <p>Todos os direitos reservados © 2025 - RO SeaHorse</p>
-        </Link>
       </div>
     </footer>
   );

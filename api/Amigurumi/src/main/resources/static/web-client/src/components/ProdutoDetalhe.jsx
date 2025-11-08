@@ -145,8 +145,8 @@ export default function ProdutoDetalhe({ produto }) {
         )}
 
         <div className="descricao" style={{ marginTop: "20px" }}>
-          <h2 style={{ textAlign: "center" }}>Descrição</h2>
-          <p style={{ textAlign: "left" }}>{produto.descricao}</p>
+          <h2>Descrição</h2>
+          <p>{produto.descricao}</p>
 
 
           {produto.detalhes && (
