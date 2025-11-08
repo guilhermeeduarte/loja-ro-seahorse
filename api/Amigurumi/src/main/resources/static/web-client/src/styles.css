@@ -14,8 +14,16 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
   min-width: 100%;
+
 }
- 
+.pagina img {
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s
+}
+
+.pagina img:hover{
+  transform: scale(1.2);
+} 
+
 .pagina > :not(footer) {
   flex: 1;
 }
@@ -50,8 +58,18 @@ position: fixed;
 .botao-pesquisa {
   border: 0;
   background-color: transparent;
+  
 }
  
+.botao-pesquisa img {
+
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.botao-pesquisa img:hover {
+  transform: scale(1.2);
+}
+
 .lupa {
   margin-left:80px;
   width: 40px;
@@ -120,6 +138,37 @@ nav a {
   font-weight: bold;
 }
 
+.navbar.principal img{
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.navbar.principal img:hover {
+  transform: scale(1.3)
+
+}
+
+.footer-top a,
+.footer-bottom a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.5s ease, transform 0.5s ease;
+}
+
+.footer-top a:hover,
+.footer-bottom a:hover {
+  color: #007bff; /* azul vibrante no hover */
+  transform: scale(1.3);
+}
+
+
+footer img {
+   transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+footer img:hover {
+  transform: scale(1.3)
+
+}
 
 .navbar.carrinho {
   background: #f68650;
@@ -220,6 +269,10 @@ nav a {
   object-fit: cover;
 }
  
+.banner-img img:hover{
+  transform: scale(1) !important;
+}
+
 .banner-img img {
   width: 100%;
   height: auto;
@@ -250,6 +303,7 @@ nav a {
   width: 150px;
   min-height: 125px;
   padding: 16px;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s !important;
 }
  
 .item img {
@@ -257,8 +311,14 @@ nav a {
   height: 120px;
   object-fit: cover;
   border-radius: 14px;
+  transform: scale(1.1) !important
 }
- 
+.item:hover{
+  transform: scale(1.1) !important;
+  
+}
+
+
 .item button {
   margin-top: auto;
   width:auto;
@@ -343,6 +403,13 @@ form {
   gap: 2px;
   margin: 6px 4 18px 0;
 }
+.form-links a{
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+.form-links a:hover {
+  transform: scale(1.9);
+}
+
 /* Responsividade em tela pequena*/
  
 .btn-submit{
@@ -1371,8 +1438,12 @@ span.material-icons {
   color: black !important;
 }
 
+.botao-teleporte {
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
 
 .botao-teleporte:hover {
   color: black !important;
   text-decoration: none;
+  transform: scale(1.15)
 }
