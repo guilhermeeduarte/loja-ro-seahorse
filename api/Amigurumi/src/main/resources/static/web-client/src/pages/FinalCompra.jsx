@@ -1,12 +1,9 @@
-// web-client/src/pages/FinalCompra.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useCarrinho } from "../contexts/CartContext";
 import "../styles.css";
-
-const API_URL = "http://localhost:3000/api";
 
 const ItemResumo = ({ nome, preco, quantidade }) => (
   <li className="item-resumo">
@@ -18,18 +15,13 @@ const ItemResumo = ({ nome, preco, quantidade }) => (
 );
 
 const FinalCompra = () => {
-  const { cartItems, limparCarrinho, recarregarCarrinho } = useCarrinho();
+  const { cartItems, recarregarCarrinho } = useCarrinho();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [enderecoEntrega, setEnderecoEntrega] = useState("");
-  const [formaPagamento, setFormaPagamento] = useState("PIX");
+  const taxaEntrega = 24.2;
 
-  // ✅ Recarregar carrinho do backend ao entrar na página
   useEffect(() => {
     recarregarCarrinho();
   }, []);
-
-  const taxaEntrega = 24.2;
 
   const calcularTotal = () => {
     const somaProdutos = cartItems.reduce((acc, item) => {
@@ -42,49 +34,32 @@ const FinalCompra = () => {
     return (somaProdutos + taxaEntrega).toFixed(2);
   };
 
-  const finalizarCompra = async () => {
-    if (!enderecoEntrega.trim()) {
-      alert("Por favor, informe o endereço de entrega!");
-      return;
-    }
-
+  const prosseguirParaEndereco = () => {
     if (cartItems.length === 0) {
       alert("Seu carrinho está vazio!");
+      navigate("/carrinho");
       return;
     }
 
-    setLoading(true);
-
-    try {
-      const response = await fetch(`${API_URL}/pedido/finalizar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          enderecoEntrega: enderecoEntrega,
-          formaPagamento: formaPagamento
-        })
-      });
-
-      if (!response.ok) {
-        const erro = await response.text();
-        throw new Error(erro);
-      }
-
-      const resultado = await response.json();
-
-      alert(`✅ Pedido #${resultado.pedidoId} criado com sucesso!\nTotal: R$ ${resultado.valorTotal.toFixed(2).replace(".", ",")}\nStatus: PENDENTE`);
-
-      limparCarrinho();
-      navigate(`/statuspedido?pedidoId=${resultado.pedidoId}`);
-
-    } catch (error) {
-      console.error("Erro ao finalizar compra:", error);
-      alert(`Erro ao finalizar compra: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
+    // Salva o valor total no sessionStorage para usar depois
+    sessionStorage.setItem("valorTotal", calcularTotal());
+    navigate("/addendereco");
   };
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="pagina">
+        <Navbar />
+        <div style={{ textAlign: "center", padding: "50px" }}>
+          <h2>Seu carrinho está vazio</h2>
+          <button className="botao" onClick={() => navigate("/")}>
+            Voltar para Home
+          </button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="pagina">
@@ -93,38 +68,6 @@ const FinalCompra = () => {
       <section id="titulo-cadastro" className="titulo-cadastro">
         <h1>Resumo da Compra</h1>
       </section>
-
-      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-        <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-            Endereço de Entrega:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Rua, Número - Bairro - Cidade/Estado"
-            value={enderecoEntrega}
-            onChange={(e) => setEnderecoEntrega(e.target.value)}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-            Forma de Pagamento:
-          </label>
-          <select
-            className="form-control"
-            value={formaPagamento}
-            onChange={(e) => setFormaPagamento(e.target.value)}
-          >
-            <option value="PIX">PIX</option>
-            <option value="BOLETO">Boleto</option>
-            <option value="CREDITO">Cartão de Crédito</option>
-            <option value="DEBITO">Cartão de Débito</option>
-          </select>
-        </div>
-      </div>
 
       <ul className="carrinhos">
         {cartItems.map((item, index) => {
@@ -154,10 +97,9 @@ const FinalCompra = () => {
       <button
         className="botao"
         style={{ display: "block", margin: "20px auto" }}
-        onClick={finalizarCompra}
-        disabled={loading}
+        onClick={prosseguirParaEndereco}
       >
-        {loading ? "Processando..." : "Confirmar Pedido"}
+        Confirmar Pedido
       </button>
 
       <Footer />

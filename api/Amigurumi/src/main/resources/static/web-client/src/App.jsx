@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProcessarPagamento from "./pages/ProcessarPagamento.jsx";
 import Home from "./pages/Home.jsx";
 import Localizacao from "./pages/Localizacao.jsx";
 import Cadastro from "./pages/Cadastro.jsx";
@@ -83,6 +84,14 @@ export default function App() {
               element={
                 <ProtectedRoute allowedRoles={['CLIENTE', 'FUNCIONARIO', 'ADMINISTRADOR']}>
                   <FinalCompra />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/processar-pagamento"
+              element={
+                <ProtectedRoute allowedRoles={['CLIENTE', 'FUNCIONARIO', 'ADMINISTRADOR']}>
+                  <ProcessarPagamento />
                 </ProtectedRoute>
               }
             />

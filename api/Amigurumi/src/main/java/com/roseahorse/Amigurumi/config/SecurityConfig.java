@@ -51,7 +51,8 @@ public class SecurityConfig {
                                 "/api/produto/**",
                                 "/api/imagem/**",
                                 "/api/avaliacao/produto/**",
-                                "/api/avaliacao/verificar/**"
+                                "/api/avaliacao/verificar/**",
+                                "/api/pagamento/webhook"
                         ).permitAll()
 
                         // Endpoints que exigem autenticação
