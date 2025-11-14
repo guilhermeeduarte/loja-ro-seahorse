@@ -496,13 +496,14 @@ form {
   background: linear-gradient(to right, #00aaff, #0057b7);
   color: white;
   margin: 20px;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
 }
 
 .botao-limpar:hover {
   opacity: 0.9;
   background: linear-gradient(to right, #f68650, #0057b7);
+  transform: scale(1.1)
 }
-
 
 /*FAQ - PERGUNTAS FREQUENTES*/
 

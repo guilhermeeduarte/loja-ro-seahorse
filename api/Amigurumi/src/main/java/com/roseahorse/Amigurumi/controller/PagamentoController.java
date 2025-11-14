@@ -47,7 +47,6 @@ public class PagamentoController {
             asaasRequest.put("description", descricao);
             asaasRequest.put("value", valor);
             asaasRequest.put("dueDateLimitDays", 10);
-
             asaasRequest.put("externalReference", pedidoId.toString());
 
             // Configura headers
@@ -89,25 +88,75 @@ public class PagamentoController {
         }
     }
 
-    // Webhook para receber confirmação de pagamento da Asaas
     @PostMapping("/webhook")
-    public ResponseEntity<?> receberWebhook(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<?> receberWebhook(@RequestBody String rawPayload) {
         try {
-            // Extrai informações do webhook
+            System.out.println("🔔 Webhook recebido (raw): " + rawPayload);
+
+            Map<String, Object> payload = new com.fasterxml.jackson.databind.ObjectMapper()
+                    .readValue(rawPayload, Map.class);
+
+            System.out.println("🔔 Webhook parseado: " + payload);
+
             String event = (String) payload.get("event");
 
-            if ("PAYMENT_RECEIVED".equals(event)) {
-                Map<String, Object> payment = (Map<String, Object>) payload.get("payment");
-                String externalReference = (String) payment.get("externalReference");
+            // Eventos que indicam pagamento confirmado
+            if ("PAYMENT_RECEIVED".equals(event) ||
+                    "PAYMENT_CONFIRMED".equals(event) ||
+                    "PAYMENT_APPROVED".equals(event) ||
+                    "PAYMENT_UPDATED".equals(event)) {
 
-                pedidoService.marcarComoPago(externalReference);
+                // Asaas envia os dados diretamente no payload, não em um objeto "payment"
+                String externalReference = null;
+                String status = null;
 
-                System.out.println("✅ Pagamento recebido para: " + externalReference);
+                // Tenta pegar do objeto "payment" (alguns webhooks)
+                if (payload.containsKey("payment")) {
+                    Map<String, Object> payment = (Map<String, Object>) payload.get("payment");
+                    externalReference = (String) payment.get("externalReference");
+                    status = (String) payment.get("status");
+                }
+                // Tenta pegar diretamente do payload (outros webhooks)
+                else {
+                    externalReference = (String) payload.get("externalReference");
+                    status = (String) payload.get("status");
+                }
+
+                System.out.println("📋 externalReference: " + externalReference);
+                System.out.println("📋 status: " + status);
+
+                if (externalReference == null || externalReference.isEmpty()) {
+                    System.err.println("❌ externalReference não encontrado no payload");
+                    return ResponseEntity.ok(Map.of("received", true, "warning", "externalReference ausente"));
+                }
+
+                if ("RECEIVED".equals(status) || "CONFIRMED".equals(status)) {
+                    pedidoService.marcarComoPago(externalReference);
+                    System.out.println("✅ Pagamento confirmado para pedido: " + externalReference);
+                } else {
+                    System.out.println("ℹ️ Status do pagamento: " + status + " - Aguardando confirmação");
+                }
+            } else {
+                System.out.println("ℹ️ Evento ignorado: " + event);
             }
 
             return ResponseEntity.ok(Map.of("received", true));
         } catch (Exception e) {
-            System.err.println("Erro ao processar webhook: " + e.getMessage());
+            System.err.println("❌ Erro ao processar webhook: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.ok(Map.of("received", true, "error", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/verificar-status/{pedidoId}")
+    public ResponseEntity<?> verificarStatusPagamento(@PathVariable Long pedidoId) {
+        try {
+            boolean pago = pedidoService.verificarSePago(pedidoId);
+            return ResponseEntity.ok(Map.of(
+                    "pedidoId", pedidoId,
+                    "pago", pago
+            ));
+        } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of("erro", e.getMessage()));
         }
     }
