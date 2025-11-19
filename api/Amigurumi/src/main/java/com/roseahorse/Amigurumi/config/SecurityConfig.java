@@ -63,7 +63,8 @@ public class SecurityConfig {
                                 "/api/usuario/me",
                                 "/api/usuario/perfil",
                                 "/api/avaliacao",
-                                "/api/avaliacao/*/excluir"
+                                "/api/avaliacao/*/excluir",
+                                "/api/endereco/**"
                         ).authenticated()
 
                         // Endpoints apenas para ADMIN e FUNCIONARIO

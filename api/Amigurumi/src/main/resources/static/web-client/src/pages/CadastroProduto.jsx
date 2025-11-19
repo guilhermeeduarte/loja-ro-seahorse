@@ -16,11 +16,10 @@ const CadastroProduto = () => {
     categoria: 'Animais',
   })
 
-  const [imagemFile, setImagemFile] = useState(null)
-  const [preview, setPreview] = useState(null)
+  const [imagemFiles, setImagemFiles] = useState([null, null, null])
+  const [previews, setPreviews] = useState([null, null, null])
   const [mensagem, setMensagem] = useState(null)
   const [loading, setLoading] = useState(false)
-
 
   useEffect(() => {
     const verificarPermissao = async () => {
@@ -36,7 +35,6 @@ const CadastroProduto = () => {
         }
 
         const usuario = await response.json()
-
 
         if (usuario.tipoUsuario === 'CLIENTE') {
           alert('Você não tem permissão para acessar esta página!')
@@ -56,14 +54,31 @@ const CadastroProduto = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (index) => (e) => {
     const file = e.target.files[0]
     if (file) {
-      setImagemFile(file)
+      const newFiles = [...imagemFiles]
+      newFiles[index] = file
+      setImagemFiles(newFiles)
+
       const reader = new FileReader()
-      reader.onload = () => setPreview(reader.result)
+      reader.onload = () => {
+        const newPreviews = [...previews]
+        newPreviews[index] = reader.result
+        setPreviews(newPreviews)
+      }
       reader.readAsDataURL(file)
     }
+  }
+
+  const removeImage = (index) => {
+    const newFiles = [...imagemFiles]
+    newFiles[index] = null
+    setImagemFiles(newFiles)
+
+    const newPreviews = [...previews]
+    newPreviews[index] = null
+    setPreviews(newPreviews)
   }
 
   const handleSubmit = async (e) => {
@@ -83,28 +98,36 @@ const CadastroProduto = () => {
       return
     }
 
+    // Verifica se pelo menos uma imagem foi selecionada
+    if (!imagemFiles[0]) {
+      setMensagem('Selecione pelo menos uma imagem para o produto.')
+      setLoading(false)
+      return
+    }
+
     try {
-      let imagemUrl = null
+      const imagemUrls = [null, null, null]
 
+      // Upload de cada imagem
+      for (let i = 0; i < imagemFiles.length; i++) {
+        if (imagemFiles[i]) {
+          const formDataImagem = new FormData()
+          formDataImagem.append('file', imagemFiles[i])
 
-      if (imagemFile) {
-        const formDataImagem = new FormData()
-        formDataImagem.append('file', imagemFile)
+          const uploadResponse = await fetch(`${API_URL}/imagem/upload`, {
+            method: 'POST',
+            credentials: 'include',
+            body: formDataImagem
+          })
 
-        const uploadResponse = await fetch(`${API_URL}/imagem/upload`, {
-          method: 'POST',
-          credentials: 'include',
-          body: formDataImagem
-        })
+          if (!uploadResponse.ok) {
+            throw new Error(`Erro ao fazer upload da imagem ${i + 1}`)
+          }
 
-        if (!uploadResponse.ok) {
-          throw new Error('Erro ao fazer upload da imagem')
+          const uploadData = await uploadResponse.json()
+          imagemUrls[i] = uploadData.url
         }
-
-        const uploadData = await uploadResponse.json()
-        imagemUrl = uploadData.url
       }
-
 
       const produto = {
         nome: formData.nome,
@@ -112,7 +135,9 @@ const CadastroProduto = () => {
         valor: parseFloat(formData.valor),
         quantidade: parseInt(formData.quantidade),
         categoria: formData.categoria,
-        imagemUrl: imagemUrl
+        imagemUrl: imagemUrls[0],
+        imagemUrl2: imagemUrls[1],
+        imagemUrl3: imagemUrls[2]
       }
 
       const response = await fetch(`${API_URL}/produto`, {
@@ -125,9 +150,8 @@ const CadastroProduto = () => {
       })
 
       if (response.ok) {
-        setMensagem('Produto cadastrado com sucesso!')
+        setMensagem('✅ Produto cadastrado com sucesso!')
 
-        // Limpa o formulário
         setFormData({
           nome: '',
           descricao: '',
@@ -135,8 +159,8 @@ const CadastroProduto = () => {
           quantidade: '',
           categoria: 'Animais',
         })
-        setImagemFile(null)
-        setPreview(null)
+        setImagemFiles([null, null, null])
+        setPreviews([null, null, null])
 
         setTimeout(() => {
           navigate('/')
@@ -162,25 +186,66 @@ const CadastroProduto = () => {
           <h1>Cadastro de Produtos</h1>
         </section>
 
-        {/* ✅ Upload de imagem */}
+        {/* Upload de imagens */}
         <div className="campos-formulario">
-          <label htmlFor="imagem" style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
-            Imagem do Produto *
+          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
+            Imagens do Produto (mínimo 1, máximo 3) *
           </label>
-          <input
-            type="file"
-            name="imagem"
-            id="imagem"
-            className="form-control"
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-          {preview && (
-            <div className="preview-container" style={{ marginTop: '15px' }}>
-              <img src={preview} alt="Preview" style={{ maxWidth: '200px', borderRadius: '10px' }} />
-            </div>
-          )}
+
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {[0, 1, 2].map((index) => (
+              <div key={index} style={{ textAlign: 'center' }}>
+                <label
+                  htmlFor={`imagem-${index}`}
+                  style={{
+                    display: 'block',
+                    marginBottom: '5px',
+                    fontWeight: 'bold',
+                    color: index === 0 ? '#dc3545' : '#666'
+                  }}
+                >
+                  Imagem {index + 1} {index === 0 && '*'}
+                </label>
+                <input
+                  type="file"
+                  id={`imagem-${index}`}
+                  className="form-control"
+                  accept="image/*"
+                  onChange={handleImageChange(index)}
+                  required={index === 0}
+                  style={{ maxWidth: '200px' }}
+                />
+                {previews[index] && (
+                  <div style={{ marginTop: '10px', position: 'relative' }}>
+                    <img
+                      src={previews[index]}
+                      alt={`Preview ${index + 1}`}
+                      style={{ maxWidth: '200px', borderRadius: '10px' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      style={{
+                        position: 'absolute',
+                        top: '5px',
+                        right: '5px',
+                        background: '#dc3545',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '30px',
+                        height: '30px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="campos-formulario">
@@ -203,7 +268,6 @@ const CadastroProduto = () => {
             onChange={handleChange}
             className="form-control"
             placeholder="Descrição"
-
           />
         </div>
 

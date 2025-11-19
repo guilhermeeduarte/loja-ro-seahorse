@@ -15,6 +15,12 @@ public class Produto {
     private String categoria;
     private String imagemUrl;
 
+    @Column(name = "imagem_url_2")
+    private String imagemUrl2;
+
+    @Column(name = "imagem_url_3")
+    private String imagemUrl3;
+
     @Column(name = "excluido", nullable = false)
     private Boolean excluido = false;
 
@@ -85,6 +91,22 @@ public class Produto {
         this.imagemUrl = imagemUrl;
     }
 
+    public String getImagemUrl2() {
+        return imagemUrl2;
+    }
+
+    public void setImagemUrl2(String imagemUrl2) {
+        this.imagemUrl2 = imagemUrl2;
+    }
+
+    public String getImagemUrl3() {
+        return imagemUrl3;
+    }
+
+    public void setImagemUrl3(String imagemUrl3) {
+        this.imagemUrl3 = imagemUrl3;
+    }
+
     public Boolean getExcluido() {
         return excluido;
     }
@@ -93,22 +115,18 @@ public class Produto {
         this.excluido = excluido;
     }
 
-    // Método auxiliar para marcar como excluído
     public void excluir() {
         this.excluido = true;
     }
 
-    //Método auxiliar para reativar
     public void reativar() {
         this.excluido = false;
     }
 
-    //verifica se ta ativo
     public boolean isAtivo() {
         return !this.excluido;
     }
 
-    //verificar disponibilidade
     public boolean isDisponivel() {
         return !this.excluido && this.quantidade > 0;
     }

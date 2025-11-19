@@ -24,14 +24,21 @@ export default function ProdutoDetalhe({ produto }) {
   const [jaAvaliou, setJaAvaliou] = useState(false);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [refreshAvaliacoes, setRefreshAvaliacoes] = useState(0);
+  const [imagemAtual, setImagemAtual] = useState(0);
+
+  // Cria array de imagens disponíveis
+  const imagens = [
+    produto?.img,
+    produto?.imagemUrl2,
+    produto?.imagemUrl3
+  ].filter(Boolean);
 
   useEffect(() => {
     const verificar = async () => {
       if (produto?.id) {
         const resultado = await verificarSeEstaNoDesejo(produto.id);
         setEstaNoDesejo(resultado);
-        
-        // Verificar se já avaliou
+
         const resAvaliacao = await fetch(`${API_URL}/avaliacao/verificar/${produto.id}`, {
           credentials: 'include'
         });
@@ -83,21 +90,137 @@ export default function ProdutoDetalhe({ produto }) {
     setRefreshAvaliacoes(prev => prev + 1);
   };
 
+  const proximaImagem = () => {
+    setImagemAtual((prev) => (prev + 1) % imagens.length);
+  };
+
+  const imagemAnterior = () => {
+    setImagemAtual((prev) => (prev - 1 + imagens.length) % imagens.length);
+  };
+
   return (
     <div className="pagina">
       <Navbar />
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
-        <SmartImage
-          src={produto.img}
-          alt={produto.nome}
-          style={{
-            width: "350px",
-            height: "350px",
-            borderRadius: "16px",
-            objectFit: "cover"
-          }}
-        />
+        {/* Carousel de Imagens */}
+        <div style={{ position: 'relative', display: 'inline-block', marginBottom: '20px' }}>
+          <SmartImage
+            src={imagens[imagemAtual]}
+            alt={`${produto.nome} - Imagem ${imagemAtual + 1}`}
+            style={{
+              width: "350px",
+              height: "350px",
+              borderRadius: "16px",
+              objectFit: "cover"
+            }}
+          />
+
+          {/* Setas de navegação - só aparecem se houver mais de 1 imagem */}
+          {imagens.length > 1 && (
+            <>
+              <button
+                onClick={imagemAnterior}
+                style={{
+                  position: 'absolute',
+                  left: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+              >
+                ‹
+              </button>
+              <button
+                onClick={proximaImagem}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Indicadores de imagem */}
+          {imagens.length > 1 && (
+            <div style={{
+              position: 'absolute',
+              bottom: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '8px',
+              zIndex: 10
+            }}>
+              {imagens.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setImagemAtual(index)}
+                  style={{
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    border: 'none',
+                    background: imagemAtual === index ? 'white' : 'rgba(255, 255, 255, 0.5)',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s'
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Miniaturas */}
+        {imagens.length > 1 && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            marginBottom: '20px',
+            flexWrap: 'wrap'
+          }}>
+            {imagens.map((img, index) => (
+              <SmartImage
+                key={index}
+                src={img}
+                alt={`Miniatura ${index + 1}`}
+                onClick={() => setImagemAtual(index)}
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '8px',
+                  objectFit: 'cover',
+                  cursor: 'pointer',
+                  border: imagemAtual === index ? '3px solid #007bff' : '3px solid transparent',
+                  transition: 'all 0.3s'
+                }}
+              />
+            ))}
+          </div>
+        )}
+
         <h2>{produto.nome}</h2>
         <h3>
           R${" "}
@@ -161,8 +284,7 @@ export default function ProdutoDetalhe({ produto }) {
         {/* Seção de Avaliações */}
         <div style={{ maxWidth: "800px", margin: "40px auto", textAlign: "left" }}>
           <AvaliacoesList produtoId={produto.id} refresh={refreshAvaliacoes} />
-          
-          {/* Botão/Formulário de Avaliação */}
+
           {!jaAvaliou && !mostrarFormulario && (
             <button
               className="botao"
