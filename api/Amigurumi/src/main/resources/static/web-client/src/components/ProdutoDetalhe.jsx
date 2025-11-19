@@ -26,12 +26,12 @@ export default function ProdutoDetalhe({ produto }) {
   const [refreshAvaliacoes, setRefreshAvaliacoes] = useState(0);
   const [imagemAtual, setImagemAtual] = useState(0);
 
-  // Cria array de imagens disponíveis
-  const imagens = [
-    produto?.img,
-    produto?.imagemUrl2,
-    produto?.imagemUrl3
-  ].filter(Boolean);
+  // Agora usamos diretamente produto.imagens
+  const imagens = React.useMemo(() => {
+    return Array.isArray(produto?.imagens) && produto.imagens.length > 0
+      ? produto.imagens
+      : ['/assets/imagens/placeholder.png'];
+  }, [produto]);
 
   useEffect(() => {
     const verificar = async () => {
@@ -61,7 +61,7 @@ export default function ProdutoDetalhe({ produto }) {
         typeof produto.preco === "string"
           ? produto.preco
           : produto.preco.toFixed(2).replace(".", ","),
-      img: produto.img,
+      img: imagens[0], // usa a primeira imagem como principal
       descricao: produto.descricao
     };
 
@@ -98,124 +98,64 @@ export default function ProdutoDetalhe({ produto }) {
     setImagemAtual((prev) => (prev - 1 + imagens.length) % imagens.length);
   };
 
+console.log("Imagem atual:", imagens[imagemAtual], "Lista completa:", imagens);
+
   return (
     <div className="pagina">
       <Navbar />
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
-        {/* Carousel de Imagens */}
-        <div style={{ position: 'relative', display: 'inline-block', marginBottom: '20px' }}>
-          <SmartImage
+        {/* ✅ Carousel de Imagens */}
+        <div className="image-carousel-container">
+          <img
             src={imagens[imagemAtual]}
             alt={`${produto.nome} - Imagem ${imagemAtual + 1}`}
-            style={{
-              width: "350px",
-              height: "350px",
-              borderRadius: "16px",
-              objectFit: "cover"
-            }}
+            className="produto-imagem-principal"
           />
 
-          {/* Setas de navegação - só aparecem se houver mais de 1 imagem */}
+
           {imagens.length > 1 && (
             <>
               <button
                 onClick={imagemAnterior}
-                style={{
-                  position: 'absolute',
-                  left: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
-                  fontSize: '24px',
-                  cursor: 'pointer',
-                  zIndex: 10
-                }}
+                className="carousel-btn carousel-btn-prev"
+                aria-label="Imagem anterior"
               >
                 ‹
               </button>
               <button
                 onClick={proximaImagem}
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
-                  fontSize: '24px',
-                  cursor: 'pointer',
-                  zIndex: 10
-                }}
+                className="carousel-btn carousel-btn-next"
+                aria-label="Próxima imagem"
               >
                 ›
               </button>
             </>
           )}
 
-          {/* Indicadores de imagem */}
           {imagens.length > 1 && (
-            <div style={{
-              position: 'absolute',
-              bottom: '10px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              gap: '8px',
-              zIndex: 10
-            }}>
+            <div className="carousel-indicators">
               {imagens.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setImagemAtual(index)}
-                  style={{
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    border: 'none',
-                    background: imagemAtual === index ? 'white' : 'rgba(255, 255, 255, 0.5)',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s'
-                  }}
+                  className={`indicator ${imagemAtual === index ? 'active' : ''}`}
+                  aria-label={`Ir para imagem ${index + 1}`}
                 />
               ))}
             </div>
           )}
         </div>
 
-        {/* Miniaturas */}
         {imagens.length > 1 && (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            marginBottom: '20px',
-            flexWrap: 'wrap'
-          }}>
+          <div className="thumbnails-container">
             {imagens.map((img, index) => (
               <SmartImage
                 key={index}
                 src={img}
                 alt={`Miniatura ${index + 1}`}
                 onClick={() => setImagemAtual(index)}
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '8px',
-                  objectFit: 'cover',
-                  cursor: 'pointer',
-                  border: imagemAtual === index ? '3px solid #007bff' : '3px solid transparent',
-                  transition: 'all 0.3s'
-                }}
+                className={`thumbnail ${imagemAtual === index ? 'active' : ''}`}
               />
             ))}
           </div>
@@ -229,7 +169,7 @@ export default function ProdutoDetalhe({ produto }) {
             : produto.preco?.toFixed(2).replace(".", ",") || "0,00"}
         </h3>
 
-        <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginTop: "20px" }}>
+        <div className="produto-actions">
           <button
             className="btn-comprar-produto"
             onClick={handleAdicionar}
@@ -242,18 +182,6 @@ export default function ProdutoDetalhe({ produto }) {
             className={estaNoDesejo ? "btn-remover-desejo" : "btn-adicionar-desejo"}
             onClick={handleToggleDesejo}
             disabled={desejoLoading}
-            style={{
-              background: estaNoDesejo ? "#ff4444" : "#ff6b9d",
-              color: "white",
-              borderRadius: "20px",
-              fontSize: "20px",
-              fontWeight: "bold",
-              padding: "20px",
-              border: "none",
-              fontFamily: "poppins, sans-serif",
-              cursor: "pointer",
-              transition: "width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s"
-            }}
           >
             {desejoLoading
               ? "..."
@@ -264,12 +192,10 @@ export default function ProdutoDetalhe({ produto }) {
         </div>
 
         {erroFavorito && (
-          <p style={{ color: "red", marginTop: "10px", fontWeight: "bold" }}>
-            {erroFavorito}
-          </p>
+          <p className="erro-favorito">{erroFavorito}</p>
         )}
 
-        <div className="descricao" style={{ marginTop: "20px" }}>
+        <div className="descricao">
           <h2>Descrição</h2>
           <p>{produto.descricao}</p>
 
@@ -281,15 +207,13 @@ export default function ProdutoDetalhe({ produto }) {
           )}
         </div>
 
-        {/* Seção de Avaliações */}
-        <div style={{ maxWidth: "800px", margin: "40px auto", textAlign: "left" }}>
+        <div className="avaliacoes-section">
           <AvaliacoesList produtoId={produto.id} refresh={refreshAvaliacoes} />
 
           {!jaAvaliou && !mostrarFormulario && (
             <button
               className="botao"
               onClick={() => setMostrarFormulario(true)}
-              style={{ width: '90%', marginTop: '20px' }}
             >
               ⭐ Avaliar este produto
             </button>
@@ -303,7 +227,7 @@ export default function ProdutoDetalhe({ produto }) {
           )}
 
           {jaAvaliou && (
-            <p style={{ textAlign: 'center', color: '#28a745', marginTop: '20px', fontWeight: 'bold' }}>
+            <p className="ja-avaliou-msg">
               ✅ Você já avaliou este produto
             </p>
           )}

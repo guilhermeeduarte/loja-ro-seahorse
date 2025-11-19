@@ -1661,3 +1661,371 @@ span.material-icons {
   overflow-y: auto; /* scroll vertical */
   padding: 0 15px 15px;
 }
+
+/* ===== CSS PARA PRODUTO COM MÚLTIPLAS IMAGENS ===== */
+
+.image-carousel-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+.produto-imagem-principal {
+  width: 350px;
+  height: 350px;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn-prev {
+  left: 10px;
+}
+
+.carousel-btn-next {
+  right: 10px;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 35%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Miniaturas */
+.thumbnails-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  border-color: #007bff;
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+/* Ações do produto */
+.produto-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.erro-favorito {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Seção de avaliações */
+.avaliacoes-section {
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: left;
+}
+
+.avaliacoes-section .botao {
+  width: 90%;
+  margin-top: 20px;
+}
+
+.ja-avaliou-msg {
+  text-align: center;
+  color: #28a745;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+
+/* ===== CSS PARA SISTEMA DE ENDEREÇOS ===== */
+
+.endereco-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.enderecos-existentes {
+  margin-bottom: 30px;
+}
+
+.enderecos-existentes h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.endereco-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.endereco-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+}
+
+.endereco-card.selecionado {
+  border-color: #007bff;
+  background: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.2);
+}
+
+.endereco-card input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+.endereco-info {
+  flex: 1;
+}
+
+.endereco-info strong {
+  font-size: 18px;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.endereco-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.badge-principal {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 8px;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.divider {
+  text-align: center;
+  margin: 30px 0;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #ddd;
+  z-index: 0;
+}
+
+.divider span {
+  position: relative;
+  z-index: 1;
+  background: #f5f5f5;
+  padding: 0 20px;
+  font-weight: bold;
+  color: #666;
+}
+
+.botao-secundario {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+  font-family: "Poppins", sans-serif;
+  padding: 12px;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: white;
+  color: #007bff;
+  transition: all 0.3s ease;
+}
+
+.botao-secundario:hover {
+  background: #007bff;
+  color: white;
+  transform: scale(1.05);
+}
+
+.endereco h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+.gerenciar-link {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.gerenciar-link a {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.gerenciar-link a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .produto-imagem-principal {
+    width: 280px;
+    height: 280px;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .endereco-container {
+    padding: 10px;
+  }
+
+  .endereco-card {
+    flex-direction: column;
+  }
+
+  .produto-actions {
+    flex-direction: column;
+  }
+
+  .btn-comprar-produto,
+  .btn-adicionar-desejo,
+  .btn-remover-desejo {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .produto-imagem-principal {
+    width: 240px;
+    height: 240px;
+  }
+
+  .thumbnails-container {
+    gap: 5px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -16,9 +16,9 @@ import React from "react";
 import PerfilAdm from "./pages/PerfilAdm.jsx";
 import CadastroProduto from "./pages/CadastroProduto.jsx";
 import AddEndereco from "./pages/AddEndereco.jsx";
+import GerenciarEnderecos from "./components/GerenciarEnderecos.jsx"; // ✅ NOVA ROTA
 import Pagamentos from "./pages/Pagamentos.jsx";
 import EdicaoProdutos from "./pages/EdicaoProdutos.jsx";
-
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
 import GerenciarPedidos from "./pages/GerenciarPedidos.jsx";
@@ -71,6 +71,8 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
+
+            {/* ✅ ROTAS DE ENDEREÇO CORRIGIDAS */}
             <Route
               path="/addendereco"
               element={
@@ -79,6 +81,15 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/gerenciar-enderecos"
+              element={
+                <ProtectedRoute allowedRoles={['CLIENTE', 'FUNCIONARIO', 'ADMINISTRADOR']}>
+                  <GerenciarEnderecos />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="/finalcompra"
               element={
@@ -105,14 +116,14 @@ export default function App() {
             />
 
             {/* Rotas apenas para FUNCIONARIO e ADMINISTRADOR */}
-              <Route
+            <Route
               path="/edicaoproduto"
               element={
                 <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
                   <EdicaoProdutos />
                 </ProtectedRoute>
               }
-              />
+            />
             <Route
               path="/perfil_adm"
               element={
@@ -136,9 +147,7 @@ export default function App() {
                   <GerenciarPedidos />
                 </ProtectedRoute>
               }
-            
             />
-            
           </Routes>
         </WishlistProvider>
       </CartProvider>
