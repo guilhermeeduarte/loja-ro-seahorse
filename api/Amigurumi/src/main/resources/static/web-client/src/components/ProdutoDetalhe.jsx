@@ -26,7 +26,9 @@ export default function ProdutoDetalhe({ produto }) {
   const [refreshAvaliacoes, setRefreshAvaliacoes] = useState(0);
   const [imagemAtual, setImagemAtual] = useState(0);
 
-  // Agora usamos diretamente produto.imagens
+  const [quantidade, setQuantidade] = useState(1);
+  const [erroQuantidade, setErroQuantidade] = useState("");
+
   const imagens = React.useMemo(() => {
     return Array.isArray(produto?.imagens) && produto.imagens.length > 0
       ? produto.imagens
@@ -53,19 +55,70 @@ export default function ProdutoDetalhe({ produto }) {
 
   if (!produto) return <p>Produto não encontrado.</p>;
 
-  const handleAdicionar = () => {
+  const aumentarQuantidade = () => {
+    setErroQuantidade("");
+    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+    if (quantidade < estoqueDisponivel) {
+      setQuantidade(prev => prev + 1);
+    } else {
+      setErroQuantidade(`Estoque disponível: ${estoqueDisponivel} unidades`);
+    }
+  };
+
+  const diminuirQuantidade = () => {
+    setErroQuantidade("");
+    if (quantidade > 1) {
+      setQuantidade(prev => prev - 1);
+    }
+  };
+
+  const handleQuantidadeChange = (e) => {
+    setErroQuantidade("");
+    const valor = parseInt(e.target.value) ?? 1;
+    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+
+    if (valor < 1) {
+      setQuantidade(1);
+    } else if (valor > estoqueDisponivel) {
+      setQuantidade(estoqueDisponivel);
+      setErroQuantidade(`Estoque disponível: ${estoqueDisponivel} unidades`);
+    } else {
+      setQuantidade(valor);
+    }
+  };
+
+  const handleAdicionar = async () => {
+    setErroQuantidade("");
+    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+
+    if (quantidade > estoqueDisponivel) {
+      setErroQuantidade(`Apenas ${estoqueDisponivel} unidades disponíveis`);
+      return;
+    }
+
+    if (quantidade < 1) {
+      setErroQuantidade("Quantidade mínima: 1 unidade");
+      return;
+    }
+
     const produtoFormatado = {
       id: produto.id,
       nome: produto.nome,
-      preco:
-        typeof produto.preco === "string"
-          ? produto.preco
-          : produto.preco.toFixed(2).replace(".", ","),
-      img: imagens[0], // usa a primeira imagem como principal
-      descricao: produto.descricao
+      preco: typeof produto.preco === "string"
+        ? produto.preco
+        : produto.preco.toFixed(2).replace(".", ","),
+      img: imagens[0],
+      descricao: produto.descricao,
+      quantidade: quantidade
     };
 
-    adicionarAoCarrinho(produtoFormatado);
+    try {
+      await adicionarAoCarrinho(produtoFormatado);
+      // Reseta quantidade após adicionar com sucesso
+      setQuantidade(1);
+    } catch (error) {
+      setErroQuantidade(error.message || "Erro ao adicionar ao carrinho");
+    }
   };
 
   const handleToggleDesejo = async () => {
@@ -98,21 +151,18 @@ export default function ProdutoDetalhe({ produto }) {
     setImagemAtual((prev) => (prev - 1 + imagens.length) % imagens.length);
   };
 
-console.log("Imagem atual:", imagens[imagemAtual], "Lista completa:", imagens);
-
   return (
     <div className="pagina">
       <Navbar />
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
-        {/* ✅ Carousel de Imagens */}
+        {/* Carousel de Imagens */}
         <div className="image-carousel-container">
           <img
             src={imagens[imagemAtual]}
             alt={`${produto.nome} - Imagem ${imagemAtual + 1}`}
             className="produto-imagem-principal"
           />
-
 
           {imagens.length > 1 && (
             <>
@@ -169,13 +219,122 @@ console.log("Imagem atual:", imagens[imagemAtual], "Lista completa:", imagens);
             : produto.preco?.toFixed(2).replace(".", ",") || "0,00"}
         </h3>
 
+        <p style={{ color: '#666', fontSize: '14px', marginTop: '10px' }}>
+          Estoque disponível: {produto.estoqueDisponivel ?? produto.quantidade ?? 0} unidades
+        </p>
+
+        <div className="quantidade-selector" style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '15px',
+          marginTop: '20px',
+          marginBottom: '20px'
+        }}>
+          <button
+            onClick={diminuirQuantidade}
+            className="btn-quantidade"
+            style={{
+              width: '40px',
+              height: '40px',
+              fontSize: '24px',
+              borderRadius: '50%',
+              border: '2px solid #007bff',
+              background: 'white',
+              color: '#007bff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease'
+            }}
+            disabled={quantidade <= 1}
+            onMouseEnter={(e) => {
+              if (quantidade > 1) {
+                e.target.style.background = '#007bff';
+                e.target.style.color = 'white';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'white';
+              e.target.style.color = '#007bff';
+            }}
+          >
+            −
+          </button>
+
+          <input
+            type="number"
+            value={quantidade}
+            onChange={handleQuantidadeChange}
+            min="1"
+            max={produto.estoqueDisponivel ?? produto.quantidade ?? 1}
+            style={{
+              width: '80px',
+              height: '40px',
+              textAlign: 'center',
+              fontSize: '18px',
+              fontWeight: 'bold',
+              border: '2px solid #ddd',
+              borderRadius: '8px',
+              padding: '5px'
+            }}
+          />
+
+          <button
+            onClick={aumentarQuantidade}
+            className="btn-quantidade"
+            style={{
+              width: '40px',
+              height: '40px',
+              fontSize: '24px',
+              borderRadius: '50%',
+              border: '2px solid #007bff',
+              background: 'white',
+              color: '#007bff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease'
+            }}
+            disabled={quantidade >= (produto.estoqueDisponivel ?? produto.quantidade ?? 1)}
+            onMouseEnter={(e) => {
+              if (quantidade < (produto.estoqueDisponivel ?? produto.quantidade ?? 1)) {
+                e.target.style.background = '#007bff';
+                e.target.style.color = 'white';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'white';
+              e.target.style.color = '#007bff';
+            }}
+          >
+            +
+          </button>
+        </div>
+
+        {/* ✅ Mensagem de erro de quantidade */}
+        {erroQuantidade && (
+          <p style={{ color: 'red', marginBottom: '15px', fontWeight: 'bold' }}>
+            {erroQuantidade}
+          </p>
+        )}
+
         <div className="produto-actions">
           <button
             className="btn-comprar-produto"
             onClick={handleAdicionar}
-            disabled={carrinhoLoading}
+            disabled={carrinhoLoading || (produto.estoqueDisponivel ?? produto.quantidade ?? 0) < 1}
           >
-            {carrinhoLoading ? "Adicionando..." : "Adicionar ao Carrinho"}
+            {carrinhoLoading
+              ? "Adicionando..."
+              : (produto.estoqueDisponivel ?? produto.quantidade ?? 0) < 1
+                ? "Produto Indisponível"
+                : `Adicionar ${quantidade} ${quantidade === 1 ? 'unidade' : 'unidades'} ao Carrinho`
+            }
           </button>
 
           <button

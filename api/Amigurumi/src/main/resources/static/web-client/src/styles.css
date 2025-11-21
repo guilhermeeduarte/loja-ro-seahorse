@@ -2029,3 +2029,214 @@ span.material-icons {
     height: 50px;
   }
 }
+
+/* ===== ESTILOS PARA CONTROLES DE QUANTIDADE ===== */
+
+.quantidade-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.btn-quantidade {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.btn-quantidade:hover:not(:disabled) {
+  background: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-quantidade:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.quantidade-selector input[type="number"] {
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.quantidade-selector input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Remove setas do input number */
+.quantidade-selector input[type="number"]::-webkit-inner-spin-button,
+.quantidade-selector input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantidade-selector input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Estilos para controles de quantidade no carrinho */
+.item-carrinho .quantidade-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.item-carrinho .btn-quantidade-carrinho {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.item-carrinho .btn-quantidade-carrinho:hover:not(:disabled) {
+  background: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.item-carrinho .btn-quantidade-carrinho:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.quantidade-display {
+  min-width: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Destaque do subtotal */
+.subtotal-item {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #007bff;
+  font-size: 16px;
+}
+
+/* Resumo do carrinho */
+.carrinho-resumo {
+  text-align: center;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.carrinho-resumo h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+}
+
+.carrinho-resumo .total-itens {
+  fontSize: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Animação de atualização */
+@keyframes pulseQuantidade {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.quantidade-atualizada {
+  animation: pulseQuantidade 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .quantidade-selector {
+    gap: 10px;
+  }
+
+  .btn-quantidade {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .quantidade-selector input[type="number"] {
+    width: 60px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .item-carrinho .btn-quantidade-carrinho {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .quantidade-display {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quantidade-selector {
+    gap: 8px;
+  }
+
+  .btn-quantidade {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .quantidade-selector input[type="number"] {
+    width: 50px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
