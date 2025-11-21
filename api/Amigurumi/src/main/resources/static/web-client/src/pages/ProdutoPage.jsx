@@ -40,6 +40,8 @@ const ProdutoPage = () => {
             categoria: localFound.categoria,
             imagens: [localFound.imagemUrl, localFound.imagemUrl2, localFound.imagemUrl3, localFound.img].filter(Boolean),
             detalhes: localFound.detalhes,
+            quantidade: localFound.quantidade,
+            estoqueDisponivel: localFound.quantidade || localFound.estoqueDisponivel || 0
           });
           setLoading(false);
           return true;
@@ -71,11 +73,13 @@ const ProdutoPage = () => {
             categoria: found.categoria,
             imagens: [
               found.imagemUrl && `${URL_IMG}${found.imagemUrl}`,
-                  found.imagemUrl2 && `${URL_IMG}${found.imagemUrl2}`,
-                  found.imagemUrl3 && `${URL_IMG}${found.imagemUrl3}`,
-                  found.img && `${URL_IMG}${found.img}`
+              found.imagemUrl2 && `${URL_IMG}${found.imagemUrl2}`,
+              found.imagemUrl3 && `${URL_IMG}${found.imagemUrl3}`,
+              found.img && `${URL_IMG}${found.img}`
             ].filter(Boolean),
             detalhes: found.detalhes,
+            quantidade: found.quantidade,
+            estoqueDisponivel: found.quantidade || 0
           });
           return true;
         }

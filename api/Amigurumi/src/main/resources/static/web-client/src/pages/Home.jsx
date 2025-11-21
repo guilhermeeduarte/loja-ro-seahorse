@@ -61,10 +61,10 @@ export default function Home() {
               descricao: p.descricao,
               preco: p.valor ? p.valor.toFixed(2).replace('.', ',') : '0,00',
               categoria: p.categoria || 'Destaque',
-              // ✅ Usa a imagem do backend se existir
               img: p.imagemUrl || `/assets/imagens/boneco.jpg`,
               detalhes: p.detalhes,
-              quantidade: p.quantidade
+              quantidade: p.quantidade,
+              estoqueDisponivel: p.quantidade
             }))
 
           setProdutos(produtosMapeados)
@@ -126,7 +126,6 @@ export default function Home() {
         {items.map((item, index) => (
           <div key={item.id || index} className="item">
             <Link to={`/produto/${(item.nome || '').toLowerCase().replace(/\s+/g, '-')}`}>
-              {/* ✅ Renderiza a imagem correta */}
               <SmartImage src={item.img} alt={item.nome} />
               <p>{item.nome}</p>
               <h6>R$ {item.preco}</h6>

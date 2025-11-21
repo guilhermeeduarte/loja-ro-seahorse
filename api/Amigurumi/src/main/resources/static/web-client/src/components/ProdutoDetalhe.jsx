@@ -57,7 +57,7 @@ export default function ProdutoDetalhe({ produto }) {
 
   const aumentarQuantidade = () => {
     setErroQuantidade("");
-    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+    const estoqueDisponivel = produto.quantidade ?? produto.estoqueDisponivel ?? 1;
     if (quantidade < estoqueDisponivel) {
       setQuantidade(prev => prev + 1);
     } else {
@@ -74,8 +74,8 @@ export default function ProdutoDetalhe({ produto }) {
 
   const handleQuantidadeChange = (e) => {
     setErroQuantidade("");
-    const valor = parseInt(e.target.value) ?? 1;
-    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+    const valor = parseInt(e.target.value) || 1;
+    const estoqueDisponivel = produto.quantidade ?? produto.estoqueDisponivel ?? 1;
 
     if (valor < 1) {
       setQuantidade(1);
@@ -89,7 +89,7 @@ export default function ProdutoDetalhe({ produto }) {
 
   const handleAdicionar = async () => {
     setErroQuantidade("");
-    const estoqueDisponivel = produto.estoqueDisponivel ?? produto.quantidade ?? 1;
+    const estoqueDisponivel = produto.quantidade ?? produto.estoqueDisponivel ?? 1;
 
     if (quantidade > estoqueDisponivel) {
       setErroQuantidade(`Apenas ${estoqueDisponivel} unidades disponíveis`);
@@ -114,7 +114,6 @@ export default function ProdutoDetalhe({ produto }) {
 
     try {
       await adicionarAoCarrinho(produtoFormatado);
-      // Reseta quantidade após adicionar com sucesso
       setQuantidade(1);
     } catch (error) {
       setErroQuantidade(error.message || "Erro ao adicionar ao carrinho");
@@ -156,7 +155,6 @@ export default function ProdutoDetalhe({ produto }) {
       <Navbar />
 
       <div className="produto-detalhe" style={{ textAlign: "center", padding: "40px 20px" }}>
-        {/* Carousel de Imagens */}
         <div className="image-carousel-container">
           <img
             src={imagens[imagemAtual]}
@@ -220,7 +218,7 @@ export default function ProdutoDetalhe({ produto }) {
         </h3>
 
         <p style={{ color: '#666', fontSize: '14px', marginTop: '10px' }}>
-          Estoque disponível: {produto.estoqueDisponivel ?? produto.quantidade ?? 0} unidades
+          Estoque disponível: {produto.quantidade ?? produto.estoqueDisponivel ?? 0} unidades
         </p>
 
         <div className="quantidade-selector" style={{
@@ -269,7 +267,7 @@ export default function ProdutoDetalhe({ produto }) {
             value={quantidade}
             onChange={handleQuantidadeChange}
             min="1"
-            max={produto.estoqueDisponivel ?? produto.quantidade ?? 1}
+            max={produto.quantidade ?? produto.estoqueDisponivel ?? 1}
             style={{
               width: '80px',
               height: '40px',
@@ -300,9 +298,9 @@ export default function ProdutoDetalhe({ produto }) {
               fontWeight: 'bold',
               transition: 'all 0.3s ease'
             }}
-            disabled={quantidade >= (produto.estoqueDisponivel ?? produto.quantidade ?? 1)}
+            disabled={quantidade >= (produto.quantidade ?? produto.estoqueDisponivel ?? 1)}
             onMouseEnter={(e) => {
-              if (quantidade < (produto.estoqueDisponivel ?? produto.quantidade ?? 1)) {
+              if (quantidade < (produto.quantidade ?? produto.estoqueDisponivel ?? 1)) {
                 e.target.style.background = '#007bff';
                 e.target.style.color = 'white';
               }
@@ -316,7 +314,6 @@ export default function ProdutoDetalhe({ produto }) {
           </button>
         </div>
 
-        {/* ✅ Mensagem de erro de quantidade */}
         {erroQuantidade && (
           <p style={{ color: 'red', marginBottom: '15px', fontWeight: 'bold' }}>
             {erroQuantidade}
@@ -327,13 +324,13 @@ export default function ProdutoDetalhe({ produto }) {
           <button
             className="btn-comprar-produto"
             onClick={handleAdicionar}
-            disabled={carrinhoLoading || (produto.estoqueDisponivel ?? produto.quantidade ?? 0) < 1}
+            disabled={carrinhoLoading || (produto.quantidade ?? produto.estoqueDisponivel ?? 0) < 1}
           >
             {carrinhoLoading
               ? "Adicionando..."
-              : (produto.estoqueDisponivel ?? produto.quantidade ?? 0) < 1
+              : (produto.quantidade ?? produto.estoqueDisponivel ?? 0) < 1
                 ? "Produto Indisponível"
-                : `Adicionar ${quantidade} ${quantidade === 1 ? 'unidade' : 'unidades'} ao Carrinho`
+                : `Adicionar ${quantidade === 1 ? 'item' : 'itens'} ao carrinho`
             }
           </button>
 
