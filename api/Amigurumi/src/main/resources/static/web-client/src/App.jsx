@@ -14,6 +14,7 @@ import PerfilCliente from "./pages/PerfilCliente";
 import PerfilUsuario from "./pages/PerfilUsuario";
 import React from "react";
 import PerfilAdm from "./pages/PerfilAdm.jsx";
+import PerfilFuncionario from "./pages/PerfilFuncionario.jsx";
 import CadastroProduto from "./pages/CadastroProduto.jsx";
 import AddEndereco from "./pages/AddEndereco.jsx";
 import GerenciarEnderecos from "./components/GerenciarEnderecos.jsx"; // ✅ NOVA ROTA
@@ -22,6 +23,7 @@ import EdicaoProdutos from "./pages/EdicaoProdutos.jsx";
 import FinalCompra from "./pages/FinalCompra.jsx";
 import StatusPedido from "./pages/StatusPedido.jsx";
 import GerenciarPedidos from "./pages/GerenciarPedidos.jsx";
+import GerenciarFuncionarios from "./pages/GerenciarFuncionarios.jsx";
 import { CartProvider } from "./contexts/CartContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
 import ProdutoPage from "./pages/ProdutoPage.jsx";
@@ -133,6 +135,14 @@ export default function App() {
               }
             />
             <Route
+              path="/perfil_funcionario"
+              element={
+                <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
+                  <PerfilFuncionario />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/cadastroproduto"
               element={
                 <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
@@ -145,6 +155,14 @@ export default function App() {
               element={
                 <ProtectedRoute allowedRoles={['FUNCIONARIO', 'ADMINISTRADOR']}>
                   <GerenciarPedidos />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gerenciar_funcionarios"
+              element={
+                <ProtectedRoute allowedRoles={['ADMINISTRADOR']}>
+                  <GerenciarFuncionarios />
                 </ProtectedRoute>
               }
             />

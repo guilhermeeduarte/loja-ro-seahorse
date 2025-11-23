@@ -294,6 +294,97 @@ footer img:hover {
   font-size: 18px;
 }
 
+/* ========= Estilos isolados para Edição de Produtos ========= */
+.edit-grid {
+  display: grid;
+  /* aumenta largura mínima dos cards para deixá-los menos verticais */
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px;
+  align-items: start; /* evita que todos os cards tomem a altura do maior */
+  justify-content: center;
+}
+
+.edit-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px; /* maior altura mínima para ficar menos vertical */
+}
+
+.edit-card-view {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.edit-card-view img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.edit-card-view-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-card-title { font-weight:700; color:#333; margin:0 }
+.edit-card-price { color:#007bff; font-weight:600; margin:0 }
+
+.edit-card-form { display:flex; flex-direction:column; gap:10px; box-sizing: border-box; width:100%; overflow: visible }
+.edit-card-header { display:flex; align-items:center }
+.edit-card-body { display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start; width:100%; box-sizing:border-box }
+.edit-card-previews { display:flex; flex-direction:column; gap:8px; flex: 0 0 180px }
+.edit-preview-slot { display:flex; flex-direction:column; align-items:center; gap:6px }
+.file-label { display:inline-flex; align-items:center; gap:8px; cursor:pointer }
+.file-input { display:none }
+.file-label-text { background:#eaf6ff; padding:6px 10px; border-radius:8px; font-size:13px }
+
+.edit-preview { display:flex; flex-direction:column; align-items:center; gap:6px }
+.edit-preview img { width:110px; height:110px; object-fit:cover; border-radius:8px; border:1px solid rgba(0,0,0,0.06) }
+.edit-preview.empty { width:110px; height:110px; display:flex; align-items:center; justify-content:center; color:#999; background:#fafafa; border-radius:8px; border:1px dashed rgba(0,0,0,0.04) }
+
+.edit-card-fields { flex:1; display:flex; flex-direction:column; gap:8px; min-width:0 }
+.edit-textarea { min-height:80px; padding:8px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:#fbfdff; box-sizing:border-box; width:100% }
+.edit-input { padding:10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:#fbfdff; box-sizing:border-box }
+.edit-input.small { width:140px; flex:0 0 140px }
+.edit-row { display:flex; gap:8px; align-items:center }
+
+.edit-card-actions { display:flex; gap:8px; justify-content:flex-end }
+
+.botao-card { padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#00aaff,#0057b7); color:white; border:none; cursor:pointer }
+.botao-card.secondary { background:#f1f6ff; color:#054a91 }
+.botao-card.edit-btn { padding:6px 10px }
+
+
+@media (max-width:1100px) {
+  .edit-card-body { flex-direction:column }
+  .edit-card-previews { flex-direction:row; flex: none }
+  .edit-card-previews .edit-preview { margin-right:8px }
+}
+
+/* em telas largas, mostrar previews em linha e dar mais espaço aos campos */
+@media (min-width:1200px) {
+  .edit-card-body { flex-direction:row }
+  .edit-card-previews { flex-direction:row; flex: 0 0 240px }
+  .edit-card-previews .edit-preview img { width:130px; height:130px }
+  .edit-card { min-height: 260px }
+  .edit-card-view img { width:180px; height:180px }
+}
+
+/* prevenindo overflow: se algum campo tentar extrapolar, mostrar scrollbar interno */
+.edit-card { overflow: hidden }
+.edit-card-form { overflow: auto; max-height: 70vh }
+
 .grid {
   display: flex;
   gap: 10px;
@@ -307,7 +398,7 @@ footer img:hover {
   font-family: "Poppins" sans-serif;
   font-size: 18px;
   border-radius: 8px;
-  width: 150px;
+  min-width: 150px;
   min-height: 125px;
   padding: 16px;
   transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s !important;
@@ -397,7 +488,7 @@ form {
 
 .form-control {
   width: 100%;
-  height: 80%;
+  height: 100%;
   padding: 20px;
   margin: 10px 0;
   border-radius: 50px;
@@ -932,35 +1023,53 @@ iframe {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   margin-bottom: 40px;
 }
 
 
-.endereco input {
-  flex-direction: column;
-  margin: 5px;
-  width: 800px;
-  height: 40px;
-  border: 0px;
-  border-radius: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
+.endereco input,
+.endereco textarea {
+  width: 100%;
+  max-width: 800px; /* limita visualmente em telas largas */
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-family: "Poppins", sans-serif;
 }
 
 .endereco textarea {
-  flex-direction: column;
-  margin: 5px;
-  width: 800px;
-  height: 40px;
-  border: 0px;
-  border-radius: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  resize: none;
-  box-sizing: border-box;
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Garante que o card do endereço consiga quebrar linhas sem estourar */
+.endereco-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Botões dentro do card de endereço (ex.: definir como principal) menos largos */
+.endereco-card .botao-secundario,
+.endereco-card .botao {
+  max-width: 240px;
+  padding: 8px 12px;
+  font-size: 15px;
+}
+
+/* Em telas pequenas, inputs ocupam toda a largura do container */
+@media (max-width: 768px) {
+  .endereco input,
+  .endereco textarea {
+    max-width: 100%;
+  }
+  .endereco-card {
+    flex-direction: column;
+  }
 }
 
 
@@ -1649,9 +1758,15 @@ span.material-icons {
 
 
 .form-edicao{
-  padding: 30px;
-  width: 200%;
+  padding: 18px;
+  width: 100%;
   box-sizing: border-box;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .grid-edicao {
@@ -1660,6 +1775,63 @@ span.material-icons {
   gap: 20px;
   overflow-y: auto; /* scroll vertical */
   padding: 0 15px 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* Estilização mais limpa para cada card de produto */
+.grid-edicao .item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.grid-edicao .item p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.grid-edicao .item img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Ajustes nas pré-visualizações dentro do card de edição */
+.preview-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.preview-container img {
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Botões menores usados dentro dos cards de edição */
+.botao-card {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  margin: 6px 6px 0 0;
+}
+
+/* Form inputs dentro do card ficam com largura limitada */
+.form-edicao .form-control {
+  max-width: 100%;
 }
 
 /* ===== CSS PARA PRODUTO COM MÚLTIPLAS IMAGENS ===== */
@@ -2097,6 +2269,7 @@ span.material-icons {
 
 .quantidade-selector input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Estilos para controles de quantidade no carrinho */
@@ -2172,7 +2345,7 @@ span.material-icons {
 }
 
 .carrinho-resumo .total-itens {
-  fontSize: 14px;
+  font-size: 14px;
   color: #666;
   margin-top: 5px;
 }
@@ -2239,4 +2412,61 @@ span.material-icons {
     height: 32px;
     font-size: 14px;
   }
+}
+
+.upload-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.upload-box {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.upload-box:hover {
+  border-color: #007bff;
+}
+
+.upload-box input {
+  display: none; /* esconde o input real */
+}
+
+.upload-label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+}
+
+.upload-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* imagem cobre o quadrado sem distorcer */
+}
+
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-weight: bold;
 }

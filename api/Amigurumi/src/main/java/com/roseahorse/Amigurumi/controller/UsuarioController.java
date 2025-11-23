@@ -252,4 +252,60 @@ public class UsuarioController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    // Listar usuários ativos (apenas ADMIN)
+    @GetMapping
+    public ResponseEntity<?> listarUsuarios(
+            @CookieValue(name = "auth_token", required = false) String token) {
+
+        if (token == null) {
+            return ResponseEntity.status(401).body("Não autenticado");
+        }
+
+        String emailLogado = jwtUtil.validateToken(token);
+        Usuario usuarioLogado = usuarioRepository.findByEmailAndNotDeleted(emailLogado);
+
+        if (usuarioLogado == null || usuarioLogado.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
+            return ResponseEntity.status(403).body("Acesso negado");
+        }
+
+        return ResponseEntity.ok(usuarioRepository.findAllActive());
+    }
+
+    // Atualizar usuário por ID (apenas ADMIN) - permite editar nome, telefone, endereco e tipo
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarUsuarioPorId(
+            @PathVariable Long id,
+            @CookieValue(name = "auth_token", required = false) String token,
+            @RequestBody Map<String, String> dados) {
+
+        if (token == null) {
+            return ResponseEntity.status(401).body("Não autenticado");
+        }
+
+        String emailLogado = jwtUtil.validateToken(token);
+        Usuario usuarioLogado = usuarioRepository.findByEmailAndNotDeleted(emailLogado);
+
+        if (usuarioLogado == null || usuarioLogado.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
+            return ResponseEntity.status(403).body("Acesso negado");
+        }
+
+        return usuarioRepository.findByIdAndNotDeleted(id)
+                .map(usuario -> {
+                    if (dados.containsKey("nome")) usuario.setNome(dados.get("nome"));
+                    if (dados.containsKey("telefone")) usuario.setTelefone(dados.get("telefone"));
+                    if (dados.containsKey("endereco")) usuario.setEndereco(dados.get("endereco"));
+                    if (dados.containsKey("tipoUsuario")) {
+                        try {
+                            usuario.setTipoUsuario(TipoUsuario.valueOf(dados.get("tipoUsuario")));
+                        } catch (Exception ignored) {}
+                    }
+                    if (dados.containsKey("senha")) {
+                        usuario.setSenha(passwordEncoder.encode(dados.get("senha")));
+                    }
+                    usuarioRepository.save(usuario);
+                    return ResponseEntity.ok(usuario);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

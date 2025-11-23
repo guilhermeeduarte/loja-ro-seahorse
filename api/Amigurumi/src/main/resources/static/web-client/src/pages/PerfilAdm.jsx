@@ -37,7 +37,7 @@ const PerfilAdm = () => {
         </div>
  <div className="testediv2">
     <h3 className="titulo-area">Cadastro de produtos:</h3>
-    <h3 className="titulo-area">Edição de produtos:</h3>
+    <h3 className="titulo-area">Edição/Exclusão de produtos:</h3>
    <h3 className="titulo-area">Gerenciar Funcionários:</h3>
    </div>
 

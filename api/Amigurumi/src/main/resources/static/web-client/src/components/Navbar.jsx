@@ -7,11 +7,14 @@ const Navbar = () => {
   const tipoUsuario = localStorage.getItem("tipoUsuario");
 
   // Define o link correto para o perfil
-    const perfilLink = !isLoggedIn
-      ? "/login"
-      : tipoUsuario === "ADMINISTRADOR"
-        ? "/perfil_adm"
-        : "/perfil";
+ const perfilLink = !isLoggedIn
+  ? "/login"
+  : tipoUsuario === "ADMINISTRADOR"
+    ? "/perfil_adm"
+    : tipoUsuario === "FUNCIONARIO"
+      ? "/perfil_funcionario"
+      : "/perfil";
+
 
   return (
     <nav className="navbar principal">

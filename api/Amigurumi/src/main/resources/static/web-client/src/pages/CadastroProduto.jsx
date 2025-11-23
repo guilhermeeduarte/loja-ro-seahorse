@@ -98,7 +98,6 @@ const CadastroProduto = () => {
       return
     }
 
-    // Verifica se pelo menos uma imagem foi selecionada
     if (!imagemFiles[0]) {
       setMensagem('Selecione pelo menos uma imagem para o produto.')
       setLoading(false)
@@ -108,7 +107,6 @@ const CadastroProduto = () => {
     try {
       const imagemUrls = [null, null, null]
 
-      // Upload de cada imagem
       for (let i = 0; i < imagemFiles.length; i++) {
         if (imagemFiles[i]) {
           const formDataImagem = new FormData()
@@ -192,56 +190,31 @@ const CadastroProduto = () => {
             Imagens do Produto (mínimo 1, máximo 3) *
           </label>
 
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div className="upload-container">
             {[0, 1, 2].map((index) => (
-              <div key={index} style={{ textAlign: 'center' }}>
-                <label
-                  htmlFor={`imagem-${index}`}
-                  style={{
-                    display: 'block',
-                    marginBottom: '5px',
-                    fontWeight: 'bold',
-                    color: index === 0 ? '#dc3545' : '#666'
-                  }}
-                >
-                  Imagem {index + 1} {index === 0 && '*'}
-                </label>
+              <div key={index} className="upload-box">
                 <input
                   type="file"
                   id={`imagem-${index}`}
-                  className="form-control"
                   accept="image/*"
                   onChange={handleImageChange(index)}
                   required={index === 0}
-                  style={{ maxWidth: '200px' }}
                 />
-                {previews[index] && (
-                  <div style={{ marginTop: '10px', position: 'relative' }}>
-                    <img
-                      src={previews[index]}
-                      alt={`Preview ${index + 1}`}
-                      style={{ maxWidth: '200px', borderRadius: '10px' }}
-                    />
+                {!previews[index] ? (
+                  <label htmlFor={`imagem-${index}`} className="upload-label">
+                    + Adicionar Imagem {index === 0 && '*'}
+                  </label>
+                ) : (
+                  <>
+                    <img src={previews[index]} alt={`Preview ${index + 1}`} />
                     <button
                       type="button"
+                      className="remove-btn"
                       onClick={() => removeImage(index)}
-                      style={{
-                        position: 'absolute',
-                        top: '5px',
-                        right: '5px',
-                        background: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '50%',
-                        width: '30px',
-                        height: '30px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold'
-                      }}
                     >
                       ×
                     </button>
-                  </div>
+                  </>
                 )}
               </div>
             ))}

@@ -51,6 +51,9 @@ public class ProdutoController {
                     produto.setQuantidade(produtoAtualizado.getQuantidade());
                     produto.setCategoria(produtoAtualizado.getCategoria());
                     produto.setImagemUrl(produtoAtualizado.getImagemUrl());
+                    // Persistir imagens adicionais (se enviadas pelo frontend)
+                    produto.setImagemUrl2(produtoAtualizado.getImagemUrl2());
+                    produto.setImagemUrl3(produtoAtualizado.getImagemUrl3());
                     // ✅ Não permite alterar o status de exclusão via update normal
                     produtoRepository.save(produto);
                     return ResponseEntity.ok(produto);
