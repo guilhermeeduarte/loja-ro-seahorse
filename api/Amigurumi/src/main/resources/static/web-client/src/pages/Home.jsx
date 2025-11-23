@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { API_URL } from '../config/api'
 import Footer from '../components/Footer'
 import Whatsapp from '../components/Whatsapp'
 import SmartImage from '../components/SmartImage'
 import { produtos as produtosLocal } from '../data/produtos'
 import '../styles.css'
-
-const API_URL = `http://localhost:3000/api`
 
 const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0)

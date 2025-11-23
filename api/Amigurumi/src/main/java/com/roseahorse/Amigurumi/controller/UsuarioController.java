@@ -180,12 +180,13 @@ public class UsuarioController {
 
         return ResponseEntity.ok(Map.of("mensagem", "Perfil atualizado com sucesso"));
     }
-    
+
     private Cookie criarCookie(String nome, String valor, int maxAge) {
         Cookie cookie = new Cookie(nome, valor);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
+
         boolean isProduction = "prod".equals(activeProfile);
         cookie.setSecure(isProduction);
         cookie.setAttribute("SameSite", isProduction ? "None" : "Lax");

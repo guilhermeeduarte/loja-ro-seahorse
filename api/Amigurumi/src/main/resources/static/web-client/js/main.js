@@ -1,5 +1,6 @@
+import { API_URL } from '../src/config/api';
+
 document.addEventListener("DOMContentLoaded", () => {
-  const API_URL = "http://localhost:3000/api";
 
 //cadastro
   const form = document.getElementById("cadastro-form");

@@ -3,8 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import SmartImage from '../components/SmartImage'
 import '../styles.css'
-
-const API_URL = `http://localhost:3000/api`
+import { API_URL } from '../config/api'
 
 const ProdutoItem = ({ produto, onSave, onDelete }) => {
   const [editMode, setEditMode] = useState(false)

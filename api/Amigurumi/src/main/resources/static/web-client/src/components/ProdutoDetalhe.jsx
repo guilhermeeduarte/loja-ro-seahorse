@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { API_URL } from '../config/api';
 import { useCarrinho } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
 import SmartImage from "./SmartImage";
 import AvaliacaoForm from "./AvaliacaoForm";
 import AvaliacoesList from "./AvaliacoesList";
 import "../styles.css";
-
-const API_URL = 'http://localhost:3000/api';
 
 export default function ProdutoDetalhe({ produto }) {
   const { adicionarAoCarrinho, loading: carrinhoLoading } = useCarrinho();

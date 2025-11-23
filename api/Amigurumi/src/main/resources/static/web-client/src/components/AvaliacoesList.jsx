@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StarDisplay } from './StarRating';
-
-const API_URL = 'http://localhost:3000/api';
+import { API_URL } from '../config/api';
 
 const AvaliacoesList = ({ produtoId, refresh }) => {
   const [avaliacoes, setAvaliacoes] = useState([]);

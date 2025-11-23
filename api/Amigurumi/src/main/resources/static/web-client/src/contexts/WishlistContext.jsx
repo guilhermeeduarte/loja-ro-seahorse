@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { API_URL } from '../config/api';
 
-const API_URL = "http://localhost:3000/api";
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { API_URL } from '../config/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../styles.css';
-
-const API_URL = "http://localhost:3000/api";
 
 const StatusEtapa = ({ titulo, horario, ativo }) => (
   <div className={`status ${ativo ? 'active' : ''}`}>

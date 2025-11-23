@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { API_URL } from '../config/api';
 import ProdutoDetalhe from "../components/ProdutoDetalhe";
 import { produtos as produtosLocal } from "../data/produtos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-const API_URL = `http://localhost:3000/api`;
-const URL_IMG = `http://localhost:3000`;
+const URL_IMG = `https://loja-ro-seahorse-jis0.onrender.com`;
 
 const ProdutoPage = () => {
   const { produtoNome } = useParams();

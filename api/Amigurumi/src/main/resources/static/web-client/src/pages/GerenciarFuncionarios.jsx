@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { API_URL } from '../config/api'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../styles.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 const GerenciarFuncionarios = () => {
   const [funcionarios, setFuncionarios] = useState([])

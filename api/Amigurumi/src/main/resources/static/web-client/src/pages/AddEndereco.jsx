@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { API_URL } from '../config/api'
 import { useNavigate, Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import '../styles.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 const AddEndereco = () => {
   const navigate = useNavigate()

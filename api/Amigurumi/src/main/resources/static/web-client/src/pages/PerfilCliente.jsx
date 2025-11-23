@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from '../config/api';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SmartImage from "../components/SmartImage";
 import { useWishlist } from "../contexts/WishlistContext";
 import "../styles.css";
-
-const API_URL = "http://localhost:3000/api";
 
 const PerfilCliente = () => {
   const [usuario, setUsuario] = useState(null);

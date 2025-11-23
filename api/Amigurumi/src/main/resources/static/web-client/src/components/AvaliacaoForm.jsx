@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StarRating } from './StarRating';
-
-const API_URL = 'http://localhost:3000/api';
+import { API_URL } from '../config/api';
 
 const AvaliacaoForm = ({ produtoId, onAvaliacaoEnviada }) => {
   const [nota, setNota] = useState(0);

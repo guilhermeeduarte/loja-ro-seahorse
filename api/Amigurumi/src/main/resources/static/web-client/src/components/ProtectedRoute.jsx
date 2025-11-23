@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-
-const API_URL = 'http://localhost:3000/api'
+import { API_URL } from '../config/api'
 
 // Componente para proteger rotas baseado no tipo de usuário
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {

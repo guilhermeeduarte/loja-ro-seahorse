@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useCarrinho } from '../contexts/CartContext'
+import { API_URL } from '../config/api'
 import '../styles.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 const ProcessarPagamento = () => {
   const navigate = useNavigate()
