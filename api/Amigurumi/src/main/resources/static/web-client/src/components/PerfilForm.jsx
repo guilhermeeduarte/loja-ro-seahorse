@@ -80,10 +80,7 @@ const PerfilForm = ({ perfilId }) => {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-        nome: perfil.nome,
-        telefone: perfil.telefone,
-        endereco: perfil.endereco,
+        body: JSON.stringify(perfil),
       });
 
       if (!res.ok) throw new Error("Erro ao atualizar perfil");
