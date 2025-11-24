@@ -6,8 +6,6 @@ import { produtos as produtosLocal } from "../data/produtos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-const URL_IMG = `https://loja-ro-seahorse-jis0.onrender.com`;
-
 const ProdutoPage = () => {
   const { produtoNome } = useParams();
   const [produto, setProduto] = useState(null);
@@ -72,10 +70,10 @@ const ProdutoPage = () => {
             preco: found.valor,
             categoria: found.categoria,
             imagens: [
-              found.imagemUrl && `${URL_IMG}${found.imagemUrl}`,
-              found.imagemUrl2 && `${URL_IMG}${found.imagemUrl2}`,
-              found.imagemUrl3 && `${URL_IMG}${found.imagemUrl3}`,
-              found.img && `${URL_IMG}${found.img}`
+              found.imagemUrl && `${found.imagemUrl}`,
+              found.imagemUrl2 && `${found.imagemUrl2}`,
+              found.imagemUrl3 && `${found.imagemUrl3}`,
+              found.img && `${found.img}`
             ].filter(Boolean),
             detalhes: found.detalhes,
             quantidade: found.quantidade,
