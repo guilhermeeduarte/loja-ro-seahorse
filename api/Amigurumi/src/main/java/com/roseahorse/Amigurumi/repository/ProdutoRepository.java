@@ -31,6 +31,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     List<Produto> findByCategoriaAndNotDeleted(String categoria);
 
 
-    @Query("SELECT p FROM produto p WHERE p.excluido = false AND p.quantidade > 0")
+    @Query(value = "SELECT * FROM produtos_disponiveis", nativeQuery = true)
     List<Produto> findAllAvailable();
 }
