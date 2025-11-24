@@ -18,7 +18,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class PagamentoController {
 
-    @Value("${VITE_API_PAGAMENTO}")
+    @Value("${ASAAS_API_KEY}")
     private String asaasApiKey;
 
     @Value("${asaas.api.url:https://api-sandbox.asaas.com/v3}")
