@@ -28,7 +28,7 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Value("${app.frontend.url:http://localhost:63342}")
+    @Value("${app.frontend.url:http://loja-ro-seahorse.vercel.app}")
     private String frontendUrl;
 
     // Armazena tokens temporários com timestamp de expiração

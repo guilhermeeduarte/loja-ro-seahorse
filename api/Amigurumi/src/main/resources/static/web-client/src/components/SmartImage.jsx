@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react'
 export default function SmartImage({ src, alt, className, style, width, height, ...rest }) {
   const [index, setIndex] = useState(0)
 
-  const API_BASE = 'http://localhost:3000' // ajuste se necessário para produção
+  const API_BASE = 'http://loja-ro-seahorse.vercel.app' // ajuste se necessário para produção
 
   const candidates = useMemo(() => {
     const trimmed = String(src || '').trim()

@@ -18,7 +18,7 @@ const PerfilForm = ({ perfilId }) => {
     const carregarPerfil = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch("http://localhost:3000/api/usuario/perfil", {
+        const res = await fetch(`${API_URL}/api/usuario/perfil`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -76,7 +76,7 @@ const PerfilForm = ({ perfilId }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/usuario/perfil", {
+      const res = await fetch(`${API_URL}/api/usuario/perfil`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -99,7 +99,7 @@ const PerfilForm = ({ perfilId }) => {
     if (!window.confirm("Deseja realmente sair?")) return;
 
     try {
-      const res = await fetch("http://localhost:3000/api/usuario/logout", {
+      const res = await fetch(`${API_URL}/api/usuario/logout`, {
         method: "POST",
         credentials: "include",
       });

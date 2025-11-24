@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault(); // impede o redirecionamento imediato
 
     try {
-      const res = await fetch("http://localhost:3000/api/usuario/me", {
+      const res = await fetch(`${API_URL}/api/usuario/me`, {
         credentials: "include", // envia o cookie auth_token
       });
 

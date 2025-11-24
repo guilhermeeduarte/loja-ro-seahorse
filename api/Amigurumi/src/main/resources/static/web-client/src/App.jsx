@@ -17,7 +17,7 @@ import PerfilAdm from "./pages/PerfilAdm.jsx";
 import PerfilFuncionario from "./pages/PerfilFuncionario.jsx";
 import CadastroProduto from "./pages/CadastroProduto.jsx";
 import AddEndereco from "./pages/AddEndereco.jsx";
-import GerenciarEnderecos from "./components/GerenciarEnderecos.jsx"; // ✅ NOVA ROTA
+import GerenciarEnderecos from "./components/GerenciarEnderecos.jsx";
 import Pagamentos from "./pages/Pagamentos.jsx";
 import EdicaoProdutos from "./pages/EdicaoProdutos.jsx";
 import FinalCompra from "./pages/FinalCompra.jsx";

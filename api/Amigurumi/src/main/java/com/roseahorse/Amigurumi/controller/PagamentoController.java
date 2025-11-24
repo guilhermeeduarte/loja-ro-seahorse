@@ -24,7 +24,7 @@ public class PagamentoController {
     @Value("${asaas.api.url:https://api-sandbox.asaas.com/v3}")
     private String asaasApiUrl;
 
-    @Value("${app.frontend.url:http://localhost:5173}")
+    @Value("${app.frontend.url:http://loja-ro-seahorse.vercel.app}")
     private String frontendUrl;
 
     @Autowired
