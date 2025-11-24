@@ -2186,6 +2186,17 @@ span.material-icons {
   }
 }
 
+.btn-remover-desejo {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
 @media (max-width: 480px) {
   .produto-imagem-principal {
     width: 240px;
