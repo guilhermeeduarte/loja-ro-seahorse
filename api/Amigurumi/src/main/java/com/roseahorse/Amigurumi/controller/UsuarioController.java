@@ -186,10 +186,9 @@ public class UsuarioController {
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
+        cookie.setSecure(true); 
+        cookie.setAttribute("SameSite", "None");
 
-        boolean isProduction = "prod".equals(activeProfile);
-        cookie.setSecure(isProduction);
-        cookie.setAttribute("SameSite", isProduction ? "None" : "Lax");
 
         return cookie;
     }
