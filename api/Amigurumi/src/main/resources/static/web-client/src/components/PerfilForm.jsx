@@ -8,7 +8,6 @@ const PerfilForm = ({ perfilId }) => {
     telefone: "",
     endereco: "",
     email: "",
-    senha: "",
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -85,7 +84,6 @@ const PerfilForm = ({ perfilId }) => {
         nome: perfil.nome,
         telefone: perfil.telefone,
         endereco: perfil.endereco,
-        senha: perfil.senha, }),
       });
 
       if (!res.ok) throw new Error("Erro ao atualizar perfil");
