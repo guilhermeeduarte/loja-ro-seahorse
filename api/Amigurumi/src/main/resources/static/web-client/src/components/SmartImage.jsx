@@ -1,31 +1,32 @@
 import React, { useState, useMemo } from 'react'
 
 // Componente que tenta múltiplos caminhos para carregar uma imagem
-// Suporta: URLs absolutas, caminhos da API (/api/imagem/...), caminhos locais e fallback
 export default function SmartImage({ src, alt, className, style, width, height, ...rest }) {
   const [index, setIndex] = useState(0)
-
-  const API_BASE = 'http://loja-ro-seahorse.vercel.app' // ajuste se necessário para produção
 
   const candidates = useMemo(() => {
     const trimmed = String(src || '').trim()
 
-    // URL absoluta
-    if (/^https?:\/\//i.test(trimmed)) return [trimmed]
+    // 1. URL absoluta (Cloudinary ou qualquer HTTPS)
+    if (/^https?:\/\//i.test(trimmed)) {
+      return [trimmed]
+    }
 
-    // Caminho da API (ex: /api/imagem/abc.jpg)
-    if (/^\/api\/imagem\//i.test(trimmed)) return [`${API_BASE}${trimmed}`]
+    // 2. Caminho da API (ex: /api/imagem/abc.jpg) - NÃO USAR, pois API não serve imagens estáticas
+    // if (/^\/api\/imagem\//i.test(trimmed)) {
+    //   return [`${API_BASE}${trimmed}`]
+    // }
 
-    // Extrai apenas o nome do arquivo
+    // 3. Extrai apenas o nome do arquivo
     const filename = trimmed ? trimmed.split(/[/\\]/).pop() : 'placeholder.png'
 
+    // 4. Tenta caminhos no Vercel (servidos da pasta public/)
     return [
-      `/assets/imagens/${filename}`,
-      `/Assets/Imagens/${filename}`,
-      `/web-client/assets/imagens/${filename}`,
-      `/web-client/Assets/Imagens/${filename}`,
-      trimmed || `/assets/imagens/placeholder.png`,
-      '/assets/imagens/placeholder.png',
+      `/assets/imagens/${filename}`,           // padrão do Vercel
+      `/Assets/Imagens/${filename}`,           // case-sensitive fallback
+      `/assets/Imagens/${filename}`,
+      `/Assets/imagens/${filename}`,
+      `/placeholder.png`,                       // fallback final
     ]
   }, [src])
 
