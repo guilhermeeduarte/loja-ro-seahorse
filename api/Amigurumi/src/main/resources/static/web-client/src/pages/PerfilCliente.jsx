@@ -112,7 +112,7 @@ const PerfilCliente = () => {
             <h3 className="titulo-area">Editar Perfil:</h3>
             <Link to="/perfil_edicao">
               <img
-                src="/Assets/Imagens/edicao.png"
+                src="/assets/imagens/edicao.png"
                 alt="Edição de perfil"
                 className="edicao"
               />
@@ -124,7 +124,7 @@ const PerfilCliente = () => {
             <h3 className="titulo-area">Devolução:</h3>
             <Link to="/devolucao">
               <img
-                src="/Assets/Imagens/devolucao.png"
+                src="/assets/imagens/devolucao.png"
                 width="150px"
                 alt="devolução"
                 className="edicao"

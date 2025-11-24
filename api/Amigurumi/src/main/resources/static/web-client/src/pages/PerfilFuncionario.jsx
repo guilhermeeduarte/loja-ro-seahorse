@@ -121,7 +121,7 @@ const PerfilFuncionario = () => {
             <h4>Gerenciar pedidos</h4>
           <Link to="/gerenciar-pedidos">
             <img
-              src="/Assets/Imagens/pedidos.png"
+              src="/assets/imagens/pedidos.png"
               alt="Gerenciar pedidos"
               className="pedidos-icon"
               style={{
@@ -143,7 +143,7 @@ const PerfilFuncionario = () => {
           <h4>Editar meu perfil</h4>
           <Link to="/perfil_edicao">
             <img
-              src="/Assets/Imagens/man.png"
+              src="/assets/imagens/man.png"
               alt="Editar perfil"
               className="edicao"
             />
@@ -153,7 +153,7 @@ const PerfilFuncionario = () => {
           <h4>Edição/Exclusão Produtos</h4>
           <Link to="/edicaoproduto">
             <img
-              src="/Assets/Imagens/edicao.png"
+              src="/assets/imagens/edicao.png"
               alt="Edição de produtos"
               className="edicao"
             />
@@ -164,7 +164,7 @@ const PerfilFuncionario = () => {
         <h4>Cadastrar Produtos</h4>
           <Link to="/cadastroproduto">
             <img
-              src="/Assets/Imagens/soma.png"
+              src="/assets/imagens/soma.png"
               alt="Cadastro de produtos"
               className="edicao"
             />

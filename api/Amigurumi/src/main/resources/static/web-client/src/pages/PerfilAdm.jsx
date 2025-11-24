@@ -45,7 +45,7 @@ const PerfilAdm = () => {
         <div className="cadastro-produto">
           <Link to="/cadastroproduto">
             <img
-              src="/Assets/Imagens/soma.png"
+              src="/assets/imagens/soma.png"
               alt="Cadastro de produtos"
               className="soma"
             />
@@ -57,7 +57,7 @@ const PerfilAdm = () => {
              <div className="botoes-adm">
           <Link to="/edicaoproduto">
             <img
-              src="/Assets/Imagens/edicao.png"
+              src="/assets/imagens/edicao.png"
               alt="Edição de produtos"
               className="edicao"
             />
@@ -69,7 +69,7 @@ const PerfilAdm = () => {
         <div className="ger-fun">
           <Link to="/gerenciar_funcionarios">
             <img
-              src="/Assets/Imagens/ger-fun.png"
+              src="/assets/imagens/ger-fun.png"
               alt="Gerenciar Funcionários"
               className="excluir"
             />
@@ -86,7 +86,7 @@ const PerfilAdm = () => {
         <div className="corinthians">
           <Link to="/gerenciar-pedidos">
             <img
-              src="/Assets/Imagens/pedidos.png"
+              src="/assets/imagens/pedidos.png"
               alt="Gerenciar pedidos"
               className="pedidos-icon"
               style={{
@@ -109,7 +109,7 @@ const PerfilAdm = () => {
         <div className="corinthians2">
           <Link to="/perfil_edicao">
             <img
-              src="/Assets/Imagens/man.png"
+              src="/assets/imagens/man.png"
               alt="Editar perfil"
               className="edicao"
             />
