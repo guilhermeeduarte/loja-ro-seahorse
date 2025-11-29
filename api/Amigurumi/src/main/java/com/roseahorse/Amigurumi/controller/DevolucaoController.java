@@ -5,18 +5,13 @@ import com.roseahorse.Amigurumi.repository.DevolucaoRepository;
 import com.roseahorse.Amigurumi.repository.PedidoRepository;
 import com.roseahorse.Amigurumi.repository.UsuarioRepository;
 import com.roseahorse.Amigurumi.security.JwtUtil;
+import com.roseahorse.Amigurumi.service.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,8 +32,8 @@ public class DevolucaoController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Value("${app.upload.dir:uploads/produtos}")
-    private String uploadDir;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @PostMapping
     @Transactional
@@ -78,25 +73,35 @@ public class DevolucaoController {
 
         Devolucao devolucao = new Devolucao(pedido, usuario, motivo, descricao);
 
+        //(máximo 5 imagens)
         if (imagens != null && !imagens.isEmpty()) {
-            try {
-                Path uploadPath = Paths.get(uploadDir);
-                if (!Files.exists(uploadPath)) {
-                    Files.createDirectories(uploadPath);
-                }
+            if (imagens.size() > 5) {
+                return ResponseEntity.status(400).body("Máximo de 5 imagens permitido");
+            }
 
+            try {
                 for (MultipartFile file : imagens) {
                     if (!file.isEmpty()) {
-                        String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                        Path filePath = uploadPath.resolve(filename);
-                        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                        DevolucaoImagem imagem = new DevolucaoImagem("/api/imagem/" + filename);
+                        String contentType = file.getContentType();
+                        if (contentType == null || !contentType.startsWith("image/")) {
+                            return ResponseEntity.status(400).body("Apenas imagens são permitidas");
+                        }
+
+                        if (file.getSize() > 5 * 1024 * 1024) {
+                            return ResponseEntity.status(400).body("Imagem muito grande. Máximo 5MB por arquivo");
+                        }
+
+                        String imageUrl = cloudinaryService.uploadImagem(file);
+                        
+                        DevolucaoImagem imagem = new DevolucaoImagem(imageUrl);
                         devolucao.adicionarImagem(imagem);
                     }
                 }
-            } catch (IOException e) {
-                return ResponseEntity.status(500).body("Erro ao fazer upload das imagens");
+            } catch (Exception e) {
+                System.err.println("Erro ao fazer upload das imagens: " + e.getMessage());
+                e.printStackTrace();
+                return ResponseEntity.status(500).body("Erro ao fazer upload das imagens: " + e.getMessage());
             }
         }
 
