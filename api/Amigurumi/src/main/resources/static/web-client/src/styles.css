@@ -45,26 +45,39 @@ top-bar {
 
 .barra-pesquisa {
   display: flex;
-  justify-content: right;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   border-radius: 100px;
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 100vh;
-  max-height:62px;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  gap: 8px;
 }
 
 .barra-digitar {
-  font-size: 20px;
+  font-size: 18px;
   border: 0;
+  outline: none;
+  flex: 1 1 auto;
+  min-width: 0; /* important to allow flex shrinking */
+  padding: 6px 12px;
+  box-sizing: border-box;
 }
 
 .botao-pesquisa {
-  margin-left:25.5vh;
+  margin-left: 8px;
   border: 0;
   background-color: transparent;
-  align-content:right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
 }
 
 .botao-pesquisa img {
@@ -77,8 +90,31 @@ top-bar {
 }
 
 .lupa {
-  width: 40px;
+  width: 32px;
   height: auto;
+}
+
+/* Mobile adjustments for the search bar */
+@media (max-width: 600px) {
+  .barra-pesquisa {
+    padding: 6px;
+    border-radius: 9999px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    gap: 6px;
+  }
+
+  .barra-digitar {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .botao-pesquisa {
+    margin-left: 6px;
+    padding: 6px;
+  }
+
+  .lupa { width: 20px; }
 }
 
 header {
@@ -1551,36 +1587,60 @@ span.material-icons {
 
 }
 
-.HENRIQUE {
-   display: flex;
-   width: 90vw;
-     gap: 16em;
-     justify-content: center;
-}
-.HENRIQUE2 {
-   display: flex;
-   width: 92vw;
-     gap: 18em;
-     justify-content: center;
-}
-.corinthians {
-   margin-left: 4em !important;
-}
-.corinthians2 {
-   margin-left: 1.5em !important;
+/* Admin profile grid (cards with icon + caption) */
+.admin-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  padding: 8px 12px;
+  box-sizing: border-box;
 }
 
-.testediv {
-   display: flex;
-   width: 95vw;
-     gap: 16em;
-     justify-content: center;
+.admin-grid--two { gap: 36px; }
+
+.admin-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 240px;
+  max-width: 100%;
 }
-.testediv2 {
-   display: flex;
-   width: 92vw;
-     gap: 12em;
-     justify-content: center;
+
+.admin-icon {
+  width: 150px;
+  height: auto;
+  padding: 18px;
+  /* rounded-square appearance */
+  border-radius: 40px;
+  cursor: pointer;
+  /* default blue border to match original visual language */
+  border: 5px solid #0057b7;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.admin-icon:hover { transform: translateY(-6px); border-color: #f68650; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+.titulo-area { text-align: center; margin: 0; font-size: 1.05rem; }
+
+@media (max-width: 900px) {
+  .admin-grid { gap: 20px; }
+  .admin-card { width: 180px; }
+  .admin-icon { width: 120px; padding: 12px; }
+  .titulo-area { font-size: 0.98rem; }
+}
+
+@media (max-width: 480px) {
+  .admin-grid { justify-content: center; gap: 12px; padding: 12px; }
+  .admin-card { width: 90%; max-width: 360px; }
+  .admin-icon { width: 110px; padding: 10px; }
+  .titulo { font-size: 1.25rem; }
+  .titulo-area { font-size: 0.95rem; }
 }
 
 /* Seções */

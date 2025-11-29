@@ -6,6 +6,7 @@ import '../styles.css'
 
 const GerenciarFuncionarios = () => {
   const [funcionarios, setFuncionarios] = useState([])
+  // Only show employees here; CLIENTE entries are excluded
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({ nome: '', email: '', senha: '', telefone: '', tipoUsuario: 'FUNCIONARIO' })
   const [editId, setEditId] = useState(null)
@@ -19,8 +20,10 @@ const GerenciarFuncionarios = () => {
     try {
       const res = await fetch(`${API_URL}/usuario`, { credentials: 'include' })
       if (!res.ok) throw new Error('Erro ao carregar funcionários')
-      const data = await res.json()
-      setFuncionarios(data)
+        const data = await res.json()
+        // sempre filtra para não mostrar CLIENTE — esta página é só para funcionários/admin
+        const filtrado = data.filter(u => u.tipoUsuario !== 'CLIENTE')
+        setFuncionarios(filtrado)
     } catch (err) {
       console.error(err)
       alert('Erro ao carregar funcionários')
@@ -123,8 +126,11 @@ const GerenciarFuncionarios = () => {
           </form>
         </div>
 
-        <div className="card">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1000px', margin: '0 auto 12px' }}>
           <h3>Lista de Funcionários</h3>
+        </div>
+        <div className="card">
+
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr>

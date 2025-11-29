@@ -402,14 +402,24 @@ const GerenciarPedidos = () => {
                     <div style={{ marginBottom: '15px' }}>
                       <strong>Imagens:</strong>
                       <div style={{ display: 'flex', gap: '10px', marginTop: '10px', flexWrap: 'wrap' }}>
-                        {devolucao.imagens.map((img, index) => (
-                          <img
-                            key={index}
-                            src={`${API_URL}${img}`}
-                            alt={`Devolução ${index + 1}`}
-                            style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }}
-                          />
-                        ))}
+                        {devolucao.imagens.map((img, index) => {
+                          // backend stores imagens like '/api/imagem/{filename}'. API_URL can be '/api' in dev,
+                          // concatenating would create '/api/api/imagem/..' and 404. Resolve accordingly.
+                          const resolved = (img || '').startsWith('http')
+                            ? img
+                            : (img || '').startsWith('/')
+                              ? img
+                              : `${API_URL}${img}`
+
+                          return (
+                            <img
+                              key={index}
+                              src={resolved}
+                              alt={`Devolução ${index + 1}`}
+                              style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }}
+                            />
+                          )
+                        })}
                       </div>
                     </div>
                   )}

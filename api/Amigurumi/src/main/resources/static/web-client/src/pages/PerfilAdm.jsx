@@ -31,95 +31,59 @@ const PerfilAdm = () => {
   return (
     <div className="pagina">
       <Navbar />
-      <div className="secao">
-          <h2 className="titulo">Bem-vindo, {usuario?.nome}!</h2>
-        </div>
- <div className="testediv2">
-    <h3 className="titulo-area">Cadastro de produtos:</h3>
-    <h3 className="titulo-area">Edição/Exclusão de produtos:</h3>
-   <h3 className="titulo-area">Gerenciar Funcionários:</h3>
-   </div>
+          <div className="secao">
+            <h2 className="titulo">Bem-vindo, {usuario?.nome}!</h2>
 
-      <section className="HENRIQUE">
+            {/* Grid de ações administrativas: cada card tem imagem + legenda */}
+            <section className="admin-grid">
+              <div className="admin-card">
+                <Link to="/cadastroproduto">
+                  <img src="/assets/imagens/soma.png" alt="Cadastro de produtos" className="admin-icon" />
+                </Link>
+                <h3 className="titulo-area">Cadastro de produtos</h3>
+              </div>
 
-        <div className="cadastro-produto">
-          <Link to="/cadastroproduto">
-            <img
-              src="/assets/imagens/soma.png"
-              alt="Cadastro de produtos"
-              className="soma"
-            />
-          </Link>
-        </div>
+              <div className="admin-card">
+                <Link to="/edicaoproduto">
+                  <img src="/assets/imagens/edicao.png" alt="Edição de produtos" className="admin-icon" />
+                </Link>
+                <h3 className="titulo-area">Edição / Exclusão de produtos</h3>
+              </div>
 
+              <div className="admin-card">
+                <Link to="/gerenciar_funcionarios">
+                  <img src="/assets/imagens/ger-fun.png" alt="Gerenciar Funcionários" className="admin-icon" />
+                </Link>
+                <h3 className="titulo-area">Gerenciar Funcionários</h3>
+              </div>
+            </section>
 
-        <div className="edicao-produto">
-             <div className="botoes-adm">
-          <Link to="/edicaoproduto">
-            <img
-              src="/assets/imagens/edicao.png"
-              alt="Edição de produtos"
-              className="edicao"
-            />
-          </Link>
-             </div>
-        </div>
+        {/* removed duplicate headings - captions are inside each card now */}
 
-
-        <div className="ger-fun">
-          <Link to="/gerenciar_funcionarios">
-            <img
-              src="/assets/imagens/ger-fun.png"
-              alt="Gerenciar Funcionários"
-              className="excluir"
-            />
-          </Link>
-        </div>
-   </section>
-
-    <div className="testediv">
-   <h3 className="titulo-area">Gerenciar Pedidos:</h3>   <h3 className="subtitulo">Editar meu perfil:</h3>  
-    </div>
- <section className="HENRIQUE2">
+        <section className="admin-grid admin-grid--two"> 
         {/* ✅ NOVO: Gerenciamento de Pedidos */}
 
-        <div className="corinthians">
-          <Link to="/gerenciar-pedidos">
-            <img
-              src="/assets/imagens/pedidos.png"
-              alt="Gerenciar pedidos"
-              className="pedidos-icon"
-              style={{
-                width: '150px',
-                padding: '20px',
-                border: '5px solid #0057b7',
-                borderRadius: '40px',
-                marginLeft: '20px',
-                marginTop: '10px',
-                marginBottom: '20px'
-              }}
-              onMouseOver={(e) => e.target.style.border = '5px solid #f68650'}
-              onMouseOut={(e) => e.target.style.border = '5px solid #0057b7'}
-            />
-          </Link>
-        </div>
+          <div className="admin-card">
+            <Link to="/gerenciar-pedidos">
+              <img src="/assets/imagens/pedidos.png" alt="Gerenciar pedidos" className="admin-icon admin-icon--bordered" />
+            </Link>
+            <h3 className="titulo-area">Gerenciar Pedidos</h3>
+          </div>
 
-        {/* Editar perfil */}
+          {/* Editar perfil */}
 
-        <div className="corinthians2">
-          <Link to="/perfil_edicao">
-            <img
-              src="/assets/imagens/man.png"
-              alt="Editar perfil"
-              className="edicao"
-            />
-          </Link>
-        </div>
+          <div className="admin-card">
+            <Link to="/perfil_edicao">
+              <img src="/assets/imagens/man.png" alt="Editar perfil" className="admin-icon" />
+            </Link>
+            <h3 className="titulo-area">Editar meu perfil</h3>
+          </div>
 
-      </section>
-
-      <Footer />
+        </section>
     </div>
+        <Footer />
+      </div>
+ 
   );
 };
 
